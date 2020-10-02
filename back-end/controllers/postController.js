@@ -1,5 +1,8 @@
-const { PostModel } = require("../models/postModel");
+const PostModel = require("../models/postModel");
 const ObjectID = require('mongoose').Types.ObjectId;
+const mongoose = require('mongoose');
+
+mongoose.set('useFindAndModify', false);
 
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {

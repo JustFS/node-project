@@ -1,14 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const postRoutes = require('./routes/post')
+const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-
-// erreur à rajouter plus tard
-mongoose.set('useFindAndModify', false);
 
 // middleware
 app.use(bodyParser.json());
@@ -18,8 +16,9 @@ app.use(cors());
 // db connection
 const dbURI = 'mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.pxxno.mongodb.net/node-project-0';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((res) => app.listen(5500, () => console.log('listen server')))
+  .then((res) => app.listen(5500, () => console.log('listen server:5500')))
   .catch((err) => console.log(err));
 
 // routes
-app.use('/post', postRoutes);
+app.use('/api/user', authRoutes);
+app.use('/api/post', postRoutes);

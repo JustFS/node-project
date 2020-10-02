@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 const quotesSchema = new mongoose.Schema({
   author: {
     type: String,
-    required: true,
+    required: [true, "Veuillez renseigner un nom"],
+    unique: true
   },
   message: {
     type: String,
-    required: true,
+    required: [true, "Merci d'entrer un message"]
   },
   date: {
     type: Date,
@@ -15,6 +16,6 @@ const quotesSchema = new mongoose.Schema({
   },
 });
 
-const PostModel = mongoose.model('quotes', quotesSchema)
+module.exports = mongoose.model('quotes', quotesSchema)
 
-module.exports = { PostModel };
+
