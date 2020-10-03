@@ -1,19 +1,19 @@
-import React from 'react';
-import { Provider } from "react-redux";
-import PostMessages from "./components/PostMessages";
-import { store } from "./actions/store";
-import { Container } from "@material-ui/core";
-import ButterToast,{ POS_RIGHT,POS_TOP } from "butter-toast";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from "./pages/Home";
+import Profil from "./pages/Profil";
+import NotFound from "./pages/NotFound";
 
-function App() {
+const App = () => {
   return (
-    <Provider store={store}>
-      <Container maxWidth="lg">
-        <PostMessages />
-        <ButterToast position={{vertical:POS_TOP,horizontal:POS_RIGHT}}/>
-      </Container>
-    </Provider>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/profil" component={Profil} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
