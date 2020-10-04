@@ -45,4 +45,10 @@ module.exports.loginUser = async (req, res) => {
   // create and assign a token
   const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
   res.header('auth-token', token).send(token);
+  res.header('uid', _id).send(_id);
+}
+
+module.exports.logout_get = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.redirect('/');
 }

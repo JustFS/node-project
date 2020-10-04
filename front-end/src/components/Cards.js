@@ -32,7 +32,7 @@ const Cards = ({ card }) => {
       {isUpdated === false && (
         <div className="card-container">
           <h3>{card.author}</h3>
-          <p>{card.message}</p>
+          <p>"{card.message}"</p>
           <button onClick={() => setIsUpdated(true)}>Mettre à jour</button>
           <DeleteCard id={card._id} />
         </div>
