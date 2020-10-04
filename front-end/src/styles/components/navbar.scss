@@ -1,0 +1,16 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  align-items: center;
+  padding: 0 20px;
+  margin: 0 0 18px;
+  box-shadow: 2px -4px 20px 0px #9e85caa1;
+
+  ul {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,12 @@
+.card-container {
+  border: 2px solid $color-2;
+  border-right: 4px solid $color-2;
+  border-bottom: 3px solid $color-2;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 3px 4px 0 #33333350;
+  width: 80%;
+  max-width: 900px;
+  border-radius: 4px;
+  margin: 8px auto;
+}
