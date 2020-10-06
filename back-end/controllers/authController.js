@@ -1,54 +1,81 @@
 const UserModel = require('../models/userModel');
-const validation = require('../utils/validation');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// create json web token
-const maxAge = 3 * 24 * 60 * 60 * 1000;
+// handle errors
+const handleErrors = (err) => {
+  console.log(err.message, err.code);
+  let errors = { email: '', password: '' };
 
-
-module.exports.registerUser = async (req, res) => {
-  // validate data before create new user
-  const { error } = validation.registerValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  // checking if the user already exists
-  const emailExists = await UserModel.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).send("Email already exists");
-
-  // password hash
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-  const user = new UserModel({
-    name: req.body.name,
-    email: req.body.email,
-    password: hashedPassword,
-  });
-  try {
-    await user.save();
-    res.send({ user: user._id });
-  } catch (err) {
-    res.status(400).send(err);
+  // incorrect email
+  if (err.message === 'incorrect email') {
+    errors.email = 'That email is not registered';
   }
+
+  // incorrect password
+  if (err.message === 'incorrect password') {
+    errors.password = 'That password is incorrect';
+  }
+
+  // duplicate email error
+  if (err.code === 11000) {
+    errors.email = 'that email is already registered';
+    return errors;
+  }
+
+  // validation errors
+  if (err.message.includes('user validation failed')) {
+    // console.log(err);
+    Object.values(err.errors).forEach(({ properties }) => {
+      // console.log(val);
+      // console.log(properties);
+      errors[properties.path] = properties.message;
+    });
+  }
+
+  return errors;
 }
 
-module.exports.loginUser = async (req, res) => {
+// create json web token
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.TOKEN_SECRET, {
+    expiresIn: maxAge
+  });
+};
+
+// controller actions
+module.exports.signUp = async (req, res) => {
+  const { email, password, name } = req.body;
+
+  try {
+    const user = await UserModel.create({ email, password, name });
+    const token = createToken(user._id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.status(201).json({ user: user._id });
+  }
+  catch(err) {
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
+  }
+ 
+}
+
+module.exports.signIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await UserModel.login(email, password);
-    const token = jwt.sign({id:user._id}, process.env.TOKEN_SECRET, {expiresIn: maxAge});
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge });
+    const token = createToken(user._id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).json({ user: user._id });
   } 
   catch (err) {
-    console.log(err);
-    res.status(400).json();
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
   }
 }
 
-module.exports.logout_get = (req, res) => {
+module.exports.logout = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
 }

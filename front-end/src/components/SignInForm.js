@@ -12,6 +12,7 @@ const SignInForm = () => {
       method: "post",
       url: "http://localhost:5500/api/user/login",
       contentType: "application/json; charset=utf-8",
+      withCredentials: true,
       data: {
         email,
         password,

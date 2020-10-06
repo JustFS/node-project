@@ -11,11 +11,12 @@ $font-1: "font-1", sans-serif;
 $font-2: "font-2", serif;
 
 $color-1: #f11caa;
-$color-2: #551A96;
+$color-2: #551a96;
 $color-3: #3ab9f0;
-$color-4: rgb(141, 141, 141);
+$color-4: rgb(12, 231, 114);
 $black: rgb(40, 40, 40);
 $white: rgb(243, 241, 241);
+$shadow: #bfbfbf;
 
 * {
   margin: 0;
@@ -28,22 +29,36 @@ $white: rgb(243, 241, 241);
 }
 a,
 a:visited {
-  
 }
-input, textarea {
+input,
+textarea {
   border: 2px solid $color-2;
   resize: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  width: 270px;
+  padding: 10px;
+  box-shadow: -4px 3px 0 $shadow;
+}
+input[type="submit"] {
+  background: $color-1;
+  color: $white;
 }
 button {
   background: $color-3;
   padding: 10px;
   margin: 6px;
-  border-radius: 20px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
+  box-shadow: 1px 2px 0 $shadow;
+  border: 1px solid $color-1;
+  border-right: 3px solid $color-1;
+  border-bottom: 2px solid $color-1;
 
   &:hover {
     background: $color-2;
+    color: $color-1;
   }
 }
 body {

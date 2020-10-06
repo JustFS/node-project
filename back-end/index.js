@@ -13,7 +13,12 @@ const app = express();
 // middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors({origin: 'http://localhost:3000'}));
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 // db connection
 const dbURI = 'mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.pxxno.mongodb.net/node-project-0';
@@ -23,7 +28,9 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 // routes
 app.get('*', checkUser);
-app.get('/api/user/jwtid', requireAuth);
+app.get('/jwtid', requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id)
+})
 // app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use('/api/user', authRoutes);
 app.use('/api/post', postRoutes);

@@ -29,13 +29,16 @@ const NewQuoteForm = () => {
   return (
     <form onSubmit={handleForm}>
       <label htmlFor="author">Author</label>
+      <br/>
       <input 
         type="text" 
         name="author" 
         onChange={e => setAuthor(e.target.value)}
         value={author}
       />
+      <br/>
       <label htmlFor="quote">Citation</label>
+      <br/>
       <textarea 
         name="quote" 
         id="quote" 
@@ -44,6 +47,7 @@ const NewQuoteForm = () => {
         onChange={e => setQuote(e.target.value)}
         value={quote}
       />
+      <br/>
       <input type="submit" value="Envoyer" />
     </form>
   );
