@@ -39,9 +39,7 @@ module.exports.loginUser = async (req, res) => {
   try {
     const user = await UserModel.login(email, password);
     const token = jwt.sign({id:user._id}, process.env.TOKEN_SECRET, {expiresIn: maxAge});
-    // bien mettre httpOnly pour la sécurité
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge });
-    // res.cookie('uid', { user: user._id }, { httpOnly: false, maxAge: maxAge });
     res.status(200).json({ user: user._id });
   } 
   catch (err) {

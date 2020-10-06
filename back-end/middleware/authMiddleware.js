@@ -6,20 +6,19 @@ const requireAuth = (req, res, next) => {
 
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, docs) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.send(null);
+        res.redirect('/login');
       } else {
-        let id = docs.id;
-        console.log(id);
-        console.log(res.locals.user._id);
-        res.send({id})
+        console.log(decodedToken);
+        res.send(decodedToken);
         next();
       }
     });
   } else {
-    // redirect login ?
+    // res.redirect('/login');
+    console.log('no token');
   }
 };
 

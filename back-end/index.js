@@ -23,7 +23,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 // routes
 app.get('*', checkUser);
-app.get('/api/user/jwtid', requireAuth, (req, res) => res.send());
+app.get('/api/user/jwtid', requireAuth);
 // app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use('/api/user', authRoutes);
 app.use('/api/post', postRoutes);
