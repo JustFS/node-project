@@ -18,6 +18,14 @@ $black: rgb(40, 40, 40);
 $white: rgb(243, 241, 241);
 $shadow: #bfbfbf;
 
+@mixin formBorder {
+  border: 3px solid $color-1;
+  border-bottom: 4px solid $color-1;
+  border-left: 5px solid $color-1;
+  box-shadow: -10px 12px 0 #bfbfbf;
+  border-radius: 4px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -29,38 +37,60 @@ $shadow: #bfbfbf;
 }
 a,
 a:visited {
+  color: $color-2;
 }
 input,
 textarea {
   border: 2px solid $color-2;
   resize: none;
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin: 4px 0 4px;
   width: 270px;
   padding: 10px;
   box-shadow: -4px 3px 0 $shadow;
+  font-family: $font-1;
 }
 input[type="submit"] {
   background: $color-1;
   color: $white;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 16px;
+
+  &:hover {
+    background: $color-2;
+  }
+}
+input[type="checkbox"] {
+  box-shadow: none;
+  width: 20px;
+  margin: 10px 0;
 }
 button {
   background: $color-3;
-  padding: 10px;
-  margin: 6px;
+  padding: 4px;
+  margin: 4px;
   border-radius: 4px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
   box-shadow: 1px 2px 0 $shadow;
   border: 1px solid $color-1;
   border-right: 3px solid $color-1;
   border-bottom: 2px solid $color-1;
 
   &:hover {
-    background: $color-2;
-    color: $color-1;
+    background: $color-1;
+    color: $white;
   }
 }
 body {
   font-family: $font-1;
+}
+.error {
+  color: red;
+  font-weight: bold;
+}
+.success {
+  color: green;
+  font-weight: bold;
 }

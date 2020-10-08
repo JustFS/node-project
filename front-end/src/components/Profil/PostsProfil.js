@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Api = () => {
+const PostsProfil = () => {
   return (
     <div>
-      Api
+      Posts
     </div>
   );
 };
 
-export default Api;
+export default PostsProfil;

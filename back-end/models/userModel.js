@@ -1,24 +1,27 @@
 const mongoose = require('mongoose');
+const { isEmail } = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  pseudo: {
     type: String,
-    required: true,
-    min: 6,
-    max: 255
+    required: [true, 'pseudo required'],
+    minlength: [3, 'minimum length 6'],
+    maxlength: [55, 'maxium length exedeed'],
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    max: 255,
-    min: 6
+    validate: [isEmail, 'Merci de renseigner un email valide'],
+    unique: true,
+    lowercase: true
   },
   password: {
     type: String,
     required: true,
     max: 1024,
-    min: 6
+    minlength: 6
   },
   date: {
     type: Date,
@@ -46,6 +49,6 @@ userSchema.statics.login = async function(email, password) {
   throw Error('incorrect email');
 };
 
-const User = mongoose.model('user', userSchema);
+const UserModel = mongoose.model('user', userSchema);
 
-module.exports = User;
+module.exports = UserModel;

@@ -22,5 +22,3 @@ App Structure
 |-- App.js
 |-- index.js
 |-- index.css
-
-1 - create store

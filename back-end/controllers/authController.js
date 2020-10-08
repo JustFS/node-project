@@ -4,33 +4,19 @@ const jwt = require('jsonwebtoken');
 // handle errors
 const handleErrors = (err) => {
   console.log(err.message, err.code);
-  let errors = { email: '', password: '' };
+  let errors = { pseudo: '', email: '', password: '' };
 
-  // incorrect email
-  if (err.message === 'incorrect email') {
-    errors.email = 'That email is not registered';
-  }
+  if (err.message.includes(`pseudo`))
+    errors.pseudo = "Pseudo incorrect ou déjà pris";
 
-  // incorrect password
-  if (err.message === 'incorrect password') {
-    errors.password = 'That password is incorrect';
-  }
+  if (err.message.includes('email'))
+    errors.email = 'Email incorrect';
 
-  // duplicate email error
-  if (err.code === 11000) {
-    errors.email = 'that email is already registered';
-    return errors;
-  }
+  if (err.message.includes('password'))
+    errors.password = 'Le mot de passe doit faire plus de 6 caractères';
 
-  // validation errors
-  if (err.message.includes('user validation failed')) {
-    // console.log(err);
-    Object.values(err.errors).forEach(({ properties }) => {
-      // console.log(val);
-      // console.log(properties);
-      errors[properties.path] = properties.message;
-    });
-  }
+  if (err.code === 11000)
+    errors.email = 'Cet email est déjà enregistré';
 
   return errors;
 }
@@ -45,17 +31,17 @@ const createToken = (id) => {
 
 // controller actions
 module.exports.signUp = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { pseudo, email, password } = req.body;
 
   try {
-    const user = await UserModel.create({ email, password, name });
-    const token = createToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    const user = await UserModel.create({ pseudo, email, password });
+    // const token = createToken(user._id);
+    // res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
   }
   catch(err) {
     const errors = handleErrors(err);
-    res.status(400).json({ errors });
+    res.status(200).send({ errors });
   }
  
 }
@@ -71,7 +57,7 @@ module.exports.signIn = async (req, res) => {
   } 
   catch (err) {
     const errors = handleErrors(err);
-    res.status(400).json({ errors });
+    res.status(200).json({ errors });
   }
 }
 

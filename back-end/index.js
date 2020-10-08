@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/post');
-const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const cors = require('cors');
@@ -31,6 +31,6 @@ app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id)
 })
-// app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
-app.use('/api/user', authRoutes);
+
+app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);

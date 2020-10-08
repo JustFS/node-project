@@ -1,0 +1,39 @@
+.profil-container {
+  margin: 50px 20px;
+  text-align: center;
+  box-shadow: 8px -10px 0 #bfbfbf;
+  border-radius: 4px 4px 0 0;
+
+  .menu {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.4%;
+
+    h2 {
+      padding: 20px 0;
+      cursor: pointer;
+      transition: .25s;
+      border-radius: 4px 4px 0 0;
+
+      &:hover {
+        background: #f6dde6;
+      }
+    }
+
+    .active-slider {
+      color: $color-1;
+      transition: border 0s;
+      border-radius: 4px 4px 0 0;
+      border-bottom: 0;
+      border: 2px solid $color-1;
+      border-top: 4px solid $color-1;
+      border-right: 3px solid $color-1;
+      border-bottom: none;
+    }
+  }
+  .content {
+    border: 2px solid $color-1;
+    border-right: 3px solid $color-1;
+    min-height: 500px;
+    padding: 20px;
+  }
+}

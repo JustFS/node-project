@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { UidContext } from "../AppContext";
 
 const NewQuoteForm = () => {
   const [author, setAuthor] = useState('');
   const [quote, setQuote] = useState('');
+  
+  const uid = useContext(UidContext);
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -14,6 +17,7 @@ const NewQuoteForm = () => {
       data: {
         author,
         message: quote,
+        userId: uid
       },
     })
       .then(res => {
@@ -27,7 +31,7 @@ const NewQuoteForm = () => {
   };
 
   return (
-    <form onSubmit={handleForm}>
+    <form onSubmit={handleForm} className="quote-form">
       <label htmlFor="author">Author</label>
       <br/>
       <input 

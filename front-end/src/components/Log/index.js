@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 
-const Login = () => {
+const Log = () => {
   const [signUpModal, setSignUpModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
 
@@ -17,8 +17,8 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h3>Postez vos propres citations</h3>
+    <div className="connection-from">
+      <h3>Connexion</h3>
       <ul>
         <li onClick={handleModals} className={signUpModal ? 'active-btn': null} id="register">S'inscrire</li>
         <li onClick={handleModals} className={signInModal ? 'active-btn':null} id="login">Se connecter</li>
@@ -29,4 +29,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Log;

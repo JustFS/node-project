@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { UidContext } from "./AppContext";
+import axios from 'axios';
 
 const Navbar = () => {
+  const [name, setName] = useState('');
+
+  const uid = useContext(UidContext);
+
+  const logout = async() => {
+    await axios({
+      method: "get",
+      url: "http://localhost:5500/api/user/logout",
+      withCredentials: true,
+    })
+      .then(window.location = '/')
+      .catch(err => console.log(err))
+  };
+
+  useEffect(() => {
+    const getName = async() => {
+      await axios({
+        method: "get",
+        url: "http://localhost:5500/api/user/" + uid,
+      })
+        .then(res => setName(res.data.pseudo))
+        .catch(err => console.log(err))
+    }
+    getName();
+  }, [name, uid]);
+
+
   return (
     <nav>
       <div className="logo">
@@ -9,23 +38,30 @@ const Navbar = () => {
           <h3>Quote App</h3>
         </NavLink>
       </div>
-      <ul>
-        <li>
-          <NavLink exact to="/liked">
-            <span>Most Liked</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/api">
-            <span>API</span>
-          </NavLink>
-        </li>
-        <li>
+      {uid ? (
+        <ul>
+          <li></li>
+          <li>
           <NavLink exact to="/profil">
-            <span>Profil</span>
-          </NavLink>
-        </li>
-      </ul>
+            <h5>Bienvenue {name}</h5>
+            </NavLink>
+          </li>
+          <li onClick={logout}>Logout</li>
+        </ul>
+      ) : (
+        <ul>
+          <li>
+            <NavLink exact to="/api">
+              <span>API</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/profil">
+              <span>Se connecter</span>
+            </NavLink>
+          </li>
+        </ul>
+      )}
     </nav>
   );
 };

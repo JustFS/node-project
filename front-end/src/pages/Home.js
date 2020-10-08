@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Login from "../components/Login";
-import NewQuoteForm from "../components/NewQuoteForm";
-import Thread from "../components/Thread";
+import Log from "../components/Log";
+import NewQuoteForm from "../components/QuotesCrud/NewQuoteForm";
+import Thread from "../components/QuotesCrud";
 import { UidContext } from "../components/AppContext";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     <div className="home">
       <div className="home-header">
         <h1>Le cercle des poètes disparus</h1>
-        {uid ? <NewQuoteForm /> : <Login />}
+        {uid ? <NewQuoteForm /> : <Log />}
       </div>
       <Thread />
     </div>

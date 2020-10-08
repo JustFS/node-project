@@ -15,6 +15,7 @@ module.exports.createPost = (req, res) => {
   const newRecord = new PostModel({
     author: req.body.author,
     message: req.body.message,
+    userId: req.body.userId
   });
 
   newRecord.save((err, docs) => {

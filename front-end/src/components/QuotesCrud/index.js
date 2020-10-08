@@ -9,24 +9,18 @@ const Thread = () => {
     await axios
       .get("http://localhost:5500/api/post")
       .then((res) => res.data)
-      .then((res) => {
-        setThread(res);
-      });
+      .then((res) => setThread(res));
   };
 
   useEffect(() => {
-    let isMount = true
-    getData().then(data => {
-      if (isMount) setThread(data);
-    })
-    return () => isMount = false;
+    getData();
   }, [thread]);
 
   return (
     <div className="thread-container">
       <ul>
         {thread &&
-          thread.map((card, index) => <Cards card={card} key={index} />)}
+          thread.map((card) => <Cards card={card} key={card._id} />)}
       </ul>
     </div>
   );
