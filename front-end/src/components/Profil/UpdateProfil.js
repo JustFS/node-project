@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UidContext } from '../AppContext';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from "react";
+import { UidContext } from "../AppContext";
+import axios from "axios";
 
 const UpdateProfil = () => {
   const [userData, setUserData] = useState({});
@@ -20,19 +20,27 @@ const UpdateProfil = () => {
     getName();
   }, []);
 
-  // const getDate = () => {
-  //   let date = new Date();
-  //   date.setDate(userData.date)
-  //   let newDate = date.toISOString().split('T')[0]
-  //   return newDate
-  // }
-  const getDate = () => {
-    return userData.date
-};
-
   return (
     <div className="update-container">
-      <h3>Inscrit depuis le : </h3>
+      <div className="text">
+        <h3>Inscrit depuis le : {userData.date} </h3>
+        <h3>pseudo : {userData.pseudo}</h3>
+        <h5>Changer Email</h5>
+        <input type="text" />
+        <div className="password">
+          <h3>Changer mot de passe</h3>
+          <h5>Mot de passe actuel : </h5>
+          <input type="password" />
+          <h5>Nouveau mot de passe</h5>
+          <input type="password" />
+          <h5>Confirmer mot de passe</h5>
+          <input type="password" />
+        </div>
+      </div>
+      <div className="pic">
+        <h3>Photo de profil</h3>
+        <img src={userData.picture} alt=""/>
+      </div>
     </div>
   );
 };

@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     max: 1024,
     minlength: 6
   },
+  picture: {
+    type: String,
+    default: './img/random-user.png'
+  },
   date: {
     type: Date,
     default: Date.now

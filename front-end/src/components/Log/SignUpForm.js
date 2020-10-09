@@ -27,34 +27,36 @@ const SignUpForm = () => {
     passwordConfirmError.innerHTML = "";
     termsError.innerHTML = "";
 
-    await axios({
-      method: "post",
-      url: "http://localhost:5500/api/user/register",
-      contentType: { "Content-Type": "application/json" },
-      data: {
-        pseudo,
-        email,
-        password,
-      },
-    })
-      .then((res) => {
-        if (res.data.errors) {
-          pseudoError.innerHTML = res.data.errors.pseudo;
-          emailError.innerHTML = res.data.errors.email;
-          passwordError.innerHTML = res.data.errors.password;
-        }
-        if (password !== controlPassword) 
-          passwordConfirmError.innerHTML = "Les mots de passe ne correspondent pas";
-        if (!terms.checked) 
-          termsError.innerHTML = "Veuillez valider les conditions générales.";
-
-        if ((!res.data.errors) && password === controlPassword && terms.checked) {
-          setFormSubmit(true);
-        }
+    if (password !== controlPassword || !terms.checked) {
+      if (password !== controlPassword)
+        passwordConfirmError.innerHTML =
+          "Les mots de passe ne correspondent pas";
+      if (!terms.checked)
+        termsError.innerHTML = "Veuillez valider les conditions générales.";
+    } else {
+      await axios({
+        method: "post",
+        url: "http://localhost:5500/api/user/register",
+        contentType: { "Content-Type": "application/json" },
+        data: {
+          pseudo,
+          email,
+          password,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          if (res.data.errors) {
+            pseudoError.innerHTML = res.data.errors.pseudo;
+            emailError.innerHTML = res.data.errors.email;
+            passwordError.innerHTML = res.data.errors.password;
+          } else {
+            setFormSubmit(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -62,7 +64,9 @@ const SignUpForm = () => {
       {formSubmit ? (
         <>
           <SignInForm />
-          <h4 class="success">Enregistrement réussi, veuillez-vous connecter</h4>
+          <h4 class="success">
+            Enregistrement réussi, veuillez-vous connecter
+          </h4>
         </>
       ) : (
         <form action="" onSubmit={handleRegister} id="sign-up-form">
