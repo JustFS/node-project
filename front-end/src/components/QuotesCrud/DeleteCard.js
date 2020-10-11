@@ -17,7 +17,13 @@ const DeleteCard = (props) => {
       });
   };
   
-  return <button onClick={deleteQuote}>Supprimer</button>;
+  return (
+    <button onClick={() => {
+      if (window.confirm('Voulez-vous supprimer cet article')){deleteQuote()};}}
+    >
+      Supprimer
+    </button>
+  )
 };
 
 export default DeleteCard;

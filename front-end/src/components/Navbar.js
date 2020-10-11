@@ -28,7 +28,7 @@ const Navbar = () => {
         .catch(err => console.log(err))
     }
     getName();
-  }, [name, uid]);
+  }, [uid, name]);
 
 
   return (
@@ -51,13 +51,13 @@ const Navbar = () => {
       ) : (
         <ul>
           <li>
-            <NavLink exact to="/api">
-              <span>API</span>
+            <NavLink exact to="/liked">
+              <i className="fab fa-hotjar"></i>
             </NavLink>
           </li>
           <li>
             <NavLink exact to="/profil">
-              <span>Se connecter</span>
+              <i className="fas fa-sign-in-alt"></i>
             </NavLink>
           </li>
         </ul>

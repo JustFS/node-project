@@ -11,7 +11,6 @@ const Thread = () => {
       .then((res) => res.data)
       .then((res) => setThread(res));
   };
-
   useEffect(() => {
     getData();
   }, [thread]);

@@ -23,10 +23,9 @@ const SignInForm = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.errors);
         if (res.data.errors) {
-          if (res.data.errors.email !== '') emailError.innerHTML = 'Email inconnu';
-          if (res.data.errors.password !== '') passwordError.innerHTML = 'Le mot de passe ne correspond pas';
+          emailError.innerHTML = res.data.errors.email;
+          passwordError.innerHTML = res.data.errors.password;
         } else {
           window.location = "/";
         }

@@ -22,15 +22,15 @@ const Profil = () => {
     setUpdate(false);
     setPosts(false);
     setLiked(false);
-    if (e.target.id === 'update') setUpdate(true);
-    if (e.target.id === 'posts') setPosts(true);
-    if (e.target.id === 'liked') setLiked(true);
+    if (e.target.id === "update") setUpdate(true);
+    if (e.target.id === "posts") setPosts(true);
+    if (e.target.id === "liked") setLiked(true);
   };
 
   return (
-    <div className="profil-container">
+    <>
       {isConnected ? (
-        <>
+        <div className="profil-container">
           <div className="menu">
             <h2
               onClick={setSlider}
@@ -59,11 +59,11 @@ const Profil = () => {
             {posts && <PostsProfil />}
             {liked && <PostsLiked />}
           </div>
-        </>
+        </div>
       ) : (
         <Log />
       )}
-    </div>
+    </>
   );
 };
 

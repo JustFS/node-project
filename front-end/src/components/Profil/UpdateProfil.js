@@ -7,7 +7,7 @@ const UpdateProfil = () => {
 
   const uid = useContext(UidContext);
 
-  const getName = async () => {
+  const getUserData = async () => {
     await axios({
       method: "get",
       url: "http://localhost:5500/api/user/" + uid,
@@ -17,7 +17,7 @@ const UpdateProfil = () => {
   };
 
   useEffect(() => {
-    getName();
+    getUserData();
   }, []);
 
   return (
