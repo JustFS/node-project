@@ -7,10 +7,10 @@ const DeleteCard = (props) => {
 
     axios({
       method: "delete",
-      url: "http://localhost:5500/api/post/" + props.id,
+      url: `${process.env.REACT_APP_API_URL}api/post/` + props.id,
     })
       .then((res) => {
-        console.log(res);
+        console.log('deleted');
       })
       .catch((err) => {
         console.log(err);

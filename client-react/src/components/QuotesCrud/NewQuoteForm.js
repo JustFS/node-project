@@ -13,7 +13,7 @@ const NewQuoteForm = () => {
 
     axios({
       method: "post",
-      url: "http://localhost:5500/api/post",
+      url: `${process.env.REACT_APP_API_URL}api/post`,
       data: {
         author,
         message: quote,

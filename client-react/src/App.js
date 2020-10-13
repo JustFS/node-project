@@ -10,7 +10,7 @@ const App = () => {
     const isAuth = async () => {
       await axios({
         method: "get",
-        url: "http://localhost:5500/jwtid",
+        url: `${process.env.REACT_APP_API_URL}jwtid`,
         withCredentials: true,
       })
         .then((res) => {
@@ -22,6 +22,7 @@ const App = () => {
     };
     isAuth();
   }, [uid]);
+
   return (
     <UidContext.Provider value={uid}>
       <Routes />

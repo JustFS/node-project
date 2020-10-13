@@ -10,7 +10,7 @@ const UpdateProfil = () => {
   const getUserData = async () => {
     await axios({
       method: "get",
-      url: "http://localhost:5500/api/user/" + uid,
+      url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
     })
       .then((res) => setUserData(res.data))
       .catch((err) => console.log(err));
@@ -18,7 +18,7 @@ const UpdateProfil = () => {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  });
 
   return (
     <div className="update-container">

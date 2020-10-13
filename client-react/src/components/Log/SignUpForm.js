@@ -36,7 +36,7 @@ const SignUpForm = () => {
     } else {
       await axios({
         method: "post",
-        url: "http://localhost:5500/api/user/register",
+        url: `${process.env.REACT_APP_API_URL}api/user/register`,
         contentType: { "Content-Type": "application/json" },
         data: {
           pseudo,
@@ -64,7 +64,7 @@ const SignUpForm = () => {
       {formSubmit ? (
         <>
           <SignInForm />
-          <h4 class="success">
+          <h4 className="success">
             Enregistrement réussi, veuillez-vous connecter
           </h4>
         </>

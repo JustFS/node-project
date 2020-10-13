@@ -2,33 +2,24 @@ import React, { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
 import axios from 'axios';
+import Logout from "./Log/Logout";
 
 const Navbar = () => {
   const [name, setName] = useState('');
 
   const uid = useContext(UidContext);
 
-  const logout = async() => {
-    await axios({
-      method: "get",
-      url: "http://localhost:5500/api/user/logout",
-      withCredentials: true,
-    })
-      .then(window.location = '/')
-      .catch(err => console.log(err))
-  };
-
   useEffect(() => {
     const getName = async() => {
       await axios({
         method: "get",
-        url: "http://localhost:5500/api/user/" + uid,
+        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
       })
         .then(res => setName(res.data.pseudo))
         .catch(err => console.log(err))
     }
     getName();
-  }, [uid, name]);
+  });
 
 
   return (
@@ -46,7 +37,7 @@ const Navbar = () => {
             <h5>Bienvenue {name}</h5>
             </NavLink>
           </li>
-          <li onClick={logout}>Logout</li>
+          <Logout />
         </ul>
       ) : (
         <ul>

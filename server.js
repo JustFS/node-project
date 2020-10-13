@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const postRoutes = require('./routes/post');
-const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post.routes');
+const userRoutes = require('./routes/user.routes');
 const cookieParser = require('cookie-parser');
-const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const { checkUser, requireAuth } = require('./middleware/auth.middleware');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({path: './config/.env'});
+require('./config/db.js');
 
 const app = express();
 
@@ -15,16 +15,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_URL,
   credentials: true
 }
 app.use(cors(corsOptions));
-
-// db connection
-const dbURI = 'mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.pxxno.mongodb.net/node-project-0';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((res) => app.listen(5500, () => console.log('listen server:5500')))
-  .catch((err) => console.log(err));
 
 // routes
 app.get('*', checkUser);
@@ -34,3 +28,13 @@ app.get('/jwtid', requireAuth, (req, res) => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes); 
+
+app.use((req, res) => {
+  res.status(404).json({
+      success: false,
+      msg: "Page not found"
+  })
+})
+
+app.listen(process.env.PORT, () => {console.log(`Listening on port ${process.env.PORT}`);
+});

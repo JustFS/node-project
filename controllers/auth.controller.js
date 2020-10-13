@@ -1,6 +1,6 @@
-const UserModel = require('../models/userModel');
+const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
-const { signUpErrors, signInErrors } = require('../utils/errors');
+const { signUpErrors, signInErrors } = require('../utils/errors.utils');
 
 // create json web token
 const maxAge = 3 * 24 * 60 * 60 * 1000;

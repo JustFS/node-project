@@ -7,7 +7,7 @@ const Thread = () => {
 
   const getData = async() => {
     await axios
-      .get("http://localhost:5500/api/post")
+      .get(`${process.env.REACT_APP_API_URL}api/post`)
       .then((res) => res.data)
       .then((res) => setThread(res));
   };

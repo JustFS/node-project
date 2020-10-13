@@ -14,7 +14,7 @@ const Cards = ({ card }) => {
   const updateItem = () => {
     axios({
       method: "put",
-      url: "http://localhost:5500/api/post/" + card._id,
+      url: `${process.env.REACT_APP_API_URL}api/post/` + card._id,
       data: {
         author: authorUpdate ? authorUpdate : card.author,
         message: textUpdate ? textUpdate : card.message,
@@ -33,7 +33,7 @@ const Cards = ({ card }) => {
   const getUserData = async () => {
     await axios({
       method: "get",
-      url: "http://localhost:5500/api/user/" + card.userId,
+      url: `${process.env.REACT_APP_API_URL}api/user/` + card.userId,
     })
       .then((res) => setUserPic(res.data.picture))
       .catch((err) => console.log(err));
