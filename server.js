@@ -33,4 +33,4 @@ app.get('/jwtid', requireAuth, (req, res) => {
 })
 
 app.use('/api/user', userRoutes);
-app.use('/api/post', postRoutes);
+app.use('/api/post', postRoutes); 
