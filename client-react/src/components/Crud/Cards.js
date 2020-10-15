@@ -61,7 +61,7 @@ const Cards = ({ card }) => {
               <DeleteCard id={card._id} />
             </div>
           )}
-          <CardComments />
+          <CardComments card={card} />
           <LikeButton card={card} />
         </div>
       )}

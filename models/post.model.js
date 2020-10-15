@@ -15,14 +15,11 @@ const PostSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    // likesCount: {
-    //   type: Number,
-    //   required: true,
-    // },
     comments: {
       type: [
         {
           commenterId: String,
+          pseudo: String,
           text: String,
           timestamp: Number,
         },

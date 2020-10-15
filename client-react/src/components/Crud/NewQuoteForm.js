@@ -18,12 +18,8 @@ const NewQuoteForm = () => {
         message
       },
     })
-      .then(res => {
-        setMessage('');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      .then(res => setMessage(''))
+      .catch(err => console.log(err));
   };
 
   return (
