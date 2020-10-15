@@ -3,8 +3,7 @@ import axios from "axios";
 import { UidContext } from "../AppContext";
 
 const NewQuoteForm = () => {
-  const [author, setAuthor] = useState('');
-  const [quote, setQuote] = useState('');
+  const [message, setMessage] = useState('');
   
   const uid = useContext(UidContext);
 
@@ -15,15 +14,12 @@ const NewQuoteForm = () => {
       method: "post",
       url: `${process.env.REACT_APP_API_URL}api/post`,
       data: {
-        author,
-        message: quote,
-        userId: uid
+        userId: uid,
+        message
       },
     })
       .then(res => {
-        console.log(res);
-        setAuthor('');
-        setQuote('');
+        setMessage('');
       })
       .catch(err => {
         console.log(err);
@@ -32,24 +28,15 @@ const NewQuoteForm = () => {
 
   return (
     <form onSubmit={handleForm} className="quote-form">
-      <label htmlFor="author">Author</label>
-      <br/>
-      <input 
-        type="text" 
-        name="author" 
-        onChange={e => setAuthor(e.target.value)}
-        value={author}
-      />
-      <br/>
-      <label htmlFor="quote">Citation</label>
+      <label htmlFor="message">Citation</label>
       <br/>
       <textarea 
-        name="quote" 
-        id="quote" 
+        name="message" 
+        id="message" 
         cols="25" 
         rows="2"
-        onChange={e => setQuote(e.target.value)}
-        value={quote}
+        onChange={e => setMessage(e.target.value)}
+        value={message}
       />
       <br/>
       <input type="submit" value="Envoyer" />

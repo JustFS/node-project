@@ -24,7 +24,6 @@ module.exports.signUp = async (req, res) => {
     const errors = signUpErrors(err);
     res.status(200).send({ errors });
   }
- 
 }
 
 module.exports.signIn = async (req, res) => {

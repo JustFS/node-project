@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Log from "../components/Log";
-import NewQuoteForm from "../components/QuotesCrud/NewQuoteForm";
-import Thread from "../components/QuotesCrud/Thread";
+import NewQuoteForm from "../components/Crud/NewQuoteForm";
+import Thread from "../components/Crud/Thread";
 import { UidContext } from "../components/AppContext";
 
 const Home = () => {

@@ -10,25 +10,28 @@ require('./config/db.js');
 
 const app = express();
 
-// middleware
-app.use(bodyParser.json());
-app.use(cookieParser());
-
 const corsOptions = {
   origin: process.env.CLIENT_URL,
-  credentials: true
+  credentials: true,
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
 }
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// routes
+// jwt
 app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id)
 })
 
+// routes
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes); 
-
 app.use((req, res) => {
   res.status(404).json({
       success: false,
@@ -36,5 +39,8 @@ app.use((req, res) => {
   })
 })
 
-app.listen(process.env.PORT, () => {console.log(`Listening on port ${process.env.PORT}`);
+console.log(__dirname);
+// server
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
 });

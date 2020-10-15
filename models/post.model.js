@@ -1,24 +1,38 @@
 const mongoose = require("mongoose");
 
-const quotesSchema = new mongoose.Schema({
-  author: {
-    type: String,
-    required: [true, "Veuillez renseigner un nom"],
-    unique: true
+const PostSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: [true, "Merci d'entrer un message"],
+      trim: true,
+    },
+    likers: {
+      type: [String],
+      required: true,
+    },
+    // likesCount: {
+    //   type: Number,
+    //   required: true,
+    // },
+    comments: {
+      type: [
+        {
+          commenterId: String,
+          text: String,
+          timestamp: Number,
+        },
+      ],
+      required: true,
+    },
   },
-  message: {
-    type: String,
-    required: [true, "Merci d'entrer un message"]
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  userId: {
-    type: String,
+  {
+    timestamps: true,
   }
-});
+);
 
-module.exports = mongoose.model('quotes', quotesSchema)
-
-
+module.exports = mongoose.model("Post", PostSchema);

@@ -1,36 +1,37 @@
 const PostModel = require("../models/post.model");
-const ObjectID = require('mongoose').Types.ObjectId;
-const mongoose = require('mongoose');
+const ObjectID = require("mongoose").Types.ObjectId;
 
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
 
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
     if (!err) res.send(docs);
     else console.log("Error to get data : " + err);
-  }).sort({date: -1});
-}
+  }).sort({ createdAt: -1 });
+};
 
-module.exports.createPost = (req, res) => {
-  const newRecord = new PostModel({
-    author: req.body.author,
+module.exports.createPost = async (req, res) => {
+  const newPost = new PostModel({
+    userId: req.body.userId,
     message: req.body.message,
-    userId: req.body.userId
+    likers: [],
+    // likesCount: 0,
+    comments: [],
   });
 
-  newRecord.save((err, docs) => {
-    if (!err) res.send(docs);
-    else console.log("Error creating new data : " + err)
-  });
-}
+  try {
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
 
 module.exports.updatePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
-    // 400 bad request, syntaxe invalide
     return res.status(400).send("ID unknown : " + req.params.id);
 
   const updatedRecord = {
-    author: req.body.author,
     message: req.body.message,
   };
 
@@ -43,7 +44,7 @@ module.exports.updatePost = (req, res) => {
       else console.log("Update error : " + err);
     }
   );
-}
+};
 
 module.exports.deletePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
@@ -53,4 +54,85 @@ module.exports.deletePost = (req, res) => {
     if (!err) res.send(docs);
     else console.log("Delete error : " + err);
   });
-}
+};
+
+module.exports.likePost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return PostModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        // $inc: { likesCount: 1 },
+        $addToSet: { likers: req.body.id },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) return res.send(docs);
+        return res.status(400).send(err);
+      }
+    );
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+module.exports.unlikePost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return PostModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        // $inc: { likesCount: -1 },
+        $pull: { likers: req.body.id },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) return res.send(docs); 
+        return res.status(400).send(err);
+      }
+    );
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+module.exports.commentPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+  
+    try {
+      return PostModel.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            comments: {
+              commenterId: req.body.commenterId,
+              text: req.body.text,
+              timestamp: new Date().getTime()
+            }
+          }
+        },
+        { new: true },
+        (err, post) => {
+          if (err) return res.status(400).send(err);
+          return res.send(post);
+        }
+      );
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+};
+
+module.exports.editCommentPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+};
+
+module.exports.deleteCommentPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+};

@@ -1,1 +1,3 @@
 - token qui se renouvelle (web dev simpflified)
+- ajout photo
+- mise à jour profil

@@ -4,6 +4,7 @@ import axios from "axios";
 
 const UpdateProfil = () => {
   const [userData, setUserData] = useState({});
+  const [userPic, setUserPic] = useState();
 
   const uid = useContext(UidContext);
 
@@ -20,10 +21,16 @@ const UpdateProfil = () => {
     getUserData();
   });
 
+  const handlePicture = (e) => {
+    e.preventDefault();
+
+    console.log(userPic);
+  }
+
   return (
     <div className="update-container">
       <div className="text">
-        <h3>Inscrit depuis le : {userData.date} </h3>
+        <h3>Inscrit depuis le : {userData.createdAt} </h3>
         <h3>pseudo : {userData.pseudo}</h3>
         <h5>Changer Email</h5>
         <input type="text" />
@@ -40,6 +47,15 @@ const UpdateProfil = () => {
       <div className="pic">
         <h3>Photo de profil</h3>
         <img src={userData.picture} alt=""/>
+        <form method="post" encType="multipart/form-data" onSubmit={handlePicture}>
+          <input 
+            type="file" 
+            name="user-picture" 
+            accept="image/*" 
+            onChange={(e) => setUserPic(e.target.value)}
+          />
+          <input type="submit"/>
+        </form>
       </div>
     </div>
   );
