@@ -15,7 +15,7 @@ const Profil = () => {
 
   useEffect(() => {
     if (uid) setIsConnected(true);
-  }, [isConnected, uid]);
+  }, [uid]);
 
   const setSlider = (e) => {
     console.log();

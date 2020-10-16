@@ -7,11 +7,6 @@ const LikeButton = ({ card }) => {
 
   const uid = useContext(UidContext);
 
-  const isLiked = async () => {
-    if (card.likers.includes(uid)) setLiked(true);
-    else setLiked(false);
-  };
-
   const fetchLike = (type, bool) => {
     axios({
       method: "patch",
@@ -27,19 +22,24 @@ const LikeButton = ({ card }) => {
   };
 
   useEffect(() => {
+    const isLiked = async () => {
+      if (card.likers.includes(uid)) setLiked(true);
+      else setLiked(false);
+    };
+    
     isLiked();
-  }, [uid]);
+  }, [uid, card.likers, liked]);
 
   return (
-    <>
-      {card.likers.length}
+    <div className="like-container">
       {liked === false && (
         <i onClick={() => fetchLike("like", true)} className="far fa-heart"></i>
       )}
       {liked && (
         <i onClick={() => fetchLike("unlike", false)} className="fas fa-heart"></i>
       )}
-    </>
+      <span>{card.likers.length}</span>
+    </div>
   );
 };
 

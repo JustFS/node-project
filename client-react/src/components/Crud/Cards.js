@@ -31,38 +31,48 @@ const Cards = ({ card }) => {
     setIsUpdated(false);
   };
 
-  const getUserData = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/user/` + card.userId,
-    })
-      .then((res) => {
-        setUserPic(res.data.picture);
-        setPseudo(res.data.pseudo);
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
+    const getUserData = async () => {
+      await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}api/user/` + card.userId,
+      })
+        .then((res) => {
+          setUserPic(res.data.picture);
+          setPseudo(res.data.pseudo);
+        })
+        .catch((err) => console.log(err));
+    };
     getUserData();
-  }, []);
+  }, [card.userId]);
 
   return (
     <li>
       {isUpdated === false && (
         <div className="card-container">
-          <h3>{pseudo}</h3>
-          <p>"{card.message}"</p>
-          <img src={userPic} alt="" />
-
-          {uid === card.userId && (
-            <div className="button-container">
-              <button onClick={() => setIsUpdated(true)}>Mettre à jour</button>
-              <DeleteCard id={card._id} />
+          <div className="card-left">
+            <img src={userPic} alt="" />
+          </div>
+          <div className="card-right">
+            <div className="card-header">
+              <h3>{pseudo}</h3>
+              <span>publié le {card.createdAt}</span>
             </div>
-          )}
-          <CardComments card={card} />
-          <LikeButton card={card} />
+            <p>{card.message}</p>
+            {uid === card.userId && (
+              <div className="button-container">
+                <button onClick={() => setIsUpdated(true)}>
+                  Modifier
+                </button>
+                <DeleteCard id={card._id} />
+              </div>
+            )}
+            <div className="card-footer">
+              <CardComments card={card} userPic={userPic} />
+              <LikeButton card={card} />
+              <i className="fas fa-share-alt"></i>
+            </div>
+          </div>
         </div>
       )}
 

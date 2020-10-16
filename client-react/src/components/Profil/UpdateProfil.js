@@ -7,19 +7,17 @@ const UpdateProfil = () => {
 
   const uid = useContext(UidContext);
 
-  const getUserData = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-    })
-      .then((res) => setUserData(res.data))
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
+    const getUserData = async () => {
+      await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
+      })
+        .then((res) => setUserData(res.data))
+        .catch((err) => console.log(err));
+    };
     getUserData();
-    console.log(userData);
-  }, []);
+  }, [uid]);
 
   return (
     <div className="update-container">

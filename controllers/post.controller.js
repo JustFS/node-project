@@ -86,7 +86,6 @@ module.exports.unlikePost = (req, res) => {
     return PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        // $inc: { likesCount: -1 },
         $pull: { likers: req.body.id },
       },
       { new: true },
@@ -111,6 +110,7 @@ module.exports.commentPost = (req, res) => {
         $push: {
           comments: {
             commenterId: req.body.commenterId,
+            commenterPic: req.body.commenterPic,
             pseudo: req.body.pseudo,
             text: req.body.text,
             timestamp: new Date().getTime(),

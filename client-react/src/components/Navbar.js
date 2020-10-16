@@ -6,7 +6,6 @@ import Logout from "./Log/Logout";
 
 const Navbar = () => {
   const [name, setName] = useState("");
-
   const uid = useContext(UidContext);
 
   useEffect(() => {
@@ -18,10 +17,8 @@ const Navbar = () => {
         .then((res) => setName(res.data.pseudo))
         .catch((err) => console.log(err));
     };
-    if (uid) {
-      getName();
-    }
-  });
+    if (uid) getName();
+  }, [uid]);
 
   return (
     <nav>

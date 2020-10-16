@@ -1,12 +1,107 @@
 .card-container {
+  display: grid;
+  grid-template-columns: 10% 90%;
   border: 2px solid $color-2;
   border-right: 4px solid $color-2;
   border-bottom: 3px solid $color-2;
   margin: 10px;
-  padding: 10px;
+  padding: 16px;
   box-shadow: 3px 4px 0 #33333350;
   width: 80%;
-  max-width: 900px;
+  max-width: 700px;
   border-radius: 4px;
   margin: 8px auto;
+
+  .card-left {
+    img {
+      height: 52px;
+      width: 52px;
+      border-radius: 150px;
+      box-shadow: 1px 1px 3px rgba(51, 51, 51, 0.192);
+    }
+  }
+
+  .card-right {
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2px 0 10px;
+
+      span {
+        font-style: italic;
+      }
+    }
+    .button-container {
+      text-align: right;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0 4px;
+
+      i {
+        color: $color-1;
+      }
+
+      .comment-icon {
+        color: black;
+
+        span {
+          font-size: 1.02rem;
+          position: absolute;
+          transform: translate(8px, -1px);
+        }
+      }
+    }
+    .comment-form {
+      margin-top: 18px;
+
+      input[type=text] {
+        height: 40px;
+        width: 500px;
+      }
+      input[type=submit] {
+        margin-top: 0px;
+        height: 26px;
+        padding: 2px;
+        width: 500px;
+        background: $color-2;
+        transition: .2s;
+
+        &:hover {
+          background: $color-1;
+        }
+      }
+    }
+    .comment-container {
+      display: grid;
+      grid-template-columns: 10% 90%;
+      border: 1px solid $color-2;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      max-width: 500px;
+
+      img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50px;
+        box-shadow: 1px 1px 3px rgba(51, 51, 51, 0.192);
+      }
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+    }
+    .like-container {
+      span {
+        font-size: 1.02rem;
+        position: absolute;
+        transform: translate(8px, -1px);
+      }
+    }
+  }
+
 }

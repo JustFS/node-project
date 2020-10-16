@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
-import { userData } from "../api/UserData";
 import { UidContext } from "../AppContext";
 import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
 
 const CardComments = ({ card }) => {
   const [show, setShow] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [name, setName] = useState("");
+  const [pic, setPic] = useState("");
 
   const uid = useContext(UidContext);
 
   const showComments = () => {
     setShow(!show);
-  }
+  };
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -23,6 +23,7 @@ const CardComments = ({ card }) => {
       url: `${process.env.REACT_APP_API_URL}api/post/comment-post/` + card._id,
       data: {
         commenterId: uid,
+        commenterPic: pic,
         pseudo: name,
         text,
       },
@@ -37,18 +38,22 @@ const CardComments = ({ card }) => {
         method: "get",
         url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
       })
-        .then((res) => setName(res.data.pseudo))
+        .then((res) => {
+          setName(res.data.pseudo)
+          setPic(res.data.picture)
+        })
         .catch((err) => console.log(err));
     };
-    if (uid) {
-      getName();
-    }
-  });
+    if (uid) getName();
+  }, [uid]);
 
   return (
     <div className="comments-container">
-      <i onClick={showComments} className="far fa-comment-alt"></i>
-      {show === false && (
+      <div className="comment-icon">
+        <i onClick={showComments} className="far fa-comment-alt"></i>
+        <span>{card.comments.length}</span>
+      </div>
+      {show && (
         <form onSubmit={handleComment} className="comment-form">
           <label htmlFor="text">Laissez un commentaire</label>
           <br />
@@ -62,13 +67,21 @@ const CardComments = ({ card }) => {
           <input type="submit" value="Envoyer" />
         </form>
       )}
-      {show === false &&
+      {show &&
         card.comments.map((comment) => {
           return (
-            <div key={comment._id}>
-              <h5>{comment.pseudo}</h5>
-              <p>{comment.text}</p>
-              <EditDeleteComment comment={comment} cardId={card._id} />
+            <div className="comment-container" key={comment._id}>
+              <div className="left-part">
+                <img src={comment.commenterPic} alt=""/>
+              </div>
+              <div className="right-part">
+                <div className="comment-header">
+                  <h3>{comment.pseudo}</h3>
+                  <span>{comment.timestamp}</span>
+                </div>
+                <p>{comment.text}</p>
+                <EditDeleteComment comment={comment} cardId={card._id} />
+              </div>
             </div>
           );
         })}

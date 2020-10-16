@@ -5,21 +5,22 @@ import Cards from "./Cards";
 const Thread = () => {
   const [thread, setThread] = useState();
 
-  const getData = async() => {
-    await axios
-      .get(`${process.env.REACT_APP_API_URL}api/post`)
-      .then((res) => res.data)
-      .then((res) => setThread(res));
-  };
   useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_API_URL}api/post`)
+        .then((res) => res.data)
+        .then((res) => {
+          setThread(res);
+        });
+    };
     getData();
-  }, [thread]);
+  });
 
   return (
     <div className="thread-container">
       <ul>
-        {thread &&
-          thread.map((card) => <Cards card={card} key={card._id} />)}
+        {thread && thread.map((card) => <Cards card={card} key={card._id} />)}
       </ul>
     </div>
   );
