@@ -43,7 +43,7 @@ input,
 textarea {
   border: 2px solid $color-2;
   resize: none;
-  border-radius: 3px;
+  border-radius: 4px;
   width: 270px;
   padding: 10px;
   box-shadow: -4px 3px 0 $shadow;
@@ -75,6 +75,7 @@ button {
   box-shadow: 1px 2px 0 $shadow;
   color: $white;
   width: 95px;
+  font-family: $font-1;
 
   &:hover {
     background: $color-1;

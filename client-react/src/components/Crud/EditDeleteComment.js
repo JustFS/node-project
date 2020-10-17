@@ -44,8 +44,12 @@ const EditDeleteComment = ({ comment, cardId }) => {
   }, [uid, comment.commenterId]);
 
   return (
-    <div>
-      {isAuthor && edit === false && <span onClick={handleEdit}><i className="fas fa-pen"></i></span>}
+    <div className="edit-comment">
+      {isAuthor && edit === false && (
+        <span onClick={handleEdit}>
+          <i className="fas fa-pen"></i>
+        </span>
+      )}
       {isAuthor && edit && (
         <form
           onSubmit={(e) => handleEditDelete(e, "edit")}
@@ -62,18 +66,17 @@ const EditDeleteComment = ({ comment, cardId }) => {
             defaultValue={comment.text}
           />
           <br />
-          <input type="submit" value="Modifier" />
-        </form>
-      )}
-      {isAuthor && (
-          <i
+          <input type="submit" value="Valider modification" />
+          <button
             onClick={(e) => {
               if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
                 handleEditDelete(e, "delete");
               }
             }}
-            className="fas fa-trash-alt"
-          ></i>
+          >
+            Supprimer commentaire
+          </button>
+        </form>
       )}
     </div>
   );

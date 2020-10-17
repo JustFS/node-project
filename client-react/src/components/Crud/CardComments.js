@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { UidContext } from "../AppContext";
 import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
+import { timestampParser } from "../Utils";
 
 const CardComments = ({ card }) => {
   const [text, setText] = useState("");
@@ -13,18 +14,21 @@ const CardComments = ({ card }) => {
   const handleComment = (e) => {
     e.preventDefault();
 
-    axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/comment-post/` + card._id,
-      data: {
-        commenterId: uid,
-        commenterPic: pic,
-        pseudo: name,
-        text,
-      },
-    })
-      .then((res) => setText(""))
-      .catch((err) => console.log(err));
+    if (text) {
+      axios({
+        method: "patch",
+        url:
+          `${process.env.REACT_APP_API_URL}api/post/comment-post/` + card._id,
+        data: {
+          commenterId: uid,
+          commenterPic: pic,
+          pseudo: name,
+          text,
+        },
+      })
+        .then((res) => setText(""))
+        .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -40,10 +44,6 @@ const CardComments = ({ card }) => {
         .catch((err) => console.log(err));
     };
     if (uid) getName();
-    const dateConverter = (str) => {
-      let date = new Date(str);
-      console.log(date);
-    };
   }, [uid]);
 
   return (
@@ -57,7 +57,7 @@ const CardComments = ({ card }) => {
             <div className="right-part">
               <div className="comment-header">
                 <h3>{comment.pseudo}</h3>
-                <span>{comment.timestamp}</span>
+                <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
               <EditDeleteComment comment={comment} cardId={card._id} />
