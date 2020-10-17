@@ -25,7 +25,7 @@ const PostSchema = new mongoose.Schema(
           timestamp: Number,
         },
       ],
-      required: true,
+      required: true
     },
   },
   {

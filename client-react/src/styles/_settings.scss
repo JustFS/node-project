@@ -44,7 +44,6 @@ textarea {
   border: 2px solid $color-2;
   resize: none;
   border-radius: 3px;
-  margin: 4px 0 4px;
   width: 270px;
   padding: 10px;
   box-shadow: -4px 3px 0 $shadow;
@@ -55,7 +54,7 @@ input[type="submit"] {
   color: $white;
   cursor: pointer;
   transition: 0.2s;
-  margin-top: 16px;
+  margin: 0;
 
   &:hover {
     background: $color-2;
@@ -67,16 +66,15 @@ input[type="checkbox"] {
   margin: 10px 0;
 }
 button {
-  background: $color-3;
+  background: $color-2;
   padding: 4px;
   margin: 4px;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.2s;
   box-shadow: 1px 2px 0 $shadow;
-  border: 1px solid $color-1;
-  border-right: 3px solid $color-1;
-  border-bottom: 2px solid $color-1;
+  color: $white;
+  width: 95px;
 
   &:hover {
     background: $color-1;
@@ -85,6 +83,7 @@ button {
 }
 body {
   font-family: $font-1;
+  line-height: 1.4rem;
 }
 .error {
   color: red;

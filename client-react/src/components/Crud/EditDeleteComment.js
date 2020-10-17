@@ -62,7 +62,7 @@ const EditDeleteComment = ({ comment, cardId }) => {
             defaultValue={comment.text}
           />
           <br />
-          <input type="submit" value="Envoyer" />
+          <input type="submit" value="Modifier" />
         </form>
       )}
       {isAuthor && (

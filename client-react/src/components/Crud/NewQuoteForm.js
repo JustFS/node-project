@@ -24,17 +24,15 @@ const NewQuoteForm = () => {
 
   return (
     <form onSubmit={handleForm} className="quote-form">
-      <label htmlFor="message">Citation</label>
-      <br/>
       <textarea 
         name="message" 
         id="message" 
         cols="25" 
         rows="2"
+        placeholder="Quoi de neuf ?"
         onChange={e => setMessage(e.target.value)}
         value={message}
       />
-      <br/>
       <input type="submit" value="Envoyer" />
     </form>
   );

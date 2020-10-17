@@ -4,16 +4,11 @@ import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
 
 const CardComments = ({ card }) => {
-  const [show, setShow] = useState(false);
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState("");
 
   const uid = useContext(UidContext);
-
-  const showComments = () => {
-    setShow(!show);
-  };
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -39,52 +34,48 @@ const CardComments = ({ card }) => {
         url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
       })
         .then((res) => {
-          setName(res.data.pseudo)
-          setPic(res.data.picture)
+          setName(res.data.pseudo);
+          setPic(res.data.picture);
         })
         .catch((err) => console.log(err));
     };
     if (uid) getName();
+    const dateConverter = (str) => {
+      let date = new Date(str);
+      console.log(date);
+    };
   }, [uid]);
 
   return (
     <div className="comments-container">
-      <div className="comment-icon">
-        <i onClick={showComments} className="far fa-comment-alt"></i>
-        <span>{card.comments.length}</span>
-      </div>
-      {show && (
-        <form onSubmit={handleComment} className="comment-form">
-          <label htmlFor="text">Laissez un commentaire</label>
-          <br />
-          <input
-            type="text"
-            name="text"
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-          />
-          <br />
-          <input type="submit" value="Envoyer" />
-        </form>
-      )}
-      {show &&
-        card.comments.map((comment) => {
-          return (
-            <div className="comment-container" key={comment._id}>
-              <div className="left-part">
-                <img src={comment.commenterPic} alt=""/>
-              </div>
-              <div className="right-part">
-                <div className="comment-header">
-                  <h3>{comment.pseudo}</h3>
-                  <span>{comment.timestamp}</span>
-                </div>
-                <p>{comment.text}</p>
-                <EditDeleteComment comment={comment} cardId={card._id} />
-              </div>
+      {card.comments.map((comment) => {
+        return (
+          <div className="comment-container" key={comment._id}>
+            <div className="left-part">
+              <img src={comment.commenterPic} alt="" />
             </div>
-          );
-        })}
+            <div className="right-part">
+              <div className="comment-header">
+                <h3>{comment.pseudo}</h3>
+                <span>{comment.timestamp}</span>
+              </div>
+              <p>{comment.text}</p>
+              <EditDeleteComment comment={comment} cardId={card._id} />
+            </div>
+          </div>
+        );
+      })}
+      <form onSubmit={handleComment} className="comment-form">
+        <input
+          type="text"
+          name="text"
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+          placeholder="Laissez un commentaire"
+        />
+        <br />
+        <input type="submit" value="Envoyer" />
+      </form>
     </div>
   );
 };

@@ -54,26 +54,6 @@
         }
       }
     }
-    .comment-form {
-      margin-top: 18px;
-
-      input[type=text] {
-        height: 40px;
-        width: 500px;
-      }
-      input[type=submit] {
-        margin-top: 0px;
-        height: 26px;
-        padding: 2px;
-        width: 500px;
-        background: $color-2;
-        transition: .2s;
-
-        &:hover {
-          background: $color-1;
-        }
-      }
-    }
     .comment-container {
       display: grid;
       grid-template-columns: 10% 90%;
@@ -81,7 +61,6 @@
       padding: 10px;
       margin: 5px 0;
       border-radius: 5px;
-      max-width: 500px;
 
       img {
         height: 40px;
@@ -92,7 +71,29 @@
       .comment-header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 8px;
+      }
+      div {
+        i {
+          color: $color-2;
+        }
+      }
+    }
+    .comment-form {
+      input[type="text"] {
+        height: 40px;
+        width: 100%;
+      }
+      input[type="submit"] {
+        margin-top: 4px;
+        height: 26px;
+        padding: 2px;
+        width: 100%;
+        background: $color-2;
+        transition: 0.2s;
+
+        &:hover {
+          background: $color-1;
+        }
       }
     }
     .like-container {
@@ -102,6 +103,23 @@
         transform: translate(8px, -1px);
       }
     }
+    .fa-share-alt {
+      transform: translate(0, 2px);
+    }
   }
-
+  .update-post {
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin: 10px 0 0;
+    }
+    .button-container {
+      text-align: right;
+      
+      button {
+        margin: 0;
+        margin-left: 5px;
+      }
+    }
+  }
 }
