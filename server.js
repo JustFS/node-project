@@ -32,14 +32,7 @@ app.get('/jwtid', requireAuth, (req, res) => {
 // routes
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes); 
-app.use((req, res) => {
-  res.status(404).json({
-      success: false,
-      msg: "Page not found"
-  })
-})
 
-console.log(__dirname);
 // server
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);

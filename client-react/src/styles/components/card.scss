@@ -28,6 +28,32 @@
       align-items: center;
       margin: 2px 0 10px;
 
+      .pseudo {
+        display: flex;
+
+        span {
+          transform: translate(2px, -1px);
+
+          i {
+            font-size: .8rem;
+            padding: 5px;
+            cursor: pointer;
+            transition: .15s;
+
+            &:hover {
+              transform: scale(1.2) translate(0px, 0px);
+            }
+          }
+
+          .fas {
+            color: $color-1;
+          }
+          .far {
+            color: $color-2;
+          }
+        }
+      }
+
       span {
         font-style: italic;
       }
@@ -42,6 +68,12 @@
 
       i {
         color: $color-1;
+        transition: .15s;
+        cursor: pointer;
+        
+        &:hover {
+          transform: scale(1.2);
+        }
       }
 
       .comment-icon {
@@ -72,6 +104,26 @@
         display: flex;
         justify-content: space-between;
 
+        .pseudo {
+          display: flex;
+
+          span {
+            transform: translateX(6px);
+          }
+          i {
+            color: $color-1;
+            transition: .15s;
+            cursor: pointer;
+            
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+          .far {
+            color: $color-2;
+          }
+        }
+
         span {
           font-size: .85rem;
           font-style: italic;
@@ -83,6 +135,12 @@
         i {
           float: right;
           margin-left: 10px;
+          cursor: pointer;
+          transition: .15s;
+
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
     }

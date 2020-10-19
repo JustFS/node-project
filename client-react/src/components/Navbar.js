@@ -19,12 +19,15 @@ const Navbar = () => {
     };
     if (uid) getName();
   }, [uid]);
-
+  
   return (
     <nav>
       <div className="logo">
         <NavLink exact to="/">
-          <h3>Quote App</h3>
+          <div className="icon">
+            <img src="./img/icon.png" alt="icon" />
+            <h3>Racoont</h3>
+          </div>
         </NavLink>
       </div>
       {uid ? (

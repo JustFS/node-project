@@ -5,6 +5,7 @@ import { UidContext } from "../AppContext";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
 import { dateParser } from "../Utils";
+import FollowHandler from "../Profil/FollowHandler";
 
 const Cards = ({ card }) => {
   const [isUpdated, setIsUpdated] = useState(false);
@@ -58,7 +59,12 @@ const Cards = ({ card }) => {
         </div>
         <div className="card-right">
           <div className="card-header">
-            <h3>{pseudo}</h3>
+            <div className="pseudo">
+              <h3>{pseudo}</h3>
+              {card.userId !== uid && (
+                <FollowHandler authorId={card.userId} followerId={uid} />
+              )}
+            </div>
             <span>publié le {dateParser(card.createdAt)}</span>
           </div>
           {isUpdated === false && (
@@ -81,7 +87,7 @@ const Cards = ({ card }) => {
                 <LikeButton card={card} />
                 <i className="fas fa-share-alt"></i>
               </div>
-              {showComments && <CardComments card={card} userPic={userPic} />}
+              {showComments && <CardComments card={card} />}
             </>
           )}
         </div>
@@ -93,7 +99,6 @@ const Cards = ({ card }) => {
               onChange={(e) => setTextUpdate(e.target.value)}
             />
             <div className="button-container">
-              <DeleteCard id={card._id} />
               <button onClick={updateItem}>Valider modification</button>
             </div>
           </div>

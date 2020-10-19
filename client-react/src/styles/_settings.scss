@@ -82,6 +82,13 @@ button {
     color: $white;
   }
 }
+i {
+  transition: .15s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 body {
   font-family: $font-1;
   line-height: 1.4rem;

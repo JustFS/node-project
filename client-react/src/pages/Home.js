@@ -11,7 +11,6 @@ const Home = () => {
   return (
     <div className="home">
       <div className="home-header">
-        <h1>Quote App</h1>
         {uid ? <NewQuoteForm /> : <Log />}
       </div>
       <Thread />

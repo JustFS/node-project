@@ -3,8 +3,9 @@ import { UidContext } from "../AppContext";
 import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
+import FollowHandler from "../Profil/FollowHandler";
 
-const CardComments = ({ card }) => {
+const CardComments = ({ card, followers }) => {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState("");
@@ -52,11 +53,19 @@ const CardComments = ({ card }) => {
         return (
           <div className="comment-container" key={comment._id}>
             <div className="left-part">
-              <img src={comment.commenterPic} alt="" />
+              <img src={comment.commenterPic} alt="profil-pic" />
             </div>
             <div className="right-part">
               <div className="comment-header">
-                <h3>{comment.pseudo}</h3>
+                <div className="pseudo">
+                  <h3>{comment.pseudo}</h3>
+                  {comment.commenterId !== uid && (
+                    <FollowHandler
+                      authorId={comment.commenterId}
+                      followerId={uid}
+                    />
+                  )}
+                </div>
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
@@ -65,17 +74,19 @@ const CardComments = ({ card }) => {
           </div>
         );
       })}
-      <form onSubmit={handleComment} className="comment-form">
-        <input
-          type="text"
-          name="text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-          placeholder="Laissez un commentaire"
-        />
-        <br />
-        <input type="submit" value="Envoyer" />
-      </form>
+      {uid && (
+        <form onSubmit={handleComment} className="comment-form">
+          <input
+            type="text"
+            name="text"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            placeholder="Laissez un commentaire"
+          />
+          <br />
+          <input type="submit" value="Envoyer" />
+        </form>
+      )}
     </div>
   );
 };

@@ -40,5 +40,12 @@
       display: grid;
       grid-template-columns: 50% 50%;
     }
+    .right-part {
+      img {
+        height: 180px;
+        width: 180px;
+        border-radius: 150px;
+      }
+    }
   }
 }

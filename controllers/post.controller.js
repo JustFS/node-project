@@ -1,4 +1,5 @@
 const PostModel = require("../models/post.model");
+const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 // mongoose.set('useFindAndModify', false);
@@ -56,21 +57,30 @@ module.exports.deletePost = (req, res) => {
   });
 };
 
-module.exports.likePost = (req, res) => {
+module.exports.likePost = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
-    return PostModel.findByIdAndUpdate(
+    await PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        // $inc: { likesCount: 1 },
         $addToSet: { likers: req.body.id },
       },
       { new: true },
       (err, docs) => {
-        if (!err) return res.send(docs);
-        return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
+      }
+    )
+    await UserModel.findByIdAndUpdate(
+      req.body.id,
+      {
+        $addToSet: { likes: req.params.id },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) res.send(docs);
+        else return res.status(400).send(err);
       }
     );
   } catch (err) {
@@ -78,20 +88,30 @@ module.exports.likePost = (req, res) => {
   }
 };
 
-module.exports.unlikePost = (req, res) => {
+module.exports.unlikePost = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
-    return PostModel.findByIdAndUpdate(
+    await PostModel.findByIdAndUpdate(
       req.params.id,
       {
         $pull: { likers: req.body.id },
       },
       { new: true },
       (err, docs) => {
-        if (!err) return res.send(docs);
-        return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
+      }
+    );
+    await UserModel.findByIdAndUpdate(
+      req.body.id,
+      {
+        $pull: { likes: req.params.id },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) res.send(docs);
+        else return res.status(400).send(err);
       }
     );
   } catch (err) {

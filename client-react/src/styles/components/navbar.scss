@@ -5,7 +5,21 @@ nav {
   align-items: center;
   padding: 0 20px;
   margin: 0 0 18px;
-  box-shadow: 8px 2px 0px $color-1, 18px 6px 0px 0px $shadow;
+  box-shadow: 16px 2px 0px $color-1, 30px 6px 0px 0px $shadow;
+
+  .icon {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      transform: translate(13px,1px);
+      font-size: 1.3rem;
+    }
+    img {
+      height: 26px;
+      width: 26px;
+    }  
+  }
 
   ul {
     display: flex;
