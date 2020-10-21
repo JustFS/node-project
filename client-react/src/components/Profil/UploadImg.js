@@ -1,38 +1,17 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React from "react";
 
 const UploadImg = () => {
-  const [images, setImages] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [uploadingImage, setUploadingImage] = useState(false);
 
-  const uploadFiles = async () => {
-    const imageData = new FormData();
-    files.forEach((file, i) => {
-      imageData.set(i, file);
-    });
-    setUploadingImage(true);
-    const res = await axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/user/`,
-      data: {
-        files:imageData
-      },
-    });
-    const newImages = [...res, ...images];
-    setImages(newImages);
-    setUploadingImage(false);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
+  }
 
   return (
-    <div className="container">
-        <div className="align-center">
-          <button onClick={uploadFiles}>
-            {uploadingImage ? "Uploading..." : "Upload"}
-          </button>
-          <button onClick={() => setFiles([])}>Remove</button>
-        </div>
-    </div>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <input type="file" name="avatar" />
+      <input type="submit" value="envoyer" />
+    </form>
   );
 };
 

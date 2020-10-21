@@ -10,7 +10,9 @@
       width: 450px;
       margin: 40px auto 0;
       padding: 16px 0;
-      @include formBorder;
+      border: 3px solid $color-1;
+      border-radius: 4px;
+      box-shadow: -3px 3px 0 rgb(219, 218, 218);
       position: relative;
 
       .data {

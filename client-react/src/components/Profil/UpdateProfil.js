@@ -17,7 +17,7 @@ const UpdateProfil = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios({
-      method: "patch",
+      method: "put",
       url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
       data: {
         bio,
