@@ -1,31 +1,20 @@
-import React, { useState, useEffect, useDispatch, useSelector } from "react";
-import Cards from "./Cards";
-import { connect } from 'react-redux';
-import { getData } from "../../actions/getData";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts } from "../../actions/postsActions";
 
-export const Thread = () => {
-  const thread = useSelector(state => state.posts);
+const Thread = () => {
+  // get State
+  const test = useSelector(state => state.userReducer.allUsers);
+  // send action
   const dispatch = useDispatch();
-  const [thread, setThread] = useState();
 
-  useEffect(() => {
-
-  });
 
   return (
     <div className="thread-container">
-      <ul>
-
-        {/* {thread && thread.map((card) => <Cards card={card} key={card._id} />)} */}
-      </ul>
+      <ul>Yo {test}</ul>
+      <button onClick={() => dispatch(getPosts())}>APPUIE !</button>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  posts: state.user.posts,
-});
-
-const mapDispatchToProps = { getData };
-
-export default connect(mapStateToProps, mapDispatchToProps)(posts)
+export default Thread;
