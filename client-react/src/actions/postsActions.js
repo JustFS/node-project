@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   ADD_COMMENT,
   DELETE_COMMENT,
@@ -8,76 +8,87 @@ import {
   EDIT_POST,
   DELETE_POST,
   UPDATE_POST_LIKES,
-} from '../actions';
+} from "../actions";
 
-export const addComment = (action, commenterId, postId, text, timestamp
-) => dispatch =>
+export const addComment = (action, commenterId, postId, text, timestamp) => (
+  dispatch
+) =>
   axios
     .patch(`/posts/${postId}`, { action, commenterId, text, timestamp })
-    .then(res =>
+    .then((res) =>
       dispatch({
         type: ADD_COMMENT,
         payload: res.data,
         commenterId,
         text,
-        timestamp
-      }));
+        timestamp,
+      })
+    );
 
-export const deleteComment = (action, commentId, postId) => dispatch =>
-  axios.patch(`/posts/${postId}`, { action, commentId }).then(res =>
+export const deleteComment = (action, commentId, postId) => (dispatch) =>
+  axios.patch(`/posts/${postId}`, { action, commentId }).then((res) =>
     dispatch({
       type: DELETE_COMMENT,
-      payload: res.data
-    }));
+      payload: res.data,
+    })
+  );
 
-export const editComment = (action, commentId, postId, text) => dispatch =>
-  axios.patch(`/posts/${postId}`, { action, commentId, text }).then(res =>
+export const editComment = (action, commentId, postId, text) => (dispatch) =>
+  axios.patch(`/posts/${postId}`, { action, commentId, text }).then((res) =>
     dispatch({
       type: EDIT_COMMENT,
-      payload: res.data
-    }));
+      payload: res.data,
+    })
+  );
 
-export const getPosts = () => dispatch => {
-  axios.get('`api/post`').then(res =>
+export const getPosts = () => {
+  return async (dispatch) => {
+    const res = await axios.get("`api/post`");
+    console.log(res);
     dispatch({
       type: GET_POSTS,
-      payload: res.data
-    }));
-  }
+      payload: res,
+    });
+  };
+};
 
-export const createPost = (text, user) => dispatch =>
+export const createPost = (text, user) => (dispatch) =>
   axios
-    .post('/posts', {
+    .post("/posts", {
       text,
       author: user.name,
       authorId: user.userId,
-      avatarColor: user.avatarColor
+      avatarColor: user.avatarColor,
     })
-    .then(res =>
+    .then((res) =>
       dispatch({
         type: CREATE_POST,
-        payload: res.data
-      }));
+        payload: res.data,
+      })
+    );
 
-export const editPost = (id, text, author) => dispatch =>
-  axios.patch(`/posts/${id}`, { id, text, author }).then(res =>
+export const editPost = (id, text, author) => (dispatch) =>
+  axios.patch(`/posts/${id}`, { id, text, author }).then((res) =>
     dispatch({
       type: EDIT_POST,
       id,
       text,
-      author
-    }));
+      author,
+    })
+  );
 
-export const deletePost = id => dispatch =>
-  axios.delete(`/posts/${id}`).then(res =>
+export const deletePost = (id) => (dispatch) =>
+  axios.delete(`/posts/${id}`).then((res) =>
     dispatch({
       type: DELETE_POST,
-      id
-    }));
+      id,
+    })
+  );
 
-export const updatePostLikes = (action, postId, likerId) => dispatch =>
-  axios.patch(`/posts/${postId}`, { action, id: likerId }).then(res =>
+export const updatePostLikes = (action, postId, likerId) => (dispatch) =>
+  axios.patch(`/posts/${postId}`, { action, id: likerId }).then((res) =>
     dispatch({
       type: UPDATE_POST_LIKES,
-      payload: res.data
-    }));
+      payload: res.data,
+    })
+  );
