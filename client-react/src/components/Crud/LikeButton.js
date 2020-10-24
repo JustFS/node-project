@@ -4,7 +4,7 @@ import axios from "axios";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-const LikeButton = ({ card }) => {
+const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
 
   const uid = useContext(UidContext);
@@ -12,7 +12,7 @@ const LikeButton = ({ card }) => {
   const fetchLike = (type, bool) => {
     axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/` + type + `-post/` + card._id,
+      url: `${process.env.REACT_APP_API_URL}api/post/` + type + `-post/` + post._id,
       data: {
         id: uid,
       },
@@ -25,12 +25,12 @@ const LikeButton = ({ card }) => {
 
   useEffect(() => {
     const isLiked = async () => {
-      if (card.likers.includes(uid)) setLiked(true);
+      if (post.likers.includes(uid)) setLiked(true);
       else setLiked(false);
     };
     
     isLiked();
-  }, [uid, card.likers, liked]);
+  }, [uid, post.likers, liked]);
 
   return (
     <div className="like-container">
@@ -45,7 +45,7 @@ const LikeButton = ({ card }) => {
       {uid && liked && (
         <i onClick={() => fetchLike("unlike", false)} className="fas fa-heart"></i>
       )}
-      <span>{card.likers.length}</span>
+      <span>{post.likers.length}</span>
     </div>
   );
 };

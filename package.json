@@ -28,6 +28,7 @@
     "nodemon": "^2.0.4",
     "react-dropzone": "^11.2.0",
     "reactjs-popup": "^2.0.4",
+    "redux-logger": "^3.0.6",
     "validator": "^13.1.17"
   },
   "devDependencies": {

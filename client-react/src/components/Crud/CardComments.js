@@ -5,7 +5,7 @@ import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 
-const CardComments = ({ card, followers }) => {
+const CardComments = ({ post, followers }) => {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState("");
@@ -19,7 +19,7 @@ const CardComments = ({ card, followers }) => {
       axios({
         method: "patch",
         url:
-          `${process.env.REACT_APP_API_URL}api/post/comment-post/` + card._id,
+          `${process.env.REACT_APP_API_URL}api/post/comment-post/` + post._id,
         data: {
           commenterId: uid,
           commenterPic: pic,
@@ -49,7 +49,7 @@ const CardComments = ({ card, followers }) => {
 
   return (
     <div className="comments-container">
-      {card.comments.map((comment) => {
+      {post.comments.map((comment) => {
         return (
           <div className="comment-container" key={comment._id}>
             <div className="left-part">
@@ -69,7 +69,7 @@ const CardComments = ({ card, followers }) => {
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
-              <EditDeleteComment comment={comment} cardId={card._id} />
+              <EditDeleteComment comment={comment} cardId={post._id} />
             </div>
           </div>
         );
