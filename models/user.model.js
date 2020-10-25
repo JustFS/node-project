@@ -25,6 +25,8 @@ const userSchema = new mongoose.Schema(
       required: true,
       max: 1024,
       minlength: 6,
+      // cannot be send to front
+      // select: false
     },
     picture: {
       type: String,

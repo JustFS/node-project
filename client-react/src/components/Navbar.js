@@ -1,23 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
-import axios from "axios";
 import Logout from "./Log/Logout";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../actions/actionsRoot";
 
 const Navbar = () => {
-  const [name, setName] = useState("");
   const uid = useContext(UidContext);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    const getName = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-      })
-        .then((res) => setName(res.data.pseudo))
-        .catch((err) => console.log(err));
-    };
-    if (uid) getName();
+    if (uid) {
+      dispatch(getUser(uid));
+    }
   }, [uid]);
   
   return (
@@ -35,7 +31,7 @@ const Navbar = () => {
           <li></li>
           <li>
             <NavLink exact to="/profil">
-              <h5>Bienvenue {name}</h5>
+              <h5>Bienvenue {userData.pseudo}</h5>
             </NavLink>
           </li>
           <Logout />

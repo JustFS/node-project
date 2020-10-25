@@ -13,10 +13,11 @@ module.exports.readPost = (req, res) => {
 
 module.exports.createPost = async (req, res) => {
   const newPost = new PostModel({
-    userId: req.body.userId,
+    posterId: req.body.posterId,
     message: req.body.message,
+    posterPic: req.body.posterPic,
+    posterPseudo: req.body.posterPseudo,
     likers: [],
-    // likesCount: 0,
     comments: [],
   });
 

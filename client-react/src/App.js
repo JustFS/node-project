@@ -13,11 +13,9 @@ const App = () => {
         url: `${process.env.REACT_APP_API_URL}jwtid`,
         withCredentials: true,
       })
-        .then((res) => {
-          setUid(res.data);
-        })
+        .then((res) => setUid(res.data))
         .catch((err) => {
-          console.log("Post Error : " + err);
+          console.log("Get Error : " + err);
         });
     };
     isAuth();

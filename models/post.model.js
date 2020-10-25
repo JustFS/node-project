@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    userId: {
+    posterId: {
       type: String,
       required: true,
     },
@@ -10,6 +10,14 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: [true, "Merci d'entrer un message"],
       trim: true,
+    },
+    posterPic: {
+      type: String,
+      required: true
+    },
+    posterPseudo: {
+      type: String,
+      required: true
     },
     likers: {
       type: [String],

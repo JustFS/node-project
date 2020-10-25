@@ -1,78 +1,53 @@
 import React, { useState, useContext, useEffect } from "react";
 import DeleteCard from "./DeleteCard";
-import axios from "axios";
 import { UidContext } from "../AppContext";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
 import { dateParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
+import { useDispatch } from "react-redux";
+import { getPosts, updatePost } from "../../actions/actionsRoot";
 
-const Cards = ({ card }) => {
+const Card = ({ post }) => {
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
-  const [pseudo, setPseudo] = useState(null);
-  const [userPic, setUserPic] = useState({});
   const [showComments, setShowComments] = useState(false);
+  const dispatch = useDispatch();
 
   const uid = useContext(UidContext);
 
   const handleShowComments = () => setShowComments(!showComments);
 
-  const updateItem = () => {
-    axios({
-      method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/post/` + card._id,
-      data: {
-        message: textUpdate ? textUpdate : card.message,
-      },
-    })
-      .then((res) => {
-        console.log("Modifié");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+  const updateItem = async () => {
+    if (textUpdate) {
+      await dispatch(updatePost(post._id, textUpdate));
+      dispatch(getPosts())
+    }
     setIsUpdated(false);
   };
 
-  useEffect(() => {
-    const getUserData = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + card.userId,
-      })
-        .then((res) => {
-          setUserPic(res.data.picture);
-          setPseudo(res.data.pseudo);
-        })
-        .catch((err) => console.log(err));
-    };
-    getUserData();
-  }, [card.userId]);
-
   return (
-    <li className="card-container">
+    <li className="card-container" key={post._id}>
       <div className="card-left">
-        <img src={userPic} alt="" />
+        <img src={post.posterPic} alt="" />
       </div>
       <div className="card-right">
         <div className="card-header">
           <div className="pseudo">
-            <h3>{pseudo}</h3>
-            {card.userId !== uid && (
-              <FollowHandler authorId={card.userId} followerId={uid} />
+            <h3>{post.posterPseudo}</h3>
+            {post.posterId !== uid && (
+              <FollowHandler posterId={post.posterId} followerId={uid} />
             )}
           </div>
-          <span>publié le {dateParser(card.createdAt)}</span>
+          <span>publié le {dateParser(post.createdAt)}</span>
         </div>
         {isUpdated === false && (
           <>
-            <p>{card.message}</p>
-            {uid === card.userId && (
+            <p>{post.message}</p>
+            {uid === post.posterId && (
               <div className="button-container">
                 <button onClick={() => setIsUpdated(true)}>Modifier</button>
-                <DeleteCard id={card._id} />
+                <DeleteCard id={post._id} />
               </div>
             )}
             <div className="card-footer">
@@ -81,12 +56,12 @@ const Cards = ({ card }) => {
                   onClick={handleShowComments}
                   className="far fa-comment-alt"
                 ></i>
-                {/* <span>{card.comments.length}</span> */}
+                <span>{post.comments.length}</span>
               </div>
-              <LikeButton card={card} />
+              <LikeButton post={post} />
               <i className="fas fa-share-alt"></i>
             </div>
-            {showComments && <CardComments card={card} />}
+            {showComments && <CardComments post={post} />}
           </>
         )}
       </div>
@@ -94,7 +69,7 @@ const Cards = ({ card }) => {
       {isUpdated && (
         <div className="update-post">
           <textarea
-            defaultValue={card.message}
+            defaultValue={post.message}
             onChange={(e) => setTextUpdate(e.target.value)}
           />
           <div className="button-container">
@@ -106,4 +81,4 @@ const Cards = ({ card }) => {
   );
 };
 
-export default Cards;
+export default Card;

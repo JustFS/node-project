@@ -1,18 +1,21 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../actions/actionsRoot";
 
-const FollowHandler = ({ authorId, followerId }) => {
+const FollowHandler = ({ posterId, followerId }) => {
   const [alreadyFollow, setAlreadyFollow] = useState(false);
   const [followingList, setFollowingList] = useState([]);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
 
   const handleFollow = (url, bool) => {
     axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/user/` + url + `/` + followerId,
       data: {
-        idTo: authorId,
+        idTo: posterId,
       },
     })
       .then(() => setAlreadyFollow(bool))
@@ -22,24 +25,12 @@ const FollowHandler = ({ authorId, followerId }) => {
   };
 
   useEffect(() => {
-    const followCheck = async () => {
-      if (followerId) {
-        await axios({
-          method: "get",
-          url: `${process.env.REACT_APP_API_URL}api/user/` + followerId,
-        })
-          .then((res) => {
-            setFollowingList(res.data.following);
-          })
-          .catch((err) => console.log(err));
-      }
-    };
-    followCheck();
+// A REVOIR
 
     if (followingList && followerId) {
-      if (followingList.includes(authorId)) setAlreadyFollow(true);
+      if (followingList.includes(posterId)) setAlreadyFollow(true);
     }
-  }, [authorId, followerId, followingList]);
+  }, [posterId, followingList]);
 
   return (
     <>

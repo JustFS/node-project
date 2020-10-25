@@ -1,45 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
 import { UidContext } from "../AppContext";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost, getPosts, getUser } from "../../actions/actionsRoot";
 
 const NewQuoteForm = () => {
   const [message, setMessage] = useState("");
-  const [userData, setUserData] = useState([]);
+  const [posterPic, setPosterPic] = useState("");
+  const [posterPseudo, setPosterPseudo] = useState("");
   const [following, setFollowing] = useState(Number);
   const [followers, setFollowers] = useState(Number);
+  const userData = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   const uid = useContext(UidContext);
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
 
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/post`,
-      data: {
-        userId: uid,
-        message,
-      },
-    })
-      .then((res) => setMessage(""))
-      .catch((err) => console.log(err));
+    await dispatch(addPost(uid, message, posterPic, posterPseudo));
+    dispatch(getPosts());
+    setMessage("");
   };
 
   useEffect(() => {
-    const getUserData = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-      })
-        .then((res) => {
-          setUserData(res.data);
-          setFollowing(res.data.following.length);
-          setFollowers(res.data.followers.length);
-        })
-        .catch((err) => console.log(err));
-    };
-    getUserData();
+    dispatch(getUser(uid));
   }, [uid]);
 
   return (

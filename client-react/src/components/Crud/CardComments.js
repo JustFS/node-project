@@ -4,12 +4,15 @@ import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../actions/actionsRoot";
 
 const CardComments = ({ post, followers }) => {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState("");
-
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
   const uid = useContext(UidContext);
 
   const handleComment = (e) => {
@@ -33,18 +36,11 @@ const CardComments = ({ post, followers }) => {
   };
 
   useEffect(() => {
-    const getName = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-      })
-        .then((res) => {
-          setName(res.data.pseudo);
-          setPic(res.data.picture);
-        })
-        .catch((err) => console.log(err));
-    };
-    if (uid) getName();
+    if (uid) {
+      dispatch(getUser(uid));
+    }
+    setName(userData.pseudo);
+    setPic(userData.picture);
   }, [uid]);
 
   return (

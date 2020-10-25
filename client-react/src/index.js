@@ -9,13 +9,13 @@ import rootReducer from './reducers';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { setPosts } from './actions';
+import { getPosts } from './actions/actionsRoot';
 
 const store = createStore(
   rootReducer, composeWithDevTools(applyMiddleware(thunk, logger))
 );
 
-store.dispatch(setPosts());
+store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>
