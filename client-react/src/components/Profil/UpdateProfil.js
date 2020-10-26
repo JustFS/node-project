@@ -3,11 +3,14 @@ import { UidContext } from "../AppContext";
 import axios from "axios";
 import { dateParser } from "../Utils";
 import UploadImg from "./UploadImg";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../actions/actionsRoot";
 
 const UpdateProfil = () => {
-  const [userData, setUserData] = useState({});
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer.user);
   const uid = useContext(UidContext);
 
   const isUpdated = () => {
@@ -33,15 +36,9 @@ const UpdateProfil = () => {
   };
 
   useEffect(() => {
-    const getUserData = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-      })
-        .then((res) => setUserData(res.data))
-        .catch((err) => console.log(err));
-    };
-    getUserData();
+    if (uid) {
+      dispatch(getUser(uid));
+    }
   }, [uid, updateForm, bio]);
 
   return (

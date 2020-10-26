@@ -1,10 +1,13 @@
 import axios from "axios";
+import { createDispatchHook } from "react-redux";
 
 // posts
 export const GET_POSTS = "GET_POSTS";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
+// comments
+export const ADD_COMMENT = "ADD_COMMENT";
 
 // users
 export const GET_USER = "GET_USER"
@@ -76,12 +79,36 @@ export const deletePost = (postId) => {
   };
 }
 
+export const addComment = (cardId, commenterId, text, commenterPic, commenterPseudo) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/post/comment-post/` + cardId,
+      data: {commenterId, text, commenterPic, commenterPseudo}
+    })
+      .then((res) => {
+        dispatch({
+          type: ADD_COMMENT,
+          payload: {
+            commenterId, 
+            text, 
+            commenterPic, 
+            commenterPseudo
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+}
+
 export const getUser = (uid) => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/user/${uid}`)
       .then((res) => {
-        dispatch({ type: GET_USERS, payload: res.data });
+        dispatch({ type: GET_USER, payload: res.data });
       })
       .catch((err) => {
         console.log("error", err);

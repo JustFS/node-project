@@ -8,7 +8,7 @@ const FollowHandler = ({ posterId, followerId }) => {
   const [alreadyFollow, setAlreadyFollow] = useState(false);
   const [followingList, setFollowingList] = useState([]);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer);
+  const userData = useSelector((state) => state.userReducer.user);
 
   const handleFollow = (url, bool) => {
     axios({

@@ -1,20 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
 import Logout from "./Log/Logout";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../actions/actionsRoot";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const uid = useContext(UidContext);
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer);
-
-  useEffect(() => {
-    if (uid) {
-      dispatch(getUser(uid));
-    }
-  }, [uid]);
+  const userData = useSelector((state) => state.userReducer.user);
   
   return (
     <nav>

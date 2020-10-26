@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import DeleteCard from "./DeleteCard";
 import { UidContext } from "../AppContext";
 import LikeButton from "./LikeButton";

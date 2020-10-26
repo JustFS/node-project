@@ -6,11 +6,7 @@ import { addPost, getPosts, getUser } from "../../actions/actionsRoot";
 
 const NewQuoteForm = () => {
   const [message, setMessage] = useState("");
-  const [posterPic, setPosterPic] = useState("");
-  const [posterPseudo, setPosterPseudo] = useState("");
-  const [following, setFollowing] = useState(Number);
-  const [followers, setFollowers] = useState(Number);
-  const userData = useSelector((state) => state.userReducer);
+  const userData = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
 
   const uid = useContext(UidContext);
@@ -18,7 +14,7 @@ const NewQuoteForm = () => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    await dispatch(addPost(uid, message, posterPic, posterPseudo));
+    await dispatch(addPost(uid, message, userData.picture, userData.pseudo));
     dispatch(getPosts());
     setMessage("");
   };
@@ -31,10 +27,10 @@ const NewQuoteForm = () => {
     <div className="post-container">
       <div className="data">
         <p>
-          <span>{following}</span> Abonnement{following > 1 ? "s" : null}
+          <span>{userData.following ? userData.following.length : 0}</span> Abonnement{userData.following && userData.following.length > 1 ? "s" : null}
         </p>
         <p>
-          <span>{followers}</span> Abonné{followers > 1 ? "s" : null}
+          <span>{userData.followers ? userData.followers.length : 0}</span> Abonné{userData.followers && userData.following.length > 1 ? "s" : null}
         </p>
       </div>
       <NavLink exact to="/profil">

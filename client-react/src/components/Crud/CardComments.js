@@ -1,46 +1,31 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UidContext } from "../AppContext";
-import axios from "axios";
 import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../actions/actionsRoot";
+import { addComment, getPosts, getUser } from "../../actions/actionsRoot";
 
 const CardComments = ({ post, followers }) => {
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [pic, setPic] = useState("");
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer);
+  const userData = useSelector((state) => state.userReducer.user);
   const uid = useContext(UidContext);
 
   const handleComment = (e) => {
     e.preventDefault();
 
     if (text) {
-      axios({
-        method: "patch",
-        url:
-          `${process.env.REACT_APP_API_URL}api/post/comment-post/` + post._id,
-        data: {
-          commenterId: uid,
-          commenterPic: pic,
-          pseudo: name,
-          text,
-        },
-      })
-        .then((res) => setText(""))
-        .catch((err) => console.log(err));
-    }
+      dispatch(addComment(post._id, uid, text, userData.picture, userData.pseudo));
+      dispatch(getPosts());
+      setText("")    
   };
+}
 
   useEffect(() => {
     if (uid) {
       dispatch(getUser(uid));
     }
-    setName(userData.pseudo);
-    setPic(userData.picture);
   }, [uid]);
 
   return (
