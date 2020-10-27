@@ -1,32 +1,24 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UidContext } from "../AppContext";
+import React, { useState } from "react";
 import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, getPosts, getUser } from "../../actions/actionsRoot";
+import { addComment, getPosts } from "../../actions/actionsRoot";
 
 const CardComments = ({ post, followers }) => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer.user);
-  const uid = useContext(UidContext);
 
   const handleComment = (e) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(addComment(post._id, uid, text, userData.picture, userData.pseudo));
-      dispatch(getPosts());
-      setText("")    
+      dispatch(addComment(post._id, userData._id, text, userData.picture, userData.pseudo))
+      .then(() => dispatch(getPosts()))
+      .then(() => setText(""))  
   };
 }
-
-  useEffect(() => {
-    if (uid) {
-      dispatch(getUser(uid));
-    }
-  }, [uid]);
 
   return (
     <div className="comments-container">
@@ -39,23 +31,23 @@ const CardComments = ({ post, followers }) => {
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  <h3>{comment.pseudo}</h3>
-                  {comment.commenterId !== uid && (
+                  <h3>{comment.commenterPseudo}</h3>
+                  {comment.commenterId !== userData._id && (
                     <FollowHandler
                       authorId={comment.commenterId}
-                      followerId={uid}
+                      followerId={userData._id}
                     />
                   )}
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
-              <EditDeleteComment comment={comment} cardId={post._id} />
+              <EditDeleteComment comment={comment} postId={post._id} />
             </div>
           </div>
         );
       })}
-      {uid && (
+      {userData._id && (
         <form onSubmit={handleComment} className="comment-form">
           <input
             type="text"

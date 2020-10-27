@@ -20,8 +20,8 @@ const Card = ({ post }) => {
 
   const updateItem = async () => {
     if (textUpdate) {
-      await dispatch(updatePost(post._id, textUpdate));
-      dispatch(getPosts())
+      await dispatch(updatePost(post._id, textUpdate))
+      .then(() => dispatch(getPosts()));
     }
     setIsUpdated(false);
   };

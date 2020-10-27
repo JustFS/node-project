@@ -1,38 +1,32 @@
 import React, { useState, useContext, useEffect } from "react";
+import { deleteComment, editComment } from "../../actions/actionsRoot";
 import { UidContext } from "../AppContext";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
-const EditDeleteComment = ({ comment, cardId }) => {
+const EditDeleteComment = ({ comment, postId }) => {
   const [text, setText] = useState("");
   const [edit, setEdit] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
   const uid = useContext(UidContext);
+  const dispatch = useDispatch();
 
-  const handleEdit = () => {
+  const isEditing = () => {
     setEdit(!edit);
   };
 
-  const handleEditDelete = (e, url) => {
+  const handleEdit = (e) => {
     e.preventDefault();
 
-    axios({
-      method: "patch",
-      url:
-        `${process.env.REACT_APP_API_URL}api/post/` +
-        url +
-        `-comment-post/` +
-        cardId,
-      data: {
-        commentId: comment._id,
-        text: text ? text : comment.text,
-      },
-    })
-      .then((res) => {
-        setText("");
-        setEdit(false);
-      })
-      .catch((err) => console.log(err));
+    if (text) {
+      dispatch(editComment(postId, comment._id, text))
+      setText("");
+      setEdit(false);
+    }
   };
+
+  const handleDelete = () => {
+    dispatch(deleteComment(postId, comment._id))
+  }
 
   useEffect(() => {
     const checkAuthor = () => {
@@ -46,16 +40,16 @@ const EditDeleteComment = ({ comment, cardId }) => {
   return (
     <div className="edit-comment">
       {isAuthor && edit === false && (
-        <span onClick={handleEdit}>
+        <span onClick={isEditing}>
           <i className="fas fa-pen"></i>
         </span>
       )}
       {isAuthor && edit && (
         <form
-          onSubmit={(e) => handleEditDelete(e, "edit")}
+          onSubmit={e => handleEdit(e)}
           className="comment-form"
         >
-          <label onClick={handleEdit} htmlFor="text">
+          <label onClick={isEditing} htmlFor="text">
             Editer
           </label>
           <br />
@@ -68,10 +62,8 @@ const EditDeleteComment = ({ comment, cardId }) => {
           <br />
           <input type="submit" value="Valider modification" />
           <button
-            onClick={(e) => {
-              if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
-                handleEditDelete(e, "delete");
-              }
+            onClick={() => {
+              if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {handleDelete()}
             }}
           >
             Supprimer commentaire

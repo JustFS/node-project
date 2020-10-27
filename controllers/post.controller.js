@@ -132,7 +132,7 @@ module.exports.commentPost = (req, res) => {
           comments: {
             commenterId: req.body.commenterId,
             commenterPic: req.body.commenterPic,
-            pseudo: req.body.pseudo,
+            commenterPseudo: req.body.commenterPseudo,
             text: req.body.text,
             timestamp: new Date().getTime(),
           },
@@ -155,8 +155,7 @@ module.exports.editCommentPost = (req, res) => {
 
   try {
     return PostModel.findById(req.params.id, (err, docs) => {
-      const { comments } = docs
-      const theComment = comments.find((comment) =>
+      const theComment = docs.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
 
