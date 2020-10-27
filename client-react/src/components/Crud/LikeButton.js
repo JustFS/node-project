@@ -1,35 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UidContext } from "../AppContext";
-import axios from "axios";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { useDispatch } from "react-redux";
+import { likePost, unlikePost } from "../../actions/postActions";
 
 const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
-
+  const dispatch = useDispatch();
   const uid = useContext(UidContext);
 
-  const fetchLike = (type, bool) => {
-    axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/` + type + `-post/` + post._id,
-      data: {
-        id: uid,
-      },
-    })
-      .catch((err) => {
-        console.log(err);
-      });
-    setLiked(bool);
+  const like = () => {
+    dispatch(likePost(post._id, uid))
+    setLiked(true);
   };
+  const unlike = () => {
+    dispatch(unlikePost(post._id, uid))
+    setLiked(false);
+  }
 
   useEffect(() => {
-    const isLiked = async () => {
       if (post.likers.includes(uid)) setLiked(true);
       else setLiked(false);
-    };
-    
-    isLiked();
+
   }, [uid, post.likers, liked]);
 
   return (
@@ -40,10 +33,10 @@ const LikeButton = ({ post }) => {
         </Popup>
       }
       {uid && liked === false && (
-        <i onClick={() => fetchLike("like", true)} className="far fa-heart"></i>
+        <i onClick={like} className="far fa-heart"></i>
       )}
       {uid && liked && (
-        <i onClick={() => fetchLike("unlike", false)} className="fas fa-heart"></i>
+        <i onClick={unlike} className="fas fa-heart"></i>
       )}
       <span>{post.likers.length}</span>
     </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { dateParser } from "../Utils";
 import UploadImg from "./UploadImg";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../actions/actionsRoot";
+import { getUser } from "../../actions/userActions";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");

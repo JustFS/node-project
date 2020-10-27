@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { UidContext } from "../AppContext";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost, getPosts, getUser } from "../../actions/actionsRoot";
+import { addPost, getPosts } from "../../actions/postActions";
+import { getUser } from "../../actions/userActions";
 
 const NewQuoteForm = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ const NewQuoteForm = () => {
             <p>
               <span>{userData.followers ? userData.followers.length : 0}</span>{" "}
               Abonné
-              {userData.followers && userData.following.length > 1 ? "s" : null}
+              {userData.followers && userData.followers.length > 1 ? "s" : null}
             </p>
           </div>
           <NavLink exact to="/profil">

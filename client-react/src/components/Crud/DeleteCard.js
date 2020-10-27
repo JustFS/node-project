@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deletePost, getPosts } from "../../actions/actionsRoot";
+import { deletePost, getPosts } from "../../actions/postActions";
 
 const DeleteCard = (props) => {
   const dispatch = useDispatch();

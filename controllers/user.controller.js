@@ -52,7 +52,7 @@ module.exports.deleteUser = async (req, res) => {
 };
 
 module.exports.follow = async (req, res) => {
-  if (!req.body.idTo || !req.params.id) {
+  if (!req.body.authorId || !req.params.id) {
     return res.status(404).json({ message: "ID not found" });
   }
 
@@ -60,7 +60,7 @@ module.exports.follow = async (req, res) => {
     // add to the follower list
     await UserModel.findByIdAndUpdate(
       req.params.id,
-      { $addToSet: { following: req.body.idTo } },
+      { $addToSet: { following: req.body.authorId } },
       { new: true, upsert: true },
       (err, doc) => {
         if (!err) res.status(201).json(doc);
@@ -69,7 +69,7 @@ module.exports.follow = async (req, res) => {
     );
     // add to following list
     await UserModel.findByIdAndUpdate(
-      req.body.idTo,
+      req.body.authorId,
       { $addToSet: { followers: req.params.id } },
       { new: true, upsert: true },
       (err, doc) => {
@@ -83,14 +83,14 @@ module.exports.follow = async (req, res) => {
 };
 
 module.exports.unfollow = async (req, res) => {
-  if (!req.body.idTo || !req.params.id) {
+  if (!req.body.authorId || !req.params.id) {
     return res.status(404).json({ message: "No ID found" });
   }
 
   try {
     await UserModel.findByIdAndUpdate(
       req.params.id,
-      { $pull: { following: req.body.idTo } },
+      { $pull: { following: req.body.authorId } },
       { new: true, upsert: true },
       (err, doc) => {
         if (!err) res.status(200).json(doc);
@@ -98,7 +98,7 @@ module.exports.unfollow = async (req, res) => {
       }
     );
     await UserModel.findByIdAndUpdate(
-      req.body.idTo,
+      req.body.authorId,
       { $pull: { followers: req.params.id } },
       { new: true, upsert: true },
       (err, doc) => {

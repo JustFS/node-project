@@ -6,7 +6,7 @@ import CardComments from "./CardComments";
 import { dateParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch } from "react-redux";
-import { getPosts, updatePost } from "../../actions/actionsRoot";
+import { getPosts, updatePost } from "../../actions/postActions";
 
 const Card = ({ post }) => {
   const [isUpdated, setIsUpdated] = useState(false);
@@ -36,7 +36,7 @@ const Card = ({ post }) => {
           <div className="pseudo">
             <h3>{post.posterPseudo}</h3>
             {post.posterId !== uid && (
-              <FollowHandler posterId={post.posterId} followerId={uid} />
+              <FollowHandler authorId={post.posterId} followerId={uid} />
             )}
           </div>
           <span>publié le {dateParser(post.createdAt)}</span>

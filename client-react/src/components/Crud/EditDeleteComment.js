@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { deleteComment, editComment } from "../../actions/actionsRoot";
+import { deleteComment, editComment } from "../../actions/postActions";
 import { UidContext } from "../AppContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const EditDeleteComment = ({ comment, postId }) => {
   const [text, setText] = useState("");

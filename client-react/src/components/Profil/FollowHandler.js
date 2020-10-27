@@ -1,46 +1,40 @@
 import React from "react";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../actions/actionsRoot";
+import { followUser, unfollowUser } from "../../actions/userActions";
 
-const FollowHandler = ({ posterId, followerId }) => {
-  const [alreadyFollow, setAlreadyFollow] = useState(false);
-  const [followingList, setFollowingList] = useState([]);
+const FollowHandler = ({ authorId }) => {
+  const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer.user);
 
-  const handleFollow = (url, bool) => {
-    axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/user/` + url + `/` + followerId,
-      data: {
-        idTo: posterId,
-      },
-    })
-      .then(() => setAlreadyFollow(bool))
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleFollow = () => {
+    dispatch(followUser(userData._id, authorId));
+    setIsFollowed(true);
+  };
+
+  const handleUnfollow = () => {
+    dispatch(unfollowUser(userData._id, authorId));
+    setIsFollowed(false);
   };
 
   useEffect(() => {
-// A REVOIR
-
-    if (followingList && followerId) {
-      if (followingList.includes(posterId)) setAlreadyFollow(true);
-    }
-  }, [posterId, followingList]);
+      if (userData.following) {
+        if (userData.following.includes(authorId)){
+          setIsFollowed(true);
+        } else setIsFollowed(false);
+      } 
+  }, [userData])
 
   return (
     <>
-      {alreadyFollow && (
-        <span onClick={() => handleFollow("unfollow", false)}>
+      {isFollowed ? (
+        <span onClick={handleUnfollow}>
           <i className="fas fa-check-circle"></i>
         </span>
-      )}
-      {alreadyFollow === false && (
-        <span onClick={() => handleFollow("follow", true)}>
+      ) : (
+        <span onClick={handleFollow}>
           <i className="far fa-check-circle"></i>
         </span>
       )}

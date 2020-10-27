@@ -3,7 +3,7 @@ import EditDeleteComment from "./EditDeleteComment";
 import { timestampParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, getPosts } from "../../actions/actionsRoot";
+import { addComment, getPosts } from "../../actions/postActions";
 
 const CardComments = ({ post, followers }) => {
   const [text, setText] = useState("");
