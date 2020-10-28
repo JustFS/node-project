@@ -3,7 +3,7 @@ import Log from "../components/Log";
 import NewQuoteForm from "../components/Crud/NewQuoteForm";
 import Thread from "../components/Crud/Thread";
 import { UidContext } from "../components/AppContext";
-import GetFriends from "../components/Profil/GetFriends";
+// import GetFriends from "../components/Profil/GetFriends";
 
 const Home = () => {
 
@@ -14,7 +14,7 @@ const Home = () => {
       <div className="home-header">
         {uid ? <NewQuoteForm /> : <Log />}
       </div>
-      <GetFriends />
+      {/* <GetFriends /> */}
       <Thread />
     </div>
   );

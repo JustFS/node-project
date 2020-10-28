@@ -4,6 +4,7 @@ export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
 export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
+export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 
 export const getUser = (uid) => {
   return (dispatch) => {
@@ -68,3 +69,15 @@ export const unfollowUser = (followerId, authorId) => {
       });
   };
 };
+
+export const uploadPicture = (data) => {
+  return (dispatch) => {
+      // axios.post(`https://httpbin.org/anything`, data)
+      return axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}api/user/upload`, data
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+}

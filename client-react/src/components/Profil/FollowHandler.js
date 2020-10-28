@@ -25,7 +25,7 @@ const FollowHandler = ({ authorId }) => {
           setIsFollowed(true);
         } else setIsFollowed(false);
       } 
-  }, [userData])
+  }, [userData, authorId])
 
   return (
     <>
