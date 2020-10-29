@@ -8,16 +8,13 @@ const PostSchema = new mongoose.Schema(
     },
     message: {
       type: String,
-      required: [true, "Merci d'entrer un message"],
       trim: true,
     },
-    posterPic: {
+    picture: {
       type: String,
-      required: true
     },
-    posterPseudo: {
+    video: {
       type: String,
-      required: true
     },
     likers: {
       type: [String],

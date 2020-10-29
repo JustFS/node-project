@@ -24,29 +24,12 @@ export const getPosts = () => {
       });
   };
 };
-export const addPost = (posterId, message, posterPic, posterPseudo) => {
-  return (dispatch) => {
-    return axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/post`,
-      data: { posterId, message, posterPic, posterPseudo },
-    })
-      .then((res) => {
-        dispatch({
-          type: ADD_POST,
-          payload: {
-            posterId,
-            message,
-            posterPic,
-            posterPseudo,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
+export const addPost = (data) => {
+  return () => {
+    return axios.post(`${process.env.REACT_APP_API_URL}api/post`, data)
   };
 };
+
 export const updatePost = (postId, message) => {
   return (dispatch) => {
     return axios({

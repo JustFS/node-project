@@ -7,7 +7,7 @@
       margin: 10px 0;
     }
     .post-container {
-      width: 450px;
+      width: 700px;
       margin: 40px auto 0;
       padding: 16px 0;
       border: 3px solid $color-1;
@@ -39,7 +39,6 @@
       }
       .post-form {
         position: relative;
-        width: 330px;
         margin: 0 auto 36px;
 
         textarea {
@@ -51,6 +50,21 @@
           width: 100px;
           position: absolute;
           right: 0;
+        }
+        .card-container {
+          min-width: 600px;
+
+          .content {
+            p {
+              text-align: left;
+              margin: 4px 0;
+            }
+            img {
+              width: 100%;
+              border-radius: 6px;
+              margin-top: 12px;
+            }
+          }
         }
       }
     }

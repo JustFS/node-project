@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
-import axios from "axios";
 import { dateParser } from "../Utils";
 import UploadImg from "./UploadImg";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../actions/userActions";
+import { getUser, uploadBio } from "../../actions/userActions";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
@@ -13,25 +12,11 @@ const UpdateProfil = () => {
   const userData = useSelector((state) => state.userReducer.user);
   const uid = useContext(UidContext);
 
-  const isUpdated = () => {
-    setUpdateForm(!updateForm);
-  };
+  const isUpdated = () => setUpdateForm(!updateForm);
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios({
-      method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/user/` + uid,
-      data: {
-        bio,
-      },
-    })
-      .then((res) => {
-        console.log("Modifié");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(uploadBio(userData._id, bio))
     setUpdateForm(false);
   };
 
@@ -39,7 +24,7 @@ const UpdateProfil = () => {
     if (uid) {
       dispatch(getUser(uid));
     }
-  }, [uid, updateForm, bio]);
+  }, [uid]);
 
   return (
     <div className="update-container">

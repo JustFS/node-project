@@ -1,6 +1,9 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
+const fs = require("fs");
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
 
 // mongoose.set('useFindAndModify', false);
 
@@ -12,11 +15,24 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
+  console.log(req.body);
+  // if (req.file.reportedFileExtension != ".jpg") throw(new Error("invalid file type"));
+  const fileName = req.body.posterId + Date.now() + ".jpg";
+
+  if (req.file) {
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(
+        `${__dirname}/../client-react/public/uploads/posts/${fileName}`
+      )
+    );
+  }
+
   const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
-    posterPic: req.body.posterPic,
-    posterPseudo: req.body.posterPseudo,
+    picture: "./uploads/posts/" + fileName,
+    video: req.body.video,
     likers: [],
     comments: [],
   });
@@ -72,7 +88,7 @@ module.exports.likePost = async (req, res) => {
       (err, docs) => {
         if (err) return res.status(400).send(err);
       }
-    )
+    );
     await UserModel.findByIdAndUpdate(
       req.body.id,
       {
@@ -165,7 +181,6 @@ module.exports.editCommentPost = (req, res) => {
       return docs.save((err) => {
         if (!err) return res.status(200).send(docs);
         return res.status(500).send(err);
-        
       });
     });
   } catch (err) {
@@ -177,23 +192,23 @@ module.exports.deleteCommentPost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
-    try {
-      return PostModel.findByIdAndUpdate(
-        req.params.id,
-        {
-          $pull: {
-            comments: {
-              _id: req.body.commentId
-            }
-          }
+  try {
+    return PostModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        $pull: {
+          comments: {
+            _id: req.body.commentId,
+          },
         },
-        { new: true },
-        (err, docs) => {
-          if (!err) return res.send(docs);
-          return res.status(400).send(err);
-        }
-      );
-    } catch (err) {
-      return res.status(400).send(err);
-    }
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) return res.send(docs);
+        return res.status(400).send(err);
+      }
+    );
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };

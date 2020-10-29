@@ -1,4 +1,4 @@
-import { FOLLOW_USER, GET_USER, GET_USERS, UNFOLLOW_USER } from "../actions/userActions";
+import { FOLLOW_USER, GET_USER, GET_USERS, UNFOLLOW_USER, UPDATE_BIO } from "../actions/userActions";
 
 const initialState = { user: [], users: [] };
 
@@ -22,6 +22,14 @@ export default function userReducer(state = initialState, action) {
           ...state.user,
           following: state.user.following.filter(id => id !== action.payload.authorId)
 
+        },
+        users: state.users
+      }
+    case UPDATE_BIO:
+      return {
+        user: {
+          ...state.user,
+          bio: action.payload
         },
         users: state.users
       }
