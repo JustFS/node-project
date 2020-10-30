@@ -11,14 +11,14 @@ module.exports.uploadProfil = async (req, res) => {
   await pipeline(
     req.file.stream,
     fs.createWriteStream(
-      `${__dirname}/../client-react/public/uploads/${fileName}`
+      `${__dirname}/../client-react/public/uploads/profil/${fileName}`
     )
   );
   // update file name
   try {
     await UserModel.findOneAndUpdate(
       { _id: req.body.userId },
-      { $set: {picture: "./uploads/" + fileName}},
+      { $set: {picture: "./uploads/profil/" + fileName}},
       { new: true, upsert: true, setDefaultsOnInsert: true },
       (err, docs) => {
         if (!err) return res.send(docs);

@@ -5,8 +5,6 @@ const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 
-// mongoose.set('useFindAndModify', false);
-
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
     if (!err) res.send(docs);
@@ -15,11 +13,11 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  console.log(req.body);
+  console.log(req.file);
   // if (req.file.reportedFileExtension != ".jpg") throw(new Error("invalid file type"));
   const fileName = req.body.posterId + Date.now() + ".jpg";
 
-  if (req.file) {
+  if (req.file !== null) {
     await pipeline(
       req.file.stream,
       fs.createWriteStream(
@@ -31,7 +29,7 @@ module.exports.createPost = async (req, res) => {
   const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
-    picture: "./uploads/posts/" + fileName,
+    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
     video: req.body.video,
     likers: [],
     comments: [],

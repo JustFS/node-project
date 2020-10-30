@@ -12,7 +12,7 @@ export default function userReducer(state = initialState, action) {
       return {
         user: {
           ...state.user,
-          following: [action.payload.authorId, ...state.user.following],
+          following: [action.payload.idToFollow, ...state.user.following],
         },
         users: state.users,
       };
@@ -20,7 +20,7 @@ export default function userReducer(state = initialState, action) {
       return {
         user: {
           ...state.user,
-          following: state.user.following.filter(id => id !== action.payload.authorId)
+          following: state.user.following.filter(id => id !== action.payload.idToFollow)
 
         },
         users: state.users

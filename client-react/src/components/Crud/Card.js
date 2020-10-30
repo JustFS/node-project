@@ -63,46 +63,13 @@ const Card = ({ post }) => {
               <div className="pseudo">
                 <h3>{pseudo}</h3>
                 {post.posterId !== uid && (
-                  <FollowHandler authorId={post.posterId} followerId={uid} />
+                  <FollowHandler idToFollow={post.posterId} type={'card'} />
                 )}
               </div>
-              <span>publié le {dateParser(post.createdAt)}</span>
+              <span>{dateParser(post.createdAt)}</span>
             </div>
-            {isUpdated === false && (
-              <>
-                <p>{post.message}</p>
-                {post.picture && <img src={post.picture} alt=""/> }
-                {post.video && <iframe
-                  width="500"
-                  height="300"
-                  src={post.video}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>}
-                {uid === post.posterId && (
-                  <div className="button-container">
-                    <button onClick={() => setIsUpdated(true)}>Modifier</button>
-                    <DeleteCard id={post._id} />
-                  </div>
-                )}
-                <div className="card-footer">
-                  <div className="comment-icon">
-                    <i
-                      onClick={handleShowComments}
-                      className="far fa-comment-alt"
-                    ></i>
-                    <span>{post.comments.length}</span>
-                  </div>
-                  <LikeButton post={post} />
-                  <i className="fas fa-share-alt"></i>
-                </div>
-                {showComments && <CardComments post={post} />}
-              </>
-            )}
-          </div>
-          <span></span>
-          {isUpdated && (
+            {isUpdated === false && <p>{post.message}</p>}
+            {isUpdated && (
             <div className="update-post">
               <textarea
                 defaultValue={post.message}
@@ -113,6 +80,38 @@ const Card = ({ post }) => {
               </div>
             </div>
           )}
+            {post.picture && <img src={post.picture} alt="" />}
+            {post.video && (
+              <iframe
+                width="500"
+                height="300"
+                src={post.video}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+            {uid === post.posterId && (
+              <div className="button-container">
+                <button onClick={() => setIsUpdated(true)}>Modifier</button>
+                <DeleteCard id={post._id} />
+              </div>
+            )}
+            <div className="card-footer">
+              <div className="comment-icon">
+                <i
+                  onClick={handleShowComments}
+                  className="far fa-comment-alt"
+                ></i>
+                <span>{post.comments.length}</span>
+              </div>
+              <LikeButton post={post} />
+              <i className="fas fa-share-alt"></i>
+            </div>
+            {showComments && <CardComments post={post} />}
+          </div>
+          <span></span>
+
         </>
       )}
     </li>

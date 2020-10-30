@@ -1,11 +1,25 @@
 nav {
   display: flex;
+  position: fixed;
+  width: 100%;
   justify-content: space-between;
   height: 60px;
   align-items: center;
   padding: 0 20px;
-  margin: 0 0 18px;
   box-shadow: 16px 2px 0px $color-1, 30px 6px 0px 0px $shadow;
+  z-index: 10;
+  top: 0;
+
+  &::after {
+    content: '';
+    height: 60px;
+    width: 110%;
+    left: -20px;
+    position: absolute;
+    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.8);
+    z-index: -8;
+  }
 
   .icon {
     display: flex;

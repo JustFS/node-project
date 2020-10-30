@@ -76,6 +76,13 @@
       width: 100%;
       border-radius: 6px;
       margin-top: 12px;
+      box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
+    }
+    iframe {
+      width: 100%;
+      min-height: 330px;
+      border-radius: 6px;
+      box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
     }
     .button-container {
       text-align: right;

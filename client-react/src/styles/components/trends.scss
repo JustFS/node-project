@@ -1,0 +1,25 @@
+.trending-container {
+  background: $color-1;
+  border-radius: 25px;
+
+  h4 {
+    font-size: 1.4rem;
+    padding: 20px 0 0 20px;
+  }
+  ul {
+    padding: 10px 20px;
+    li {
+      p {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+      img {
+        height: 30px;
+        width: 70px;
+        border-radius: 4px;
+      }
+    }
+  }
+}

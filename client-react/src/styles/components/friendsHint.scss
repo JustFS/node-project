@@ -1,0 +1,33 @@
+.get-friends-container {
+  width: 350px;
+  background: $color-1;
+  border-radius: 30px;
+
+  h4 {
+    font-size: 1.4rem;
+    padding: 16px 0 0 22px;
+  }
+  ul {
+    width: 100%;
+    padding: 18px 0;
+
+    .user-hint {
+      display: grid;
+      grid-template-columns: 24% 44% 32%;
+      height: 65px;
+      align-items: center;
+
+      img {
+        height: 40px;
+        width: 40px;
+        border-radius: 150px;
+        margin-left: 22px;
+      }
+      p {
+        text-align: left;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -33,17 +33,17 @@ export const getUsers = () => {
   };
 };
 
-export const followUser = (followerId, authorId) => {
+export const followUser = (followerId, idToFollow) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/user/follow/` + followerId,
-      data: { authorId },
+      data: { idToFollow },
     })
       .then((res) => {
         dispatch({
           type: FOLLOW_USER,
-          payload: { authorId },
+          payload: { idToFollow },
         });
       })
       .catch((err) => {
@@ -52,17 +52,17 @@ export const followUser = (followerId, authorId) => {
   };
 };
 
-export const unfollowUser = (followerId, authorId) => {
+export const unfollowUser = (followerId, idToFollow) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/user/unfollow/` + followerId,
-      data: { authorId },
+      data: { idToFollow },
     })
       .then((res) => {
         dispatch({
           type: UNFOLLOW_USER,
-          payload: { authorId },
+          payload: { idToFollow },
         });
       })
       .catch((err) => {

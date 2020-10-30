@@ -16,6 +16,9 @@ const store = createStore(
 );
 
 store.dispatch(getPosts());
+// setInterval(() => {
+//   store.dispatch(getPosts());
+// }, 3000);
 
 ReactDOM.render(
   <Provider store={store}>

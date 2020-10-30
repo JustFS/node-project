@@ -1,0 +1,109 @@
+.home-header {
+  margin: 46px auto 16px;
+  text-align: center;
+
+  h1 {
+    margin: 10px 0;
+  }
+  .post-container {
+    max-width: 700px;
+    margin: 40px auto 0;
+    padding: 16px 0;
+    border: 3px solid $color-1;
+    border-radius: 4px;
+    box-shadow: -3px 3px 0 rgb(219, 218, 218);
+    position: relative;
+
+    .data {
+      position: absolute;
+      right: 10px;
+      text-align: right;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .user-info {
+      margin-bottom: 10px;
+      img {
+        border-radius: 150px;
+        height: 50px;
+        width: 50px;
+        box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.16);
+      }
+      h3 {
+        color: $black;
+      }
+    }
+    .post-form {
+      position: relative;
+      margin: 0 auto 36px;
+      max-width: 700px;
+
+      textarea {
+        height: 60px;
+        max-width: 530px;
+        font-size: 1.2rem;
+      }
+      .card-container {
+        max-width: 530px;
+
+        .content {
+          p {
+            text-align: left;
+            margin: 4px 0;
+          }
+          img {
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 12px;
+          }
+        }
+      }
+      .footer-form {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 530px;
+
+        .icon {
+          position: relative;
+          cursor: pointer;
+          width: 30px;
+          height: 20px;
+
+          i {
+            position: absolute;
+            font-size: 1.4rem;
+            transform: translate(-14px, -1px);
+          }
+
+          input {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            transform: translate(-16px, -3px);
+            opacity: 0;
+            cursor: pointer;
+
+            &::-webkit-file-upload-button {
+              cursor: pointer;
+            }
+          }
+          button {
+            width: 150px;
+            height: 22px;
+          }
+        }
+        .btn-send {
+          button {
+            width: 130px;
+            margin-left: 6px;
+            height: 22px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,9 +10,8 @@ const NewQuoteForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [playOnce, setPlayOnce] = useState(true);
   const [message, setMessage] = useState("");
-  const [postPicture, setPostPicture] = useState("");
+  const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
-  const [videoInput, setVideoInput] = useState(false);
   const userData = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
@@ -20,69 +19,61 @@ const NewQuoteForm = () => {
   const uid = useContext(UidContext);
 
   const handlePost = async () => {
-    const data = new FormData();
-    data.append("posterId", userData._id);
-    data.append('message', message);
-    data.append("file", file);
-    data.append('video', video);
+    if (message || postPicture || video) {
+      const data = new FormData();
+      data.append("posterId", userData._id);
+      data.append("message", message);
+      if (postPicture) {
+        data.append("file", file);
+      }
+      data.append("video", video);
 
-    await dispatch(addPost(data));
-    setMessage("");
-    setPostPicture("");
-    setVideo("");
-    setFile("");
-    setVideoInput("");
-    dispatch(getPosts());
-  };
-
-  const handleVideoInput = () => setVideoInput(!videoInput);
-
-  const handleEmbedVideo = () => {
-    let string = video.replace("watch?v=", "embed/");
-    setVideo(string.split("&")[0]);
+      await dispatch(addPost(data));
+      setMessage("");
+      setPostPicture("");
+      setVideo("");
+      setFile("");
+      dispatch(getPosts());
+    } else {
+      alert("Veuillez entrez un message");
+    }
   };
 
   const handlePicture = (e) => {
     setPostPicture(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
     setVideo("");
-  }
-
-  const handleVideo = (e) => {
-    setVideo(e.target.value);
-    setPostPicture("");
-  }
+  };
 
   const cancelPost = () => {
     setMessage("");
     setPostPicture("");
     setVideo("");
     setFile("");
-    setVideoInput("");
-  }
+  };
+
+  const handleVideo = () => {
+    let findLink = message.split(" ");
+    for (let i = 0; i < findLink.length; i++) {
+      if (
+        findLink[i].includes("https://www.yout") ||
+        findLink[i].includes("https://yout")
+      ) {
+        let embed = findLink[i].replace("watch?v=", "embed/");
+        setVideo(embed.split("&")[0]);
+        findLink.splice(i, 1);
+        setMessage(findLink.join(" "));
+        setPostPicture("");
+      }
+    }
+  };
 
   useEffect(() => {
-    if (playOnce){
+    if (playOnce) {
       dispatch(getUser(uid)).then(() => setIsLoading(false));
       setPlayOnce(false);
     }
-
-
-    let findLink = message.split(' ');
-    console.log(findLink);
-    for (let i = 0; i < findLink.length; i++) {
-      if (findLink[i].includes('https://www.yout') || findLink[i].includes('https://yout')){
-        let embed = findLink[i].replace("watch?v=", "embed/");
-        console.log(embed);
-        setVideo(embed.split("&")[0]);
-        // setVideo(findLink[i]);
-        // handleEmbedVideo();
-        findLink.splice(i, 1);
-        console.log('findLink:', findLink)
-        setMessage(findLink.toString());
-        
-      }
-    }
+    handleVideo();
   }, [uid, video, message]);
 
   return (
@@ -106,7 +97,6 @@ const NewQuoteForm = () => {
           <NavLink exact to="/profil">
             <div className="user-info">
               <img src={userData.picture} alt="user-img" />
-              <h3>{userData.pseudo}</h3>
             </div>
           </NavLink>
           <div className="post-form">
@@ -119,40 +109,6 @@ const NewQuoteForm = () => {
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
-            <br />
-            <div className="btn-form">
-              <div className="icons">
-                <i className="fas fa-image" htmlFor="file"></i>
-                <input
-                  type="file"
-                  name="file"
-                  id="file"
-                  accept=".jpg"
-                  onChange={(e) => handlePicture(e)}
-                />
-                {postPicture && (
-                  <button onClick={() => setPostPicture("")}>
-                    Supprimer image
-                  </button>
-                )}
-                <i className="fas fa-video" onClick={handleVideoInput}></i>
-                {videoInput && (
-                  <>
-                    <label htmlFor="">Copiez le lien youtube</label>
-                    <input
-                      type="text"
-                      defaultValue={video}
-                      onChange={(e) => handleVideo(e)}
-                    />
-                    {video && (
-                      <button onClick={() => setVideo("")}>
-                        Supprimer video
-                      </button>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
             {message || postPicture || video.length > 20 ? (
               <li className="card-container">
                 <div className="card-left">
@@ -170,8 +126,6 @@ const NewQuoteForm = () => {
                     <img src={postPicture} alt="" />
                     {video && (
                       <iframe
-                        width="500"
-                        height="300"
                         src={video}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -182,8 +136,35 @@ const NewQuoteForm = () => {
                 </div>
               </li>
             ) : null}
-            {message || postPicture || video.length > 20 ? <button onClick={cancelPost}>Annuler message</button> : null}
-            <button onClick={handlePost} >Envoyer</button>
+            <div className="footer-form">
+              <div className="icon">
+                {postPicture ? (
+                  <button onClick={() => setPostPicture("")}>
+                    Supprimer image
+                  </button>
+                ) : (
+                  <>
+                    <i className="fas fa-image" htmlFor="file-upload"></i>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      name="file"
+                      accept=".jpg"
+                      onChange={(e) => handlePicture(e)}
+                    />
+                  </>
+                )}
+                {video && (
+                  <button onClick={() => setVideo("")}>Supprimer video</button>
+                )}
+              </div>
+              <div className="btn-send">
+                {message || postPicture || video.length > 20 ? (
+                  <button onClick={cancelPost}>Annuler message</button>
+                ) : null}
+                <button onClick={handlePost}>Envoyer</button>
+              </div>
+            </div>
           </div>
         </>
       )}

@@ -1,4 +1,15 @@
-|||||| REDUX ||||||
+3 - lazy loading
+4 - finaliser profil
+5 - style
+6 - fichier pro
+7 - dossier pro 35 pages
+8 - powerpoint
+9 - vidéo !!!
+
+File rouge record site vitrine
+
+
+
 src/
 ├── actions
 │   └── counter.js
@@ -9,21 +20,3 @@ src/
 │   └── index.js
 └── store
     └── configureStore.js
-
-    Reducer produce the state of the app
-    reducer : 2 parameters : currentState + action
-    dispatch => send out signal (action) to the store
-    actions = type ('ADD_ARTICLE') + payload (data)
-
-1 - On établit les actions dans des constantes (ActionTypes). ex : export const INCREMENT = 'INCREMENT';
-2 - On définit les actions dans des fichiers spécifiques (counter.js)
-3 - Implémenter les méthodes réducers qui permettent de mettre à jour l'état de notre application (switch, met à jour le state)
-4 - Création du store
-5 - Incrémenter component:
-      - Counter.propTypes = {children, value, actions};
-      - Mapper le state const mapStateToProps = state => ({value: state.counter.current});
-      - Mapper les actions => const mapDispatchToProps = dispatch => ({actions: bindActionCreators(CounterActions, dispatch)});
-      - export default connect(
-          mapStateToProps,
-          mapDispatchToProps,
-        )(Counter);

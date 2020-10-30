@@ -14,11 +14,19 @@ const CardComments = ({ post, followers }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(addComment(post._id, userData._id, text, userData.picture, userData.pseudo))
-      .then(() => dispatch(getPosts()))
-      .then(() => setText(""))  
+      dispatch(
+        addComment(
+          post._id,
+          userData._id,
+          text,
+          userData.picture,
+          userData.pseudo
+        )
+      )
+        .then(() => dispatch(getPosts()))
+        .then(() => setText(""));
+    }
   };
-}
 
   return (
     <div className="comments-container">
@@ -33,10 +41,7 @@ const CardComments = ({ post, followers }) => {
                 <div className="pseudo">
                   <h3>{comment.commenterPseudo}</h3>
                   {comment.commenterId !== userData._id && (
-                    <FollowHandler
-                      authorId={comment.commenterId}
-                      followerId={userData._id}
-                    />
+                    <FollowHandler idToFollow={comment.commenterId} />
                   )}
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>
