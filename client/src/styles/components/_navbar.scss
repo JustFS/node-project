@@ -1,0 +1,57 @@
+nav {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  justify-content: space-between;
+  height: 50px;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 16px 2px 0px $color-1, 30px 6px 0px 0px $shadow;
+  z-index: 10;
+  top: 0;
+
+  &::after {
+    content: '';
+    height: 50px;
+    width: 110%;
+    left: -20px;
+    position: absolute;
+    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.8);
+    z-index: -8;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      transform: translate(13px,1px);
+      font-size: 1.3rem;
+    }
+    img {
+      height: 26px;
+      width: 26px;
+    }  
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    width: 35%;
+    justify-content: space-between;
+    font-size: 1.2rem;
+
+    .logout {
+      color: $color-2;
+      cursor: pointer;
+      padding: 8px;
+      transition: .2s;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  
+}

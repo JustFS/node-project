@@ -13,33 +13,43 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  console.log(req.file);
-  // if (req.file.reportedFileExtension != ".jpg") throw(new Error("invalid file type"));
-  const fileName = req.body.posterId + Date.now() + ".jpg";
+  console.log(req.file.detectedFileExtension);
+  if (
+    req.file.detectedFileExtension != ".jpg" &&
+    req.file.detectedFileExtension != ".png" &&
+    req.file.detectedFileExtension != ".jpeg"
+  )
+    return console.log("invalid file type");
 
-  if (req.file !== null) {
-    await pipeline(
-      req.file.stream,
-      fs.createWriteStream(
-        `${__dirname}/../client-react/public/uploads/posts/${fileName}`
-      )
-    );
-  }
+  const fileName = req.body.posterId + Date.now() + req.file.detectedFileExtension;
 
-  const newPost = new PostModel({
-    posterId: req.body.posterId,
-    message: req.body.message,
-    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
-    video: req.body.video,
-    likers: [],
-    comments: [],
-  });
+  if (req.file.size < 500000) {
+    if (req.file !== null) {
+      await pipeline(
+        req.file.stream,
+        fs.createWriteStream(
+          `${__dirname}/../client/public/uploads/posts/${fileName}`
+        )
+      );
+    }
 
-  try {
-    const post = await newPost.save();
-    return res.status(201).json(post);
-  } catch (err) {
-    return res.status(400).send(err);
+    const newPost = new PostModel({
+      posterId: req.body.posterId,
+      message: req.body.message,
+      picture: req.file !== null ? "./uploads/posts/" + fileName : "",
+      video: req.body.video,
+      likers: [],
+      comments: [],
+    });
+
+    try {
+      const post = await newPost.save();
+      return res.status(201).json(post);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  } else {
+    console.log("too big");
   }
 };
 
