@@ -149,7 +149,7 @@ const NewQuoteForm = () => {
                       id="file-upload"
                       type="file"
                       name="file"
-                      accept=".jpg"
+                      accept=".jpg, .jpeg, .png"
                       onChange={(e) => handlePicture(e)}
                     />
                   </>

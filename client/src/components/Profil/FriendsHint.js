@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { isEmpty } from "../Utils";
 import FollowHandler from "./FollowHandler";
 
 const FriendsHint = () => {
@@ -24,7 +25,7 @@ const FriendsHint = () => {
   };
 
   useEffect(() => {
-    if (playOnce && userData._id && usersData[0]._id) {
+    if (playOnce && !isEmpty(usersData) && !isEmpty(userData)) {
       notFriendList();
       setIsLoading(false);
       setPlayOnce(false);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
-import { dateParser } from "../Utils";
+import { dateParser, isEmpty } from "../Utils";
 import UploadImg from "./UploadImg";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, uploadBio } from "../../actions/user.actions";
@@ -16,32 +16,22 @@ const UpdateProfil = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(uploadBio(userData._id, bio))
+    dispatch(uploadBio(userData._id, bio));
     setUpdateForm(false);
   };
 
   useEffect(() => {
-    if (uid) {
-      dispatch(getUser(uid));
-    }
+    if (uid) dispatch(getUser(uid));
   }, [uid]);
 
   return (
     <div className="update-container">
       <div className="left-part">
-        <h3>Membre depuis le : {dateParser(userData.createdAt)} </h3>
-        <h3>pseudo : {userData.pseudo}</h3>
-        <h5>Changer Email</h5>
-        <input type="text" />
-        <div className="password">
-          <h3>Changer mot de passe</h3>
-          <h5>Mot de passe actuel : </h5>
-          <input type="password" />
-          <h5>Nouveau mot de passe</h5>
-          <input type="password" />
-          <h5>Confirmer mot de passe</h5>
-          <input type="password" />
-        </div>
+        <h1>{userData.pseudo}</h1>
+        <h3>Membre depuis le : {dateParser(userData.createdAt)}</h3>
+        <p>Abonnements : {!isEmpty(userData) ? userData.following.length : '0'}</p>
+        <p>Abonnés : {!isEmpty(userData) ? userData.followers.length : '0'}</p>
+
       </div>
       <div className="right-part">
         <h3>Photo de profil</h3>

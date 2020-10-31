@@ -15,6 +15,7 @@ const UploadImg = () => {
     data.append("userId", userData._id);
     
     dispatch(uploadPicture(data));
+    setFile('');
   };
 
   return (
@@ -24,7 +25,7 @@ const UploadImg = () => {
         type="file"
         id="file"
         name="file"
-        accept=".jpg"
+        accept=".jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}
       />
       <button onClick={handlePicture}>Send</button>

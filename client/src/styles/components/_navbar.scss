@@ -3,7 +3,7 @@ nav {
   position: fixed;
   width: 100%;
   justify-content: space-between;
-  height: 50px;
+  height: 45px;
   align-items: center;
   padding: 0 20px;
   box-shadow: 16px 2px 0px $color-1, 30px 6px 0px 0px $shadow;
@@ -12,7 +12,7 @@ nav {
 
   &::after {
     content: '';
-    height: 50px;
+    height: 45px;
     width: 110%;
     left: -20px;
     position: absolute;

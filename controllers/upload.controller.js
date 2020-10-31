@@ -4,7 +4,16 @@ const pipeline = promisify(require("stream").pipeline);
 const UserModel = require("../models/user.model");
 
 module.exports.uploadProfil = async (req, res) => {
-  // if (req.file.reportedFileExtension != ".jpg") throw(new Error("invalid file type"));
+  console.log('req.file:', req.file.detectedMimeType)
+  if (
+    req.file.detectedMimeType != "image/jpg" &&
+    req.file.detectedMimeType != "image/png" &&
+    req.file.detectedMimeType != "image/jpeg"
+  )
+    return console.log("invalid file type");
+
+  if (req.file.size > 500000) return console.log("too big");
+
   const fileName = req.body.name + '.jpg';
 
   await pipeline(

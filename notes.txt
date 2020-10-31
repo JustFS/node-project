@@ -1,5 +1,4 @@
-3 - lazy loading
-4 - finaliser profil
+3 - message images
 5 - style
 6 - fichier pro
 7 - dossier pro 35 pages
@@ -7,7 +6,7 @@
 9 - vidéo !!!
 
 File rouge record site vitrine
-
+File matin : recherche emploi
 
 
 src/
@@ -18,5 +17,4 @@ src/
 │   ├── another.js
 │   ├── counter.js
 │   └── index.js
-└── store
-    └── configureStore.js
+└── 

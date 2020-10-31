@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getTrends } from '../../actions/trending.actions';
+import { isEmpty } from "../Utils";
 
 const Trends = () => {
   const [playOnce, setPlayOnce] = useState(true);
@@ -12,13 +13,12 @@ const Trends = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (posts.length && playOnce) {
+    if (playOnce && !isEmpty(posts[0])) {
       const postsArr = Object.keys(posts).map((i) => posts[i]);
       let sortedArray = postsArr.sort((a, b) => {
         return b.likers.length - a.likers.length;
       });
       sortedArray.length = 5;
-      console.log(sortedArray);
       dispatch(getTrends(sortedArray));
       setPlayOnce(false);
     }
