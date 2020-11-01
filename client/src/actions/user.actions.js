@@ -6,6 +6,7 @@ export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
 export const UPDATE_BIO = "UPDATE_BIO";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
+export const GET_USER_ERRORS = "GET_USER_ERRORS";
 
 export const getUser = (uid) => {
   return (dispatch) => {
@@ -73,7 +74,8 @@ export const unfollowUser = (followerId, idToFollow) => {
 
 export const uploadBio = (userId, bio) => {
   return (dispatch) => {
-    return axios.put(`${process.env.REACT_APP_API_URL}api/user/` + userId, bio)
+    return axios
+      .put(`${process.env.REACT_APP_API_URL}api/user/` + userId, bio)
       .then((res) => {
         dispatch({
           type: UPDATE_BIO,
@@ -87,13 +89,15 @@ export const uploadBio = (userId, bio) => {
 export const uploadPicture = (data) => {
   return (dispatch) => {
     // axios.post(`https://httpbin.org/anything`, data)
-    return axios.post(`${process.env.REACT_APP_API_URL}api/user/upload`, data)
-      .then((res) =>
-        dispatch({
-          type: UPLOAD_PICTURE,
-          payload: {},
-        })
-      )
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data)
+      .then((res) => {
+        if (res.data.errors) {
+          dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
+        } else {
+          dispatch({ type: GET_USER_ERRORS, payload: "" });
+        }
+      })
       .catch((err) => console.log(err));
   };
 };

@@ -3,6 +3,7 @@ const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const { promisify } = require("util");
+const { uploadErrors } = require("../utils/errors.utils");
 const pipeline = promisify(require("stream").pipeline);
 
 module.exports.readPost = (req, res) => {
@@ -16,14 +17,20 @@ module.exports.createPost = async (req, res) => {
   let fileName;
 
   if (req.file !== null) {
+    try {
     if (
       req.file.detectedFileExtension != ".jpg" &&
       req.file.detectedFileExtension != ".png" &&
       req.file.detectedFileExtension != ".jpeg"
     )
-      return console.log("invalid file type");
+      throw Error("invalid file");
 
-    if (req.file.size > 500000) return console.log("too big");
+    if (req.file.size > 500000) throw Error("max size");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      console.log(errors);
+      return res.status(201).json({ errors });
+    }
 
     fileName = req.body.posterId + Date.now() + req.file.detectedFileExtension;
 

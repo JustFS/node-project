@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      validate: [isEmail, "Merci de renseigner un email valide"],
+      validate: [isEmail],
       unique: true,
       lowercase: true,
       trim: true,
@@ -25,8 +25,6 @@ const userSchema = new mongoose.Schema(
       required: true,
       max: 1024,
       minlength: 6,
-      // cannot be send to front
-      // select: false
     },
     picture: {
       type: String,

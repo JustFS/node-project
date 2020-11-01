@@ -1,5 +1,4 @@
-3 - message images
-5 - style
+5 - style (ne pas oublier style errors)
 6 - fichier pro
 7 - dossier pro 35 pages
 8 - powerpoint

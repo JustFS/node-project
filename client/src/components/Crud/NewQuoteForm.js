@@ -13,6 +13,7 @@ const NewQuoteForm = () => {
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
   const userData = useSelector((state) => state.userReducer.user);
+  const errors = useSelector((state) => state.errorReducer);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
 
@@ -152,6 +153,8 @@ const NewQuoteForm = () => {
                       accept=".jpg, .jpeg, .png"
                       onChange={(e) => handlePicture(e)}
                     />
+                    <p>{errors.format}</p>
+                    <p>{errors.maxSize}</p>
                   </>
                 )}
                 {video && (

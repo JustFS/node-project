@@ -16,8 +16,6 @@ module.exports.signUp = async (req, res) => {
 
   try {
     const user = await UserModel.create({ pseudo, email, password });
-    // const token = createToken(user._id);
-    // res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
   }
   catch(err) {

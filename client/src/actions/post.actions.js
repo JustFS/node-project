@@ -12,6 +12,8 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
+export const GET_POST_ERRORS = "GET_POST_ERRORS";
+
 export const getPosts = (num) => {
   return (dispatch) => {
     return axios
@@ -26,8 +28,16 @@ export const getPosts = (num) => {
   };
 };
 export const addPost = (data) => {
-  return () => {
-    return axios.post(`${process.env.REACT_APP_API_URL}api/post`, data)
+  return (dispatch) => {
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/post`, data)
+      .then((res) => {
+        if (res.data.errors) {
+          dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+        } else {
+          dispatch({ type: GET_POST_ERRORS, payload: '' });
+        }
+      });
   };
 };
 
@@ -54,7 +64,7 @@ export const deletePost = (postId) => {
       url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
     })
       .then((res) => {
-        dispatch({ type: DELETE_POST, payload: {postId} });
+        dispatch({ type: DELETE_POST, payload: { postId } });
       })
       .catch((err) => {
         console.log("error", err);
@@ -67,45 +77,40 @@ export const likePost = (postId, userId) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
-      data: {id: userId}
+      data: { id: userId },
     })
-    .then((res) => {
-      dispatch({
-        type: LIKE_POST,
-        payload: {postId, userId}
+      .then((res) => {
+        dispatch({
+          type: LIKE_POST,
+          payload: { postId, userId },
+        });
+      })
+      .catch((err) => {
+        console.log("error", err);
       });
-    })
-    .catch((err) => {
-      console.log("error", err);
-    });
-  }
-}
+  };
+};
 
 export const unlikePost = (postId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
-      data: {id: userId}
+      data: { id: userId },
     })
-    .then((res) => {
-      dispatch({
-        type: UNLIKE_POST,
-        payload: {postId, userId}
+      .then((res) => {
+        dispatch({
+          type: UNLIKE_POST,
+          payload: { postId, userId },
+        });
+      })
+      .catch((err) => {
+        console.log("error", err);
       });
-    })
-    .catch((err) => {
-      console.log("error", err);
-    });
-  }
-}
+  };
+};
 
-export const addComment = (
-  postId,
-  commenterId,
-  text,
-  commenterPseudo
-) => {
+export const addComment = (postId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
     return axios({
       method: "patch",
@@ -152,14 +157,15 @@ export const deleteComment = (postId, commentId) => {
     return axios({
       method: "patch",
       url:
-        `${process.env.REACT_APP_API_URL}api/post/delete-comment-post/` + postId,
+        `${process.env.REACT_APP_API_URL}api/post/delete-comment-post/` +
+        postId,
       data: {
-        commentId
+        commentId,
       },
     }).then((res) => {
       dispatch({
         type: DELETE_COMMENT,
-        payload: {postId, commentId}
+        payload: { postId, commentId },
       });
     });
   };

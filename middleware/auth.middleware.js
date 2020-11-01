@@ -16,7 +16,6 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    // res.redirect('/login');
     console.log('no token');
   }
 };
@@ -40,6 +39,5 @@ const checkUser = (req, res, next) => {
     next();
   }
 };
-
 
 module.exports = { requireAuth, checkUser };

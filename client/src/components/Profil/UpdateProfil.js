@@ -10,6 +10,7 @@ const UpdateProfil = () => {
   const [updateForm, setUpdateForm] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer.user);
+  const errors = useSelector((state) => state.errorReducer);
   const uid = useContext(UidContext);
 
   const isUpdated = () => setUpdateForm(!updateForm);
@@ -37,6 +38,9 @@ const UpdateProfil = () => {
         <h3>Photo de profil</h3>
         <img src={userData.picture} alt="" />
         <UploadImg userData={userData} />
+        <p>{errors.maxSize}</p>
+        <p>{errors.format}</p>
+
         <div className="bio-update">
           <h4>Bio</h4>
           {updateForm !== true && (

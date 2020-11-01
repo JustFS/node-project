@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadPicture } from "../../actions/user.actions";
+import { getUser, uploadPicture } from "../../actions/user.actions";
 
 
 const UploadImg = () => {
@@ -9,12 +9,14 @@ const UploadImg = () => {
   const userData = useSelector((state) => state.userReducer.user);
 
   const handlePicture = (e) => {
+    e.preventDefault();
     const data = new FormData();
     data.append("name", userData.pseudo);
     data.append("file", file);
     data.append("userId", userData._id);
     
     dispatch(uploadPicture(data));
+    dispatch(getUser(userData._id));
     setFile('');
   };
 
