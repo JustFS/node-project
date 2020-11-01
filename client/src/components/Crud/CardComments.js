@@ -5,24 +5,17 @@ import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getPosts } from "../../actions/post.actions";
 
-const CardComments = ({ post, followers }) => {
+const CardComments = ({ post }) => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer.user);
+  const usersData = useSelector((state) => state.userReducer.users);
 
   const handleComment = (e) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(
-        addComment(
-          post._id,
-          userData._id,
-          text,
-          userData.picture,
-          userData.pseudo
-        )
-      )
+      dispatch(addComment(post._id, userData._id, text, userData.pseudo))
         .then(() => dispatch(getPosts()))
         .then(() => setText(""));
     }
@@ -34,7 +27,16 @@ const CardComments = ({ post, followers }) => {
         return (
           <div className="comment-container" key={comment._id}>
             <div className="left-part">
-              <img src={comment.commenterPic} alt="profil-pic" />
+              <img
+                src={usersData
+                  .map((user) => {
+                    if (user._id === comment.commenterId) {
+                      return user.picture;
+                    }
+                  })
+                  .join("")}
+                alt="profil-pic"
+              />
             </div>
             <div className="right-part">
               <div className="comment-header">

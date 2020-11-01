@@ -13,19 +13,20 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  if (
-    req.file.detectedFileExtension != ".jpg" &&
-    req.file.detectedFileExtension != ".png" &&
-    req.file.detectedFileExtension != ".jpeg"
-  )
-    return console.log("invalid file type");
-
-  if (req.file.size > 500000) return console.log("too big");
-
-  const fileName =
-    req.body.posterId + Date.now() + req.file.detectedFileExtension;
+  let fileName;
 
   if (req.file !== null) {
+    if (
+      req.file.detectedFileExtension != ".jpg" &&
+      req.file.detectedFileExtension != ".png" &&
+      req.file.detectedFileExtension != ".jpeg"
+    )
+      return console.log("invalid file type");
+
+    if (req.file.size > 500000) return console.log("too big");
+
+    fileName = req.body.posterId + Date.now() + req.file.detectedFileExtension;
+
     await pipeline(
       req.file.stream,
       fs.createWriteStream(
@@ -153,7 +154,6 @@ module.exports.commentPost = (req, res) => {
         $push: {
           comments: {
             commenterId: req.body.commenterId,
-            commenterPic: req.body.commenterPic,
             commenterPseudo: req.body.commenterPseudo,
             text: req.body.text,
             timestamp: new Date().getTime(),

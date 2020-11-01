@@ -4,7 +4,6 @@ const pipeline = promisify(require("stream").pipeline);
 const UserModel = require("../models/user.model");
 
 module.exports.uploadProfil = async (req, res) => {
-  console.log('req.file:', req.file.detectedMimeType)
   if (
     req.file.detectedMimeType != "image/jpg" &&
     req.file.detectedMimeType != "image/png" &&

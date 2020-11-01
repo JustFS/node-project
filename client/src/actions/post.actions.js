@@ -12,11 +12,12 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
-export const getPosts = () => {
+export const getPosts = (num) => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post`)
       .then((res) => {
+        if (num) res.data.length = num;
         dispatch({ type: GET_POSTS, payload: res.data });
       })
       .catch((err) => {
@@ -103,14 +104,13 @@ export const addComment = (
   postId,
   commenterId,
   text,
-  commenterPic,
   commenterPseudo
 ) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/comment-post/` + postId,
-      data: { commenterId, text, commenterPic, commenterPseudo },
+      data: { commenterId, text, commenterPseudo },
     })
       .then((res) => {
         dispatch({

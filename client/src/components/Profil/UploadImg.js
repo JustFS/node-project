@@ -8,7 +8,7 @@ const UploadImg = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer.user);
 
-  const handlePicture = () => {
+  const handlePicture = (e) => {
     const data = new FormData();
     data.append("name", userData.pseudo);
     data.append("file", file);
@@ -19,7 +19,7 @@ const UploadImg = () => {
   };
 
   return (
-    <div className="upload-pic">
+    <form onSubmit={(e) => handlePicture(e)} className="upload-pic">
       <label htmlFor="file">file</label>
       <input
         type="file"
@@ -28,8 +28,8 @@ const UploadImg = () => {
         accept=".jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}
       />
-      <button onClick={handlePicture}>Send</button>
-    </div>
+      <input type="submit" value="Envoyer" />
+    </form>
   );
 };
 

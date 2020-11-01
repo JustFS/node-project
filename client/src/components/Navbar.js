@@ -30,11 +30,7 @@ const Navbar = () => {
         </ul>
       ) : (
         <ul>
-          <li>
-            <NavLink exact to="/liked">
-              <i className="fab fa-hotjar"></i>
-            </NavLink>
-          </li>
+          <li></li>
           <li>
             <NavLink exact to="/profil">
               <i className="fas fa-sign-in-alt"></i>
