@@ -20,7 +20,7 @@ const FriendsHint = () => {
       }
     });
     array.sort(() => 0.5 - Math.random());
-    array.length = 5;
+    array.length = 4;
     setFriendsHint(array);
   };
 

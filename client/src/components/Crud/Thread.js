@@ -13,8 +13,11 @@ const Thread = () => {
   const dispatch = useDispatch();
 
   const loadMore = () => {
-    if (window.innerHeight + document.documentElement.scrollTop ===
-      document.scrollingElement.scrollHeight) setPlay(true);
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 4 >=
+      document.scrollingElement.scrollHeight
+    )
+      setPlay(true);
   };
 
   useEffect(() => {

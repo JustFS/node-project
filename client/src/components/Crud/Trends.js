@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getTrends } from '../../actions/trending.actions';
+import { getTrends } from "../../actions/trending.actions";
 import { isEmpty } from "../Utils";
 
 const Trends = () => {
   const [playOnce, setPlayOnce] = useState(true);
   const posts = useSelector((state) => state.postReducer);
   const trendList = useSelector((state) => state.trendingReducer);
+  const usersData = useSelector((state) => state.userReducer.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Trends = () => {
       let sortedArray = postsArr.sort((a, b) => {
         return b.likers.length - a.likers.length;
       });
-      sortedArray.length = 5;
+      sortedArray.length = 3;
       dispatch(getTrends(sortedArray));
       setPlayOnce(false);
     }
@@ -33,16 +34,33 @@ const Trends = () => {
             trendList.map((post) => {
               return (
                 <li key={post._id}>
-                  <p>{post.message}</p>
-                  {post.picture && <img src={post.picture} alt="post-pic" />}
-                  {post.video && (
-                    <iframe
-                      src={post.video}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  )}
+                  <div>
+                    {post.picture && <img src={post.picture} alt="post-pic" />}
+                    {post.video && (
+                      <iframe
+                        src={post.video}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    )}
+                    {isEmpty(post.picture) && isEmpty(post.video) && (
+                      <img
+                        src={usersData
+                          .map((user) => {
+                            if (user._id === post.posterId) {
+                              return user.picture;
+                            }
+                          })
+                          .join("")}
+                        alt="profil-pic"
+                      />
+                    )}
+                  </div>
+                  <div className="trend-content">
+                    <p>{post.message}</p>
+                    <span>Lire</span>
+                  </div>
                 </li>
               );
             })}

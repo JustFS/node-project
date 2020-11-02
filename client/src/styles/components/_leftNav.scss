@@ -7,6 +7,30 @@
     .icons-bis {
       position: absolute;
       left: 20%;
+
+      .active-left-nav {
+        position: relative;
+
+        &::after {
+          content: '';
+          height: 40px;
+          width: 5px;
+          position: absolute;
+          background: $color-1;
+          left: -7px;
+          bottom: 5px;
+          border-radius: 40px;
+          transform: scaleY(0);
+          animation: scale 1.5s ease forwards;
+
+          @keyframes scale {
+            to {
+              transform: scaleY(1);
+            }
+          }
+        }
+
+      }
     }
   }
 }

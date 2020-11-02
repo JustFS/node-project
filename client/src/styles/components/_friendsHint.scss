@@ -1,32 +1,49 @@
 .get-friends-container {
   width: 100%;
-  background: $color-1;
-  border-radius: 30px;
+  background: $color-2;
+  border-radius: 20px;
+  padding: 20px 20px 10px;
 
   h4 {
     font-size: 1.4rem;
-    padding: 16px 0 0 22px;
+    color: $color-3;
   }
   ul {
     width: 100%;
-    padding: 18px 0;
+    padding: 14px 0 0;
 
     .user-hint {
       display: grid;
-      grid-template-columns: 24% 44% 32%;
-      height: 65px;
+      grid-template-columns: 20% 48% 32%;
       align-items: center;
+      margin: 8px 0;
 
       img {
-        height: 40px;
-        width: 40px;
-        border-radius: 150px;
-        margin-left: 22px;
+        height: 46px;
+        width: 46px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 0 2px rgba(51, 51, 51, 0.377);
       }
       p {
         text-align: left;
-        font-size: 1.2rem;
-        font-weight: bold;
+        font-size: 1rem;
+        font-family: $font-3;
+      }
+      span {
+        text-align: right;
+        button {
+          background: $color-1;
+          color: $color-4;
+          padding: 10px 24px;
+          transition: .2s;
+
+          &:hover {
+            background: $color-4;
+            color: $color-1;
+            letter-spacing: 2px;
+          }
+        }
       }
     }
   }

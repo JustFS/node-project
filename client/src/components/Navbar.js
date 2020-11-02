@@ -9,8 +9,8 @@ const Navbar = () => {
   const userData = useSelector((state) => state.userReducer.user);
 
   return (
-    <>
-      <nav>
+    <nav>
+      <div className="nav-container">
         <div className="logo">
           <NavLink exact to="/">
             <div className="logo">
@@ -39,8 +39,8 @@ const Navbar = () => {
             </li>
           </ul>
         )}
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };
 

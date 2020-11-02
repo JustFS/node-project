@@ -8,28 +8,20 @@
 }
 @font-face {
   font-family: "font-3";
-  src: url(../assets/fonts/JosefinSans-SemiBold.ttf);
+  src: url(../assets/fonts/JosefinSans-Bold.ttf);
 }
 
 $font-1: "font-1", sans-serif;
 $font-2: "font-2", serif;
 $font-3: "font-3", serif;
 
-$color-1: rgb(71, 175, 128);
-$color-2: #00203FFF;
-$color-3: #3ab9f0;
-$color-4: rgb(12, 231, 114);
+$color-1: #FF7B77;
+$color-2: #FFD0C4;
+$color-3: rgb(0, 22, 44);
+$color-4: #fdeeee;
 $black: rgb(40, 40, 40);
-$white: rgb(251, 251, 251);
+$white: rgb(253, 253, 253);
 $shadow: rgb(219, 218, 218);
-
-@mixin formBorder {
-  border: 3px solid $color-1;
-  border-bottom: 4px solid $color-1;
-  border-left: 5px solid $color-1;
-  box-shadow: -10px 12px 0 #bfbfbf;
-  border-radius: 4px;
-}
 
 * {
   margin: 0;
@@ -46,51 +38,37 @@ $shadow: rgb(219, 218, 218);
 }
 a,
 a:visited {
-  color: $color-2;
+  color: $color-3;
 }
 input,
 textarea {
   resize: none;
-  border-radius: 4px;
+  border-radius: 20px;
   width: 270px;
-  padding: 10px;
-  box-shadow: -4px 3px 0 $shadow;
   font-family: $font-1;
+  background: $white;
 }
-textarea {
-  border: 2px solid $color-2;
-}
-input[type="submit"] {
-  background: $color-1;
-  color: $white;
+button, input[type="submit"] {
+  background: $color-2;
+  color: $color-1;
+  font-family: $font-3;
   cursor: pointer;
   transition: 0.2s;
   margin: 0;
+  padding: 14px 28px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  border-radius: 30px;
 
   &:hover {
-    background: $color-2;
+    background: $color-1;
+    color: $color-2;
   }
 }
 input[type="checkbox"] {
   box-shadow: none;
   width: 20px;
   margin: 10px 0;
-}
-button {
-  background: $color-2;
-  padding: 4px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 1px 2px 0 $shadow;
-  color: $white;
-  width: 95px;
-  font-family: $font-1;
-
-  &:hover {
-    background: $color-1;
-    color: $white;
-  }
 }
 i {
   transition: .15s;
@@ -103,6 +81,7 @@ body {
   font-family: $font-2;
   line-height: 1.4rem;
   background: $white;
+  color: $color-3;
 }
 .error {
   color: red;
