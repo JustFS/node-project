@@ -63,24 +63,24 @@ const Card = ({ post }) => {
               <div className="pseudo">
                 <h3>{pseudo}</h3>
                 {post.posterId !== uid && (
-                  <FollowHandler idToFollow={post.posterId} type={'card'} />
+                  <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               </div>
               <span>{dateParser(post.createdAt)}</span>
             </div>
             {isUpdated === false && <p>{post.message}</p>}
             {isUpdated && (
-            <div className="update-post">
-              <textarea
-                defaultValue={post.message}
-                onChange={(e) => setTextUpdate(e.target.value)}
-              />
-              <div className="button-container">
-                <button onClick={updateItem}>Valider modification</button>
+              <div className="update-post">
+                <textarea
+                  defaultValue={post.message}
+                  onChange={(e) => setTextUpdate(e.target.value)}
+                />
+                <div className="button-container">
+                  <button onClick={updateItem}>Valider modification</button>
+                </div>
               </div>
-            </div>
-          )}
-            {post.picture && <img src={post.picture} alt="" />}
+            )}
+            {post.picture && <img src={post.picture} alt="card-pic" className="card-pic" />}
             {post.video && (
               <iframe
                 width="500"
@@ -99,19 +99,19 @@ const Card = ({ post }) => {
             )}
             <div className="card-footer">
               <div className="comment-icon">
-                <i
+                <img
+                  src="./img/icons/message1.svg"
                   onClick={handleShowComments}
-                  className="far fa-comment-alt"
-                ></i>
+                  alt="comment"
+                />
                 <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
-              <i className="fas fa-share-alt"></i>
+              <img src="./img/icons/share.svg"  alt="share" />
             </div>
             {showComments && <CardComments post={post} />}
           </div>
           <span></span>
-
         </>
       )}
     </li>

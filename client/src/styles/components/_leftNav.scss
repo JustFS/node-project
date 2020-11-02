@@ -1,0 +1,12 @@
+.left-nav-container {
+  position: relative;
+
+  .icons {
+    position: fixed;
+
+    .icons-bis {
+      position: absolute;
+      left: 20%;
+    }
+  }
+}

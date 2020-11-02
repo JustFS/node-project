@@ -5,12 +5,14 @@ import Thread from "../components/Crud/Thread";
 import { UidContext } from "../components/AppContext";
 import FriendsHint from "../components/Profil/FriendsHint";
 import Trends from "../components/Crud/Trends";
+import LeftNav from "../components/LeftNav";
 
 const Home = () => {
   const uid = useContext(UidContext);
 
   return (
     <div className="home">
+      <LeftNav />
       <div className="main">
         <div className="home-header">{uid ? <NewQuoteForm /> : <Log />}</div>
         <Thread />

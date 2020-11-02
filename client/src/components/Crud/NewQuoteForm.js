@@ -145,7 +145,7 @@ const NewQuoteForm = () => {
                   </button>
                 ) : (
                   <>
-                    <i className="fas fa-image" htmlFor="file-upload"></i>
+                    <img src="./img/icons/picture.svg" alt="img"/>
                     <input
                       id="file-upload"
                       type="file"

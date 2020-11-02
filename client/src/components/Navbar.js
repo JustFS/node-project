@@ -7,38 +7,40 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer.user);
-  
+
   return (
-    <nav>
-      <div className="logo">
-        <NavLink exact to="/">
-          <div className="icon">
-            <img src="./img/icon.png" alt="icon" />
-            <h3>Racoont</h3>
-          </div>
-        </NavLink>
-      </div>
-      {uid ? (
-        <ul>
-          <li></li>
-          <li>
-            <NavLink exact to="/profil">
-              <h5>Bienvenue {userData.pseudo}</h5>
-            </NavLink>
-          </li>
-          <Logout />
-        </ul>
-      ) : (
-        <ul>
-          <li></li>
-          <li>
-            <NavLink exact to="/profil">
-              <i className="fas fa-sign-in-alt"></i>
-            </NavLink>
-          </li>
-        </ul>
-      )}
-    </nav>
+    <>
+      <nav>
+        <div className="logo">
+          <NavLink exact to="/">
+            <div className="logo">
+              <img src="./img/icon.png" alt="icon" />
+              <h3>Racoont</h3>
+            </div>
+          </NavLink>
+        </div>
+        {uid ? (
+          <ul>
+            <li></li>
+            <li className="welcome">
+              <NavLink exact to="/profil">
+                <h5>Bienvenue {userData.pseudo}</h5>
+              </NavLink>
+            </li>
+            <Logout />
+          </ul>
+        ) : (
+          <ul>
+            <li></li>
+            <li>
+              <NavLink exact to="/profil">
+                <img src="./img/icons/login.svg" alt="login" />
+              </NavLink>
+            </li>
+          </ul>
+        )}
+      </nav>
+    </>
   );
 };
 

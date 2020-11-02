@@ -7,7 +7,6 @@
   margin: 10px;
   padding: 16px;
   box-shadow: 3px 4px 0 #33333350;
-  width: 80%;
   max-width: 700px;
   border-radius: 4px;
   margin: 8px auto;
@@ -36,20 +35,21 @@
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin: 2px 0 10px;
 
       .pseudo {
         display: flex;
 
         span {
-          transform: translate(2px, -1px);
+          transform: translate(0px, -4px);
 
-          i {
-            font-size: .8rem;
+          img {
             padding: 5px;
             cursor: pointer;
-            transition: .15s;
+            transition: 0.15s;
+            box-shadow: none;
+            height: 28px;
+            width: 28px;
 
             &:hover {
               transform: scale(1.2) translate(0px, 0px);
@@ -67,12 +67,13 @@
 
       span {
         font-style: italic;
+        font-family: $font-1;
       }
     }
     p {
       margin: 3px 0;
     }
-    img {
+    .card-pic {
       width: 100%;
       border-radius: 6px;
       margin-top: 12px;
@@ -89,26 +90,29 @@
     }
     .card-footer {
       display: flex;
+      align-items: center;
+      justify-content: center;
       justify-content: space-between;
       padding: 12px 0 4px;
 
-      i {
-        color: $color-1;
-        transition: .15s;
+      img {
+        height: 22px;
+        width: 22px;
         cursor: pointer;
-        
+        transition: 0.2s;
+
         &:hover {
           transform: scale(1.2);
         }
       }
-
-      .comment-icon {
-        color: black;
+      .comment-icon, .like-container {
+        display: flex;
+        align-items: center;
 
         span {
           font-size: 1.02rem;
           position: absolute;
-          transform: translate(8px, -1px);
+          transform: translate(29px, 2px);
         }
       }
     }
@@ -139,9 +143,9 @@
           }
           i {
             color: $color-1;
-            transition: .15s;
+            transition: 0.15s;
             cursor: pointer;
-            
+
             &:hover {
               transform: scale(1.2);
             }
@@ -152,7 +156,7 @@
         }
 
         span {
-          font-size: .85rem;
+          font-size: 0.85rem;
           font-style: italic;
         }
       }
@@ -163,7 +167,7 @@
           float: right;
           margin-left: 10px;
           cursor: pointer;
-          transition: .15s;
+          transition: 0.15s;
 
           &:hover {
             transform: scale(1.1);
@@ -197,7 +201,7 @@
         height: 26px;
         box-shadow: -4px 3px 0 $shadow;
         background: $color-1;
-        transition: .2s;
+        transition: 0.2s;
 
         &:hover {
           background: $color-2;
@@ -222,13 +226,13 @@
     }
     .button-container {
       text-align: right;
-      
+
       button {
         margin: 0;
         margin-left: 5px;
         width: 150px;
 
-        &:nth-child(1){
+        &:nth-child(1) {
           background: $color-1;
         }
       }

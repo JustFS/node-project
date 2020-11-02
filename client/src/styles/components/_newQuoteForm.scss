@@ -1,5 +1,5 @@
 .home-header {
-  margin: 46px auto 16px;
+  margin: 0 auto 16px;
   text-align: center;
 
   h1 {
@@ -7,8 +7,8 @@
   }
   .post-container {
     max-width: 700px;
-    margin: 40px auto 0;
-    padding: 16px 0;
+    margin: 0 auto 0;
+    padding: 16px 40px;
     border: 3px solid $color-1;
     border-radius: 4px;
     box-shadow: -3px 3px 0 rgb(219, 218, 218);
@@ -40,15 +40,14 @@
     .post-form {
       position: relative;
       margin: 0 auto 36px;
-      max-width: 700px;
 
       textarea {
         height: 60px;
-        max-width: 530px;
+        width: 100%;
         font-size: 1.2rem;
       }
       .card-container {
-        max-width: 530px;
+
 
         .content {
           p {
@@ -66,7 +65,7 @@
         display: flex;
         justify-content: space-between;
         margin: 0 auto;
-        max-width: 530px;
+        width: 100%;
 
         .icon {
           position: relative;
@@ -74,10 +73,11 @@
           width: 30px;
           height: 20px;
 
-          i {
+          img {
             position: absolute;
-            font-size: 1.4rem;
-            transform: translate(-14px, -1px);
+            height: 24px;
+            width: 24px;
+            transform: translate(-18px, -1px);
           }
 
           input {

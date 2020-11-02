@@ -11,7 +11,7 @@ nav {
   top: 0;
 
   &::after {
-    content: '';
+    content: "";
     height: 45px;
     width: 110%;
     left: -20px;
@@ -21,37 +21,45 @@ nav {
     z-index: -8;
   }
 
-  .icon {
+  .logo {
     display: flex;
     align-items: center;
 
     h3 {
-      transform: translate(13px,1px);
-      font-size: 1.3rem;
+      transform: translate(15px, 2px);
+      font-size: 1.5rem;
+      font-family: $font-3;
     }
     img {
       height: 26px;
       width: 26px;
-    }  
+    }
   }
 
   ul {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 35%;
     justify-content: space-between;
     font-size: 1.2rem;
 
-    .logout {
-      color: $color-2;
-      cursor: pointer;
-      padding: 8px;
-      transition: .2s;
-  
-      &:hover {
-        transform: scale(1.1);
+    .welcome {
+      transform: translateY(2px);
+
+      h5 {
+        font-family: $font-3;
+      }
+    }
+
+    li {
+      display: grid;
+
+      img {
+        height: 24px;
+        width: 24px;
+        cursor: pointer;
       }
     }
   }
-  
 }

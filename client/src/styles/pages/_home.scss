@@ -1,24 +1,12 @@
 .home {
   display: grid;
-  grid-template-columns: 72% 28%;
+  max-width: 1200px;
+  grid-template-columns: 5% 60% 35%;
   overflow: hidden;
-  margin: 40px 0 50px;
+  margin: 70px auto 50px;
   position: relative;
 
   .main {
-    flex: 0 0 80%;
-    position: relative;
-  }
 
-  .right-side {
-    position: relative;
-    width: 100%;
-    margin: 46px 0 0;
-
-    .right-side-container {
-      position: fixed;
-
-
-    }
   }
 }
