@@ -1,128 +1,127 @@
-.home-header {
-  margin: 0 auto 16px;
-  text-align: center;
+.post-container {
+  margin: 0 auto 0;
+  padding: 16px 40px;
+  border-radius: 20px;
+  position: relative;
+  background: $color-4;
 
-  .post-container {
-    margin: 0 auto 0;
-    padding: 16px 40px;
-    border-radius: 20px;
+  .data {
+    position: absolute;
+    right: 42px;
+    text-align: right;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .user-info {
+    margin-bottom: 10px;
+    img {
+      border-radius: 20px;
+      height: 60px;
+      width: 60px;
+      box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.16);
+      object-fit: cover;
+    }
+    h3 {
+      color: $black;
+    }
+  }
+  .post-form {
     position: relative;
-    background: $color-4;
+    margin: 0 auto 0;
 
-    .data {
-      position: absolute;
-      right: 42px;
-      text-align: right;
-
-      span {
-        font-weight: bold;
-      }
+    textarea {
+      height: 62px;
+      width: 100%;
+      font-size: 1.4rem;
+      padding: 12px 15px;
+      border-radius: 20px 20px 6px 20px;
     }
-
-    .user-info {
-      margin-bottom: 10px;
-      img {
-        border-radius: 20px;
-        height: 60px;
-        width: 60px;
-        box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.16);
-        object-fit: cover;
+    .card-container {
+      background: $white;
+      .card-left {
+        text-align: left;
       }
-      h3 {
-        color: $black;
-      }
-    }
-    .post-form {
-      position: relative;
-      margin: 0 auto 0;
-
-      textarea {
-        height: 62px;
-        width: 100%;
-        font-size: 1.4rem;
-        padding: 12px 15px;
-        border-radius: 20px 20px 6px 20px;
-      }
-      .card-container {
-        background: $white;
-        .card-left {
-          text-align: left;
-        }
-        .card-right {
-          .content {
-            padding: 6px 0;
-            p {
-              text-align: left;
-              margin: 2px 0 6px;
-              font-size: 1.1rem;
-            }
-            img {
-              width: 100%;
-              border-radius: 6px;
-              margin-top: 12px;
-            }
+      .card-right {
+        .content {
+          padding: 6px 0;
+          p {
+            text-align: left;
+            margin: 2px 0 6px;
+            font-size: 1.1rem;
           }
-        }
-      }
-      .footer-form {
-        display: flex;
-        justify-content: space-between;
-        margin: 0 auto;
-        width: 100%;
-
-        .icon {
-          position: relative;
-          cursor: pointer;
-          width: 30px;
-          height: 20px;
-
           img {
-            position: absolute;
-            height: 24px;
-            width: 24px;
-            transform: translate(-18px, -1px);
-          }
-
-          button {
-            width: 190px;
-            padding: 10px 20px;
-            background: $white;
-            transition: .2s;
-
-            &:hover {
-              background: $color-3;
-            }
-          }
-
-          input {
-            width: 25px;
-            height: 25px;
-            position: absolute;
-            transform: translate(-16px, -3px);
-            opacity: 0;
-            cursor: pointer;
-
-            &::-webkit-file-upload-button {
-              cursor: pointer;
-            }
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 12px;
           }
         }
-        .btn-send {
-          .cancel {
-            border-radius: 20px;
-            margin-right: 8px;
-            background: $white;
+      }
+    }
+    .footer-form {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      width: 100%;
 
-            &:hover {
-              color: $color-4;
-              background: $color-3;
-            }
+      .icon {
+        position: relative;
+        cursor: pointer;
+        width: 30px;
+        height: 20px;
+
+        img {
+          position: absolute;
+          height: 24px;
+          width: 24px;
+          transform: translate(-18px, -1px);
+        }
+
+        button {
+          width: 190px;
+          padding: 10px 20px;
+          background: $white;
+          transition: 0.2s;
+
+          &:hover {
+            background: $color-3;
           }
-          .send {
-            &:hover {
-              letter-spacing: 2px;
-            }
+        }
 
+        input {
+          width: 25px;
+          height: 25px;
+          position: absolute;
+          transform: translate(-16px, -3px);
+          opacity: 0;
+          cursor: pointer;
+
+          &::-webkit-file-upload-button {
+            cursor: pointer;
+          }
+        }
+      }
+      p {
+        font-family: $font-3;
+        margin-top: 4px;
+        color: red;
+      }
+      .btn-send {
+        .cancel {
+          border-radius: 20px;
+          margin-right: 8px;
+          background: $white;
+
+          &:hover {
+            color: $color-4;
+            background: $color-3;
+          }
+        }
+        .send {
+          &:hover {
+            letter-spacing: 2px;
           }
         }
       }

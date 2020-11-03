@@ -13,7 +13,7 @@ const NewQuoteForm = () => {
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
   const userData = useSelector((state) => state.userReducer.user);
-  const errors = useSelector((state) => state.errorReducer);
+  const errors = useSelector((state) => state.errorReducer.postErrors);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
 
@@ -157,14 +157,14 @@ const NewQuoteForm = () => {
                         />
                       </>
                     )}
-                    <p>{errors.format}</p>
-                    <p>{errors.maxSize}</p>
                   </>
                 )}
                 {video && (
                   <button onClick={() => setVideo("")}>Supprimer video</button>
                 )}
               </div>
+              {!isEmpty(errors.format) && <p>{errors.format}</p>}
+              {!isEmpty(errors.maxSize) && <p>{errors.maxSize}</p>}
               <div className="btn-send">
                 {message || postPicture || video.length > 20 ? (
                   <button className="cancel" onClick={cancelPost}>

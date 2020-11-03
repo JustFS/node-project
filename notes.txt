@@ -1,12 +1,8 @@
-5 - style (ne pas oublier style errors)
-6 - fichier pro
-7 - dossier pro 35 pages
-8 - powerpoint
-9 - vidéo !!!
+changer user reducer + responsif suggestion
+2 - dossier pro 30 pages
+3 - powerpoint
 
-File rouge record site vitrine
-File matin : recherche emploi
-
+File rouge matin : recherche emploi
 
 src/
 ├── actions
@@ -16,4 +12,4 @@ src/
 │   ├── another.js
 │   ├── counter.js
 │   └── index.js
-└── 
+└── wcesf

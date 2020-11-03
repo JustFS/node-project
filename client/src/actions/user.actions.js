@@ -74,9 +74,13 @@ export const unfollowUser = (followerId, idToFollow) => {
 
 export const uploadBio = (userId, bio) => {
   return (dispatch) => {
-    return axios
-      .put(`${process.env.REACT_APP_API_URL}api/user/` + userId, bio)
+    return axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}api/user/` + userId,
+      data: { bio }
+    })
       .then((res) => {
+        console.log(res);
         dispatch({
           type: UPDATE_BIO,
           payload: bio,

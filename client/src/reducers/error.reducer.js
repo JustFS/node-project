@@ -1,14 +1,20 @@
 import { GET_POST_ERRORS } from "../actions/post.actions";
 import { GET_USER_ERRORS } from "../actions/user.actions";
 
-const initialState = { errors: [] };
+const initialState = { userErrors: [], postErrors: [] };
 
 export default function trendsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER_ERRORS:
-      return action.payload;
+      return {
+        userErrors: action.payload,
+        postErrors: []
+      }
     case GET_POST_ERRORS:
-      return action.payload;
+      return {
+        postErrors: action.payload,
+        userErrors: []
+      }
     default:
       return state;
   }

@@ -18,15 +18,15 @@ const EditDeleteComment = ({ comment, postId }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(editComment(postId, comment._id, text))
+      dispatch(editComment(postId, comment._id, text));
       setText("");
       setEdit(false);
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteComment(postId, comment._id))
-  }
+    dispatch(deleteComment(postId, comment._id));
+  };
 
   useEffect(() => {
     const checkAuthor = () => {
@@ -41,14 +41,11 @@ const EditDeleteComment = ({ comment, postId }) => {
     <div className="edit-comment">
       {isAuthor && edit === false && (
         <span onClick={isEditing}>
-          <img src="./img/icons/edit.svg"  alt="edit-comment" />
+          <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
       {isAuthor && edit && (
-        <form
-          onSubmit={e => handleEdit(e)}
-          className="comment-form"
-        >
+        <form onSubmit={(e) => handleEdit(e)} className="edit-comment-form">
           <label onClick={isEditing} htmlFor="text">
             Editer
           </label>
@@ -60,14 +57,18 @@ const EditDeleteComment = ({ comment, postId }) => {
             defaultValue={comment.text}
           />
           <br />
-          <input type="submit" value="Valider modification" />
-          <button
-            onClick={() => {
-              if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {handleDelete()}
-            }}
-          >
-            Supprimer commentaire
-          </button>
+          <div className="btn">
+            <span
+              onClick={() => {
+                if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
+                  handleDelete();
+                }
+              }}
+            >
+              <img src="./img/icons/trash.svg" alt="trash" />
+            </span>
+            <input type="submit" value="Valider modification" />
+          </div>
         </form>
       )}
     </div>

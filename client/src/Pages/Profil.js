@@ -12,20 +12,20 @@ const Profil = () => {
   }, [uid]);
 
   return (
-    <>
+    <div className="profil-page">
       {isConnected ? (
         <div className="profil-container">
-          <div className="menu">
-            <h2>Paramètres du profil</h2>
-          </div>
-          <div className="content">
             <UpdateProfil />
-          </div>
         </div>
       ) : (
-        <Log />
+        <div className="log-container">
+          <Log signin={false} signup={true} />
+          <div className="img-container">
+            <img src="./img/log.svg" alt="" />
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

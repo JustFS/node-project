@@ -76,11 +76,13 @@ const Card = ({ post }) => {
                   onChange={(e) => setTextUpdate(e.target.value)}
                 />
                 <div className="button-container">
-                  <button onClick={updateItem}>Valider modification</button>
+                  <button className="btn" onClick={updateItem}>Valider modification</button>
                 </div>
               </div>
             )}
-            {post.picture && <img src={post.picture} alt="card-pic" className="card-pic" />}
+            {post.picture && (
+              <img src={post.picture} alt="card-pic" className="card-pic" />
+            )}
             {post.video && (
               <iframe
                 width="500"
@@ -93,7 +95,10 @@ const Card = ({ post }) => {
             )}
             {uid === post.posterId && (
               <div className="button-container">
-                <button onClick={() => setIsUpdated(true)}>Modifier</button>
+                <div onClick={() => setIsUpdated(true)}>
+                  {" "}
+                  <img src="./img/icons/edit.svg" alt="edit-comment" />
+                </div>
                 <DeleteCard id={post._id} />
               </div>
             )}
@@ -107,7 +112,7 @@ const Card = ({ post }) => {
                 <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
-              <img src="./img/icons/share.svg"  alt="share" />
+              <img src="./img/icons/share.svg" alt="share" />
             </div>
             {showComments && <CardComments post={post} />}
           </div>

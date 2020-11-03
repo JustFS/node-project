@@ -33,32 +33,36 @@ const FriendsHint = () => {
   }, [usersData, userData]);
 
   return (
-    <div className="get-friends-container">
-      <h4>Suggestions</h4>
-      {isLoading ? (
-        <i className="fas fa-spinner fa-pulse"></i>
-      ) : (
-        <ul>
-          {friendsHint &&
-            friendsHint.map((user) => {
-              for (let i = 0; i < usersData.length; i++) {
-                if (user === usersData[i]._id) {
-                  return (
-                    <li className="user-hint" key={user}>
-                      <img src={usersData[i].picture} alt="user-pic" />
-                      <p>{usersData[i].pseudo}</p>
-                      <FollowHandler
-                        idToFollow={usersData[i]._id}
-                        type={"suggestion"}
-                      />
-                    </li>
-                  );
-                }
-              }
-            })}
-        </ul>
+    <>
+      {!isEmpty(userData[0]) && (
+        <div className="get-friends-container">
+          <h4>Suggestions</h4>
+          {isLoading ? (
+            <i className="fas fa-spinner fa-pulse"></i>
+          ) : (
+            <ul>
+              {friendsHint &&
+                friendsHint.map((user) => {
+                  for (let i = 0; i < usersData.length; i++) {
+                    if (user === usersData[i]._id) {
+                      return (
+                        <li className="user-hint" key={user}>
+                          <img src={usersData[i].picture} alt="user-pic" />
+                          <p>{usersData[i].pseudo}</p>
+                          <FollowHandler
+                            idToFollow={usersData[i]._id}
+                            type={"suggestion"}
+                          />
+                        </li>
+                      );
+                    }
+                  }
+                })}
+            </ul>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

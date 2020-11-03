@@ -8,14 +8,18 @@ const DeleteCard = (props) => {
   const deleteQuote = () => {
     dispatch(deletePost(props.id));
   };
-  
+
   return (
-    <button onClick={() => {
-      if (window.confirm('Voulez-vous supprimer cet article ?')){deleteQuote()};}}
+    <div
+      onClick={() => {
+        if (window.confirm("Voulez-vous supprimer cet article ?")) {
+          deleteQuote();
+        }
+      }}
     >
-      Supprimer
-    </button>
-  )
+      <img src="./img/icons/trash.svg" alt="trash" />
+    </div>
+  );
 };
 
 export default DeleteCard;

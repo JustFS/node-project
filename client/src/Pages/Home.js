@@ -14,7 +14,7 @@ const Home = () => {
     <div className="home">
       <LeftNav />
       <div className="main">
-        <div className="home-header">{uid ? <NewQuoteForm /> : <Log />}</div>
+        <div className="home-header">{uid ? <NewQuoteForm /> : <Log signin={true} signup={false} />}</div>
         <Thread />
       </div>
       <div className="right-side">

@@ -15,8 +15,8 @@ $font-1: "font-1", sans-serif;
 $font-2: "font-2", serif;
 $font-3: "font-3", serif;
 
-$color-1: #FF7B77;
-$color-2: #FFD0C4;
+$color-1: #ff7b77;
+$color-2: #ffd0c4;
 $color-3: rgb(0, 22, 44);
 $color-4: #fdeeee;
 $black: rgb(40, 40, 40);
@@ -48,7 +48,13 @@ textarea {
   font-family: $font-1;
   background: $white;
 }
-button, input[type="submit"] {
+textarea {
+  &:focus {
+    box-shadow: 0 0 4px rgba(0, 22, 44, 0.1);
+  }
+}
+button,
+input[type="submit"] {
   background: $color-2;
   color: $color-1;
   font-family: $font-3;
@@ -71,7 +77,7 @@ input[type="checkbox"] {
   margin: 10px 0;
 }
 i {
-  transition: .15s;
+  transition: 0.15s;
 
   &:hover {
     transform: scale(1.1);
