@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, getPosts } from "../../actions/post.actions";
 import { getUser } from "../../actions/user.actions";
-import { timestampParser } from "../Utils";
+import { isEmpty, timestampParser } from "../Utils";
 
 const NewQuoteForm = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -145,14 +145,18 @@ const NewQuoteForm = () => {
                   </button>
                 ) : (
                   <>
-                    <img src="./img/icons/picture.svg" alt="img"/>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      name="file"
-                      accept=".jpg, .jpeg, .png"
-                      onChange={(e) => handlePicture(e)}
-                    />
+                    {isEmpty(video) && (
+                      <>
+                        <img src="./img/icons/picture.svg" alt="img" />
+                        <input
+                          id="file-upload"
+                          type="file"
+                          name="file"
+                          accept=".jpg, .jpeg, .png"
+                          onChange={(e) => handlePicture(e)}
+                        />
+                      </>
+                    )}
                     <p>{errors.format}</p>
                     <p>{errors.maxSize}</p>
                   </>
@@ -163,9 +167,13 @@ const NewQuoteForm = () => {
               </div>
               <div className="btn-send">
                 {message || postPicture || video.length > 20 ? (
-                  <button onClick={cancelPost}>Annuler message</button>
+                  <button className="cancel" onClick={cancelPost}>
+                    Annuler message
+                  </button>
                 ) : null}
-                <button onClick={handlePost}>Envoyer</button>
+                <button className="send" onClick={handlePost}>
+                  Envoyer
+                </button>
               </div>
             </div>
           </div>

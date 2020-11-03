@@ -25,7 +25,7 @@ const CardComments = ({ post }) => {
     <div className="comments-container">
       {post.comments.map((comment) => {
         return (
-          <div className="comment-container" key={comment._id}>
+          <div className={comment.commenterId === userData._id ? "comment-container client" : "comment-container" } key={comment._id}>
             <div className="left-part">
               <img
                 src={usersData

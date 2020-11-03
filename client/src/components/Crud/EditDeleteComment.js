@@ -41,7 +41,7 @@ const EditDeleteComment = ({ comment, postId }) => {
     <div className="edit-comment">
       {isAuthor && edit === false && (
         <span onClick={isEditing}>
-          <i className="fas fa-pen"></i>
+          <img src="./img/icons/edit.svg"  alt="edit-comment" />
         </span>
       )}
       {isAuthor && edit && (
