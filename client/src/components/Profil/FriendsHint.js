@@ -8,24 +8,34 @@ import FollowHandler from "./FollowHandler";
 const FriendsHint = () => {
   const [playOnce, setPlayOnce] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const usersData = useSelector((state) => state.userReducer.users);
-  const userData = useSelector((state) => state.userReducer.user);
+  const usersData = useSelector((state) => state.usersReducer);
+  const userData = useSelector((state) => state.userReducer);
   const [friendsHint, setFriendsHint] = useState([""]);
 
   const notFriendList = () => {
     let array = [];
     usersData.map((user) => {
       if (!user.followers.includes(userData._id) && user._id !== userData._id) {
-        array.push(user._id);
+        return array.push(user._id);
       }
     });
     array.sort(() => 0.5 - Math.random());
-    array.length = 4;
+    if (window.innerHeight > 780) {
+      array.length = 5;
+    } else if (window.innerHeight > 720) {
+      array.length = 4;
+    } else if (window.innerHeight > 615){
+      array.length = 2;
+    } else if (window.innerHeight > 540){
+      array.length = 1;
+    } else {
+      array.length = 0;
+    }
     setFriendsHint(array);
   };
 
   useEffect(() => {
-    if (playOnce && !isEmpty(usersData) && !isEmpty(userData)) {
+    if (playOnce && !isEmpty(usersData[0]) && !isEmpty(userData._id)) {
       notFriendList();
       setIsLoading(false);
       setPlayOnce(false);
@@ -33,36 +43,32 @@ const FriendsHint = () => {
   }, [usersData, userData]);
 
   return (
-    <>
-      {!isEmpty(userData[0]) && (
-        <div className="get-friends-container">
-          <h4>Suggestions</h4>
-          {isLoading ? (
-            <i className="fas fa-spinner fa-pulse"></i>
-          ) : (
-            <ul>
-              {friendsHint &&
-                friendsHint.map((user) => {
-                  for (let i = 0; i < usersData.length; i++) {
-                    if (user === usersData[i]._id) {
-                      return (
-                        <li className="user-hint" key={user}>
-                          <img src={usersData[i].picture} alt="user-pic" />
-                          <p>{usersData[i].pseudo}</p>
-                          <FollowHandler
-                            idToFollow={usersData[i]._id}
-                            type={"suggestion"}
-                          />
-                        </li>
-                      );
-                    }
-                  }
-                })}
-            </ul>
-          )}
-        </div>
+    <div className="get-friends-container">
+      <h4>Suggestions</h4>
+      {isLoading ? (
+        <i className="fas fa-spinner fa-pulse"></i>
+      ) : (
+        <ul>
+          {friendsHint &&
+            friendsHint.map((user) => {
+              for (let i = 0; i < usersData.length; i++) {
+                if (user === usersData[i]._id) {
+                  return (
+                    <li className="user-hint" key={user}>
+                      <img src={usersData[i].picture} alt="user-pic" />
+                      <p>{usersData[i].pseudo}</p>
+                      <FollowHandler
+                        idToFollow={usersData[i]._id}
+                        type={"suggestion"}
+                      />
+                    </li>
+                  );
+                }
+              }
+            })}
+        </ul>
       )}
-    </>
+    </div>
   );
 };
 

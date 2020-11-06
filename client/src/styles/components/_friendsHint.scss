@@ -1,5 +1,5 @@
 .get-friends-container {
-  width: 100%;
+  width: 356px;
   background: linear-gradient(145deg, $color-2 30%, #ffe1d9 100%);
   border-radius: 20px;
   padding: 20px 20px 10px;
@@ -14,7 +14,7 @@
 
     .user-hint {
       display: grid;
-      grid-template-columns: 20% 48% 32%;
+      grid-template-columns: 20% 50% 30%;
       align-items: center;
       margin: 8px 0;
 
@@ -27,22 +27,23 @@
       }
       p {
         text-align: left;
-        font-size: 1rem;
+        font-size: .9rem;
         font-family: $font-3;
       }
       span {
         text-align: right;
+        
         button {
           background: $color-1;
           color: $color-4;
-          padding: 10px 24px;
+          padding: 10px 24px 8px;
           transition: .2s;
           border-radius: 20px;
+          font-size: 0.9rem;
 
           &:hover {
             background: $color-4;
             color: $color-1;
-            letter-spacing: 2px;
           }
         }
       }

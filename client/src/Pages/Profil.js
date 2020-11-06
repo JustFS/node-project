@@ -14,9 +14,7 @@ const Profil = () => {
   return (
     <div className="profil-page">
       {isConnected ? (
-        <div className="profil-container">
-            <UpdateProfil />
-        </div>
+        <UpdateProfil />
       ) : (
         <div className="log-container">
           <Log signin={false} signup={true} />

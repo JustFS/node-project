@@ -10,7 +10,7 @@ const Trends = () => {
   const [playOnce, setPlayOnce] = useState(true);
   const posts = useSelector((state) => state.postReducer);
   const trendList = useSelector((state) => state.trendingReducer);
-  const usersData = useSelector((state) => state.userReducer.users);
+  const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Trends = () => {
                     )}
                     {isEmpty(post.picture) && isEmpty(post.video) && (
                       <img
-                        src={usersData
+                        src={!isEmpty(usersData[0]) && usersData
                           .map((user) => {
                             if (user._id === post.posterId) {
                               return user.picture;

@@ -3,10 +3,15 @@
 
   .icons {
     position: fixed;
+    z-index: 10;
+
+    @media screen and(max-width: 590px) {
+      margin: 2px 0 0 -9px;
+    }
 
     .icons-bis {
       position: absolute;
-      left: 20%;
+      left: 10px;
 
       a {
         transition: 0.1s;
@@ -26,10 +31,22 @@
         }
 
         &:hover {
-          transform: scale(1.04);
+          transform: scale(1.02);
         }
         &:hover::before {
           transform: scale(1);
+          @media screen and(max-width: 590px) {
+            background: $color-1;
+            height: 34px;
+            width: 34px;
+          }
+        }
+
+        img {
+          @media screen and(max-width: 590px) {
+            height: 34px;
+            width: 34px;
+          }
         }
       }
 
@@ -52,6 +69,10 @@
             to {
               transform: scaleY(1);
             }
+          }
+          @media screen and(max-width: 590px) {
+            height: 33px;
+            left: -8px;
           }
         }
       }

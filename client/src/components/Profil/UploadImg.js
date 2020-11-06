@@ -6,7 +6,7 @@ import { getUser, uploadPicture } from "../../actions/user.actions";
 const UploadImg = () => {
   const [file, setFile] = useState();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer.user);
+  const userData = useSelector((state) => state.userReducer);
 
   const handlePicture = (e) => {
     e.preventDefault();

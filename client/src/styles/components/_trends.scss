@@ -3,6 +3,7 @@
   border-radius: 20px;
   margin-bottom: 14px;
   padding: 20px;
+  width: 356px;
 
   h4 {
     font-size: 1.4rem;
@@ -15,7 +16,7 @@
       margin: 5px 0;
       display: grid;
       align-items: center;
-      grid-template-columns: 21% 79%;
+      grid-template-columns: 68px 1fr;
       background: $color-4;
       border-radius: 20px;
       padding: 16px;

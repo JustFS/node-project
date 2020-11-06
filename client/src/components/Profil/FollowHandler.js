@@ -8,7 +8,7 @@ import { isEmpty } from "../Utils";
 const FollowHandler = ({ idToFollow, type }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer.user);
+  const userData = useSelector((state) => state.userReducer);
 
   const handleFollow = () => {
     dispatch(followUser(userData._id, idToFollow));

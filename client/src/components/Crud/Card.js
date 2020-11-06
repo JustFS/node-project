@@ -3,12 +3,12 @@ import DeleteCard from "./DeleteCard";
 import { UidContext } from "../AppContext";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
-import { dateParser } from "../Utils";
+import { dateParser, isEmpty } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, updatePost } from "../../actions/post.actions";
 import { useEffect } from "react";
-import { getUsers } from "../../actions/user.actions";
+import { getUsers } from "../../actions/users.actions";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ const Card = ({ post }) => {
   const [picture, setPicture] = useState("");
   const dispatch = useDispatch();
   const [playOnce, setPlayOnce] = useState(true);
-  const usersData = useSelector((state) => state.userReducer.users);
+  const usersData = useSelector((state) => state.usersReducer);
 
   const uid = useContext(UidContext);
 
@@ -40,7 +40,7 @@ const Card = ({ post }) => {
       setPlayOnce(false);
     }
 
-    usersData.map((user) => {
+    !isEmpty(usersData[0]) && usersData.map((user) => {
       if (user._id === post.posterId) {
         setPseudo(user.pseudo);
         setPicture(user.picture);

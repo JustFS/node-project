@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const GET_USER = "GET_USER";
-export const GET_USERS = "GET_USERS";
 export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
 export const UPDATE_BIO = "UPDATE_BIO";
@@ -14,19 +13,6 @@ export const getUser = (uid) => {
       .get(`${process.env.REACT_APP_API_URL}api/user/${uid}`)
       .then((res) => {
         dispatch({ type: GET_USER, payload: res.data });
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-  };
-};
-
-export const getUsers = () => {
-  return (dispatch) => {
-    return axios
-      .get(`${process.env.REACT_APP_API_URL}api/user`)
-      .then((res) => {
-        dispatch({ type: GET_USERS, payload: res.data });
       })
       .catch((err) => {
         console.log("error", err);

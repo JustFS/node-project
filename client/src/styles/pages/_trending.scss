@@ -2,7 +2,17 @@
   max-width: 1200px;
   margin: 62px auto 0;
   display: grid;
-  grid-template-columns: 5% 60% 35%;
+  grid-template-columns: 60px 1fr 374px;
+
+  @media screen and(max-width: 990px) {
+    grid-template-columns: 60px 1fr;
+    margin: 58px 20px 50px
+  }
+
+  @media screen and(max-width: 590px) {
+    grid-template-columns: 1fr;
+    margin: 58px 8px 50px;
+  }
 
   .main {
     margin-top: -8px;

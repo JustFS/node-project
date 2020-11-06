@@ -6,13 +6,13 @@ import { addPost, getPosts } from "../../actions/post.actions";
 import { getUser } from "../../actions/user.actions";
 import { isEmpty, timestampParser } from "../Utils";
 
-const NewQuoteForm = () => {
+const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [playOnce, setPlayOnce] = useState(true);
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
-  const userData = useSelector((state) => state.userReducer.user);
+  const userData = useSelector((state) => state.userReducer);
   const errors = useSelector((state) => state.errorReducer.postErrors);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
@@ -120,7 +120,7 @@ const NewQuoteForm = () => {
                     <div className="pseudo">
                       <h3>{userData.pseudo}</h3>
                     </div>
-                    <span>publié le {timestampParser(Date.now())}</span>
+                    <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className="content">
                     <p>{message}</p>
@@ -139,24 +139,16 @@ const NewQuoteForm = () => {
             ) : null}
             <div className="footer-form">
               <div className="icon">
-                {postPicture ? (
-                  <button onClick={() => setPostPicture("")}>
-                    Supprimer image
-                  </button>
-                ) : (
+                {isEmpty(video) && (
                   <>
-                    {isEmpty(video) && (
-                      <>
-                        <img src="./img/icons/picture.svg" alt="img" />
-                        <input
-                          id="file-upload"
-                          type="file"
-                          name="file"
-                          accept=".jpg, .jpeg, .png"
-                          onChange={(e) => handlePicture(e)}
-                        />
-                      </>
-                    )}
+                    <img src="./img/icons/picture.svg" alt="img" />
+                    <input
+                      id="file-upload"
+                      type="file"
+                      name="file"
+                      accept=".jpg, .jpeg, .png"
+                      onChange={(e) => handlePicture(e)}
+                    />
                   </>
                 )}
                 {video && (
@@ -183,4 +175,4 @@ const NewQuoteForm = () => {
   );
 };
 
-export default NewQuoteForm;
+export default NewPostForm;

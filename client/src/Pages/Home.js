@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Log from "../components/Log";
-import NewQuoteForm from "../components/Crud/NewQuoteForm";
+import NewPostForm from "../components/Crud/NewPostForm";
 import Thread from "../components/Crud/Thread";
 import { UidContext } from "../components/AppContext";
 import FriendsHint from "../components/Profil/FriendsHint";
@@ -14,14 +14,14 @@ const Home = () => {
     <div className="home">
       <LeftNav />
       <div className="main">
-        <div className="home-header">{uid ? <NewQuoteForm /> : <Log signin={true} signup={false} />}</div>
+        <div className="home-header">{uid ? <NewPostForm /> : <Log signin={true} signup={false} />}</div>
         <Thread />
       </div>
       <div className="right-side">
         <div className="right-side-container">
           <div className="wrapper">
             <Trends />
-            <FriendsHint />
+            {uid && <FriendsHint />}
           </div>
         </div>
       </div>

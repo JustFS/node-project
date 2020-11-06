@@ -1,38 +1,33 @@
-import { FOLLOW_USER, GET_USER, GET_USERS, UNFOLLOW_USER, UPDATE_BIO } from "../actions/user.actions";
+import {
+  FOLLOW_USER,
+  GET_USER,
+  UNFOLLOW_USER,
+  UPDATE_BIO,
+} from "../actions/user.actions";
 
-const initialState = { user: [], users: [] };
+const initialState = { user: [] };
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return { user: action.payload, users: state.users };
-    case GET_USERS:
-      return { user: state.user, users: action.payload };
+      return action.payload;
     case FOLLOW_USER:
       return {
-        user: {
-          ...state.user,
-          following: [action.payload.idToFollow, ...state.user.following],
-        },
-        users: state.users,
+        ...state,
+        following: [action.payload.idToFollow, ...state.following],
       };
     case UNFOLLOW_USER:
       return {
-        user: {
-          ...state.user,
-          following: state.user.following.filter(id => id !== action.payload.idToFollow)
-
-        },
-        users: state.users
-      }
+        ...state,
+        following: state.following.filter(
+          (id) => id !== action.payload.idToFollow
+        ),
+      };
     case UPDATE_BIO:
       return {
-        user: {
-          ...state.user,
-          bio: action.payload
-        },
-        users: state.users
-      }
+        ...state,
+        bio: action.payload,
+      };
     default:
       return state;
   }

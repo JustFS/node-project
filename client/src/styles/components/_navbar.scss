@@ -7,6 +7,10 @@ nav {
   z-index: 10;
   top: 0;
 
+  @media screen and(max-width: 1251px) {
+    padding: 0 20px;
+  }
+
   &::after {
     content: "";
     height: 45px;
@@ -53,6 +57,10 @@ nav {
       
       .welcome {
         transform: translateY(2px);
+
+        @media screen and(max-width: 590px) {
+          display: none;
+        }
         
         h5 {
           font-family: $font-3;
@@ -60,12 +68,15 @@ nav {
       }
       
       li {
-        display: grid;
         
         img {
           height: 24px;
           width: 24px;
           cursor: pointer;
+          display: grid;
+          align-items: center;
+          justify-items: center;
+          height: 100%;
         }
       }
     }

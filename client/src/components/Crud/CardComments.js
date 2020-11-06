@@ -8,8 +8,8 @@ import { addComment, getPosts } from "../../actions/post.actions";
 const CardComments = ({ post }) => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer.user);
-  const usersData = useSelector((state) => state.userReducer.users);
+  const userData = useSelector((state) => state.userReducer);
+  const usersData = useSelector((state) => state.usersReducer);
 
   const handleComment = (e) => {
     e.preventDefault();

@@ -13,8 +13,17 @@ const Thread = () => {
   const dispatch = useDispatch();
 
   const loadMore = () => {
+    console.log(
+      "document.scrollingElement.scrollHeight:",
+      document.scrollingElement.scrollHeight
+    );
+    console.log(
+      "document.documentElement.scrollTop:",
+      document.documentElement.scrollTop
+    );
+    console.log("window.innerHeight:", window.innerHeight);
     if (
-      window.innerHeight + document.documentElement.scrollTop + 4 >=
+      window.innerHeight + document.documentElement.scrollTop +1 >
       document.scrollingElement.scrollHeight
     )
       setPlay(true);

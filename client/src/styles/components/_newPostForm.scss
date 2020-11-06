@@ -10,6 +10,13 @@
     right: 42px;
     text-align: right;
 
+    @media screen and(max-width: 420px) {
+      right: 10px;
+    }
+    @media screen and(max-width: 380px) {
+      display: none;
+    }
+
     span {
       font-weight: bold;
     }
@@ -41,10 +48,46 @@
     }
     .card-container {
       background: $white;
+      border-radius: 20px 20px 6px 20px;
+
       .card-left {
         text-align: left;
+        img {
+          @media screen and(max-width: 590px) {
+            margin-left: 0;
+          }
+        }
       }
       .card-right {
+        @media screen and(max-width: 590px) {
+          margin-left: 0;
+        }
+        .card-header {
+          @media screen and(max-width: 632px) {
+            flex-direction: column;
+          }
+          @media screen and(max-width: 590px) {
+            margin: 0;
+          }
+          .pseudo {
+            @media screen and(max-width: 440px) {
+              transform: translateY(-8px);
+            }
+          }
+          span {
+            @media screen and(max-width: 632px) {
+              position: absolute;
+              top: 40px;
+            }
+            @media screen and(max-width: 590px) {
+              left: 68px;
+            }
+            @media screen and(max-width: 440px) {
+              left: 14px;
+              top: 60px;
+            }
+          }
+        }
         .content {
           padding: 6px 0;
           p {
@@ -56,6 +99,9 @@
             width: 100%;
             border-radius: 6px;
             margin-top: 12px;
+          }
+          @media screen and(max-width: 632px) {
+            margin-top: 20px;
           }
         }
       }
@@ -122,6 +168,12 @@
         .send {
           &:hover {
             letter-spacing: 2px;
+          }
+        }
+        button {
+          @media screen and(max-width: 460px) {
+            font-size: 0.8rem;
+            padding: 8px;
           }
         }
       }
