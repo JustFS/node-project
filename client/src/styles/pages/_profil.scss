@@ -269,6 +269,10 @@
       transform-origin: center;
       animation: modal .5s forwards;
 
+      h3 {
+        min-width: 200px;
+      }
+
       @keyframes modal {
         to {
           transform: scale(1) translate(-50%);

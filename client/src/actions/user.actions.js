@@ -76,7 +76,7 @@ export const uploadBio = (userId, bio) => {
   };
 };
 
-export const uploadPicture = (data) => {
+export const uploadPicture = (data, id) => {
   return (dispatch) => {
     // axios.post(`https://httpbin.org/anything`, data)
     return axios
@@ -86,6 +86,11 @@ export const uploadPicture = (data) => {
           dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
         } else {
           dispatch({ type: GET_USER_ERRORS, payload: "" });
+          return axios
+          .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+          .then((res) => {
+            dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
+            })
         }
       })
       .catch((err) => console.log(err));

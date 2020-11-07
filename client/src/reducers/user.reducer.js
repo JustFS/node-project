@@ -3,6 +3,7 @@ import {
   GET_USER,
   UNFOLLOW_USER,
   UPDATE_BIO,
+  UPLOAD_PICTURE,
 } from "../actions/user.actions";
 
 const initialState = { user: [] };
@@ -23,6 +24,11 @@ export default function userReducer(state = initialState, action) {
           (id) => id !== action.payload.idToFollow
         ),
       };
+    case UPLOAD_PICTURE:
+      return {
+        ... state, 
+        picture: action.payload
+      }
     case UPDATE_BIO:
       return {
         ...state,

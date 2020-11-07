@@ -15,9 +15,7 @@ const UploadImg = () => {
     data.append("file", file);
     data.append("userId", userData._id);
     
-    dispatch(uploadPicture(data));
-    dispatch(getUser(userData._id));
-    setFile('');
+    dispatch(uploadPicture(data, userData._id));
   };
 
   return (
