@@ -15,7 +15,7 @@ const App = () => {
       })
         .then((res) => setUid(res.data))
         .catch((err) => {
-          console.log("Get Error : " + err);
+          console.log("Get Error : no token");
         });
     };
     isAuth();

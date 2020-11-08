@@ -35,11 +35,6 @@ const Card = ({ post }) => {
   };
 
   useEffect(() => {
-    if (playOnce) {
-      dispatch(getUsers());
-      setPlayOnce(false);
-    }
-
     !isEmpty(usersData[0]) && usersData.map((user) => {
       if (user._id === post.posterId) {
         setPseudo(user.pseudo);

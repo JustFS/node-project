@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { getPosts } from './actions/post.actions';
+import { getUsers } from './actions/users.actions';
 
 const store = createStore(
   rootReducer, composeWithDevTools(applyMiddleware(thunk, logger))
@@ -19,6 +20,7 @@ store.dispatch(getPosts());
 // setInterval(() => {
 //   store.dispatch(getPosts());
 // }, 3000);
+store.dispatch(getUsers());
 
 ReactDOM.render(
   <Provider store={store}>

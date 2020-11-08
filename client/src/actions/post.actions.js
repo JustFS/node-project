@@ -2,6 +2,7 @@ import axios from "axios";
 
 // posts
 export const GET_POSTS = "GET_POSTS";
+export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
@@ -19,8 +20,12 @@ export const getPosts = (num) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post`)
       .then((res) => {
+        let test = res.data
+        console.log(test);
         if (num) res.data.length = num;
         dispatch({ type: GET_POSTS, payload: res.data });
+        
+        dispatch({ type: GET_ALL_POSTS, payload: test });
       })
       .catch((err) => {
         console.log("error", err);
