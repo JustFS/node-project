@@ -20,12 +20,9 @@ export const getPosts = (num) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post`)
       .then((res) => {
-        let test = res.data
-        console.log(test);
-        if (num) res.data.length = num;
-        dispatch({ type: GET_POSTS, payload: res.data });
-        
-        dispatch({ type: GET_ALL_POSTS, payload: test });
+        const array = res.data.slice(0, num)
+        dispatch({ type: GET_POSTS, payload: array });
+        dispatch({ type: GET_ALL_POSTS, payload: res.data });
       })
       .catch((err) => {
         console.log("error", err);

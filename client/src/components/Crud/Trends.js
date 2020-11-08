@@ -8,7 +8,7 @@ import { isEmpty } from "../Utils";
 
 const Trends = () => {
   const [playOnce, setPlayOnce] = useState(true);
-  const posts = useSelector((state) => state.postReducer);
+  const posts = useSelector((state) => state.allPostsReducer);
   const trendList = useSelector((state) => state.trendingReducer);
   const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();

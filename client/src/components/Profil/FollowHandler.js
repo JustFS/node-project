@@ -30,14 +30,17 @@ const FollowHandler = ({ idToFollow, type }) => {
 
   return (
     <>
-      {isFollowed ? (
+      {!isEmpty(userData[0]) && isFollowed && (
         <span onClick={handleUnfollow}>
           {type === "suggestion" && (
             <button className="unfollow-btn">Abonné</button>
           )}
-          {type === "card" && <img src="./img/icons/checked.svg" alt="checked" />}
+          {type === "card" && (
+            <img src="./img/icons/checked.svg" alt="checked" />
+          )}
         </span>
-      ) : (
+      )}
+      {!isEmpty(userData[0]) && isFollowed === false && (
         <span onClick={handleFollow}>
           {type === "suggestion" && (
             <button className="follow-btn">Suivre</button>
