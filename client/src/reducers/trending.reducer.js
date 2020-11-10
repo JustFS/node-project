@@ -2,7 +2,7 @@ import {
   GET_TRENDS
 } from "../actions/trending.actions";
 
-const initialState = { trending: [] };
+const initialState = {};
 
 export default function trendsReducer(state = initialState, action) {
   switch (action.type) {

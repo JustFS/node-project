@@ -1,29 +1,18 @@
 {
-  "name": "node-project",
+  "name": "project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JustFS/node-project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JustFS/node-project/issues"
-  },
-  "homepage": "https://github.com/JustFS/node-project#readme",
+  "description": "Start server : `npm start`\r Start client : `cd client-react` + `npm start`",
+  "main": "server.js",
   "dependencies": {
-    "@hapi/joi": "^15.0.3",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
     "multer": "^2.0.0-rc.1",
     "nodemon": "^2.0.4",
     "react-dropzone": "^11.2.0",
@@ -31,10 +20,19 @@
     "redux-logger": "^3.0.6",
     "validator": "^13.1.17"
   },
-  "devDependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "mongoose": "^5.10.7"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustFS/node-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustFS/node-project/issues"
+  },
+  "homepage": "https://github.com/JustFS/node-project#readme"
 }

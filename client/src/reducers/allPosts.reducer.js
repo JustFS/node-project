@@ -1,6 +1,6 @@
 import { GET_ALL_POSTS } from "../actions/post.actions";
 
-const initialState = { trending: [] };
+const initialState = {};
 
 export default function trendsReducer(state = initialState, action) {
   switch (action.type) {
