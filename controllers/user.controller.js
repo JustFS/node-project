@@ -109,9 +109,3 @@ module.exports.unfollow = async (req, res) => {
     return res.status(500).json(err);
   }
 };
-
-module.exports.uploadPicture = async (req, res, next) => {
-
-};
-
-

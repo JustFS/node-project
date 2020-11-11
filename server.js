@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const postRoutes = require('./routes/post.routes');
 const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 const cookieParser = require('cookie-parser');
 const { checkUser, requireAuth } = require('./middleware/auth.middleware');
 const cors = require('cors');
@@ -19,13 +19,10 @@ const corsOptions = {
   'preflightContinue': false
 }
 app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-
-// const path = require("path");
-// app.use(express.static(path.join(__dirname, "./public/")));
 
 // jwt
 app.get('*', checkUser);
