@@ -32,7 +32,7 @@ const CardComments = ({ post }) => {
                   .map((user) => {
                     if (user._id === comment.commenterId) {
                       return user.picture;
-                    }
+                    } else return null;
                   })
                   .join("")}
                 alt="profil-pic"
@@ -43,7 +43,7 @@ const CardComments = ({ post }) => {
                 <div className="pseudo">
                   <h3>{comment.commenterPseudo}</h3>
                   {comment.commenterId !== userData._id && (
-                    <FollowHandler idToFollow={comment.commenterId} />
+                    <FollowHandler idToFollow={comment.commenterId} type={"card"} />
                   )}
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>

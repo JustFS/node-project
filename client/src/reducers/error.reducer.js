@@ -3,7 +3,7 @@ import { GET_USER_ERRORS } from "../actions/user.actions";
 
 const initialState = { userErrors: [], postErrors: [] };
 
-export default function trendsReducer(state = initialState, action) {
+export default function errorReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER_ERRORS:
       return {

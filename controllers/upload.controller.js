@@ -1,7 +1,7 @@
+const UserModel = require("../models/user.model");
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
-const UserModel = require("../models/user.model");
 const { uploadErrors } = require("../utils/errors.utils");
 
 module.exports.uploadProfil = async (req, res) => {
@@ -16,8 +16,7 @@ module.exports.uploadProfil = async (req, res) => {
     if (req.file.size > 500000) throw Error("max size");
   } catch (err) {
     const errors = uploadErrors(err);
-    console.log(errors);
-    return res.status(201).json({ errors });
+    return res.status(201).send({ errors });
   }
   const fileName = req.body.name + ".jpg";
 
@@ -29,8 +28,8 @@ module.exports.uploadProfil = async (req, res) => {
   );
   // update file name
   try {
-    await UserModel.findOneAndUpdate(
-      { _id: req.body.userId },
+    await UserModel.findByIdAndUpdate(
+      req.body.userId,
       { $set: { picture: "./uploads/profil/" + fileName } },
       { new: true, upsert: true, setDefaultsOnInsert: true },
       (err, docs) => {

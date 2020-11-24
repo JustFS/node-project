@@ -6,9 +6,9 @@ import { followUser, unfollowUser } from "../../actions/user.actions";
 import { isEmpty } from "../Utils";
 
 const FollowHandler = ({ idToFollow, type }) => {
+  const userData = useSelector((state) => state.userReducer);
   const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userReducer);
 
   const handleFollow = () => {
     dispatch(followUser(userData._id, idToFollow));

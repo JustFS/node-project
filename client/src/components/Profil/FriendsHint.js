@@ -24,9 +24,9 @@ const FriendsHint = () => {
       array.length = 5;
     } else if (window.innerHeight > 720) {
       array.length = 4;
-    } else if (window.innerHeight > 615){
+    } else if (window.innerHeight > 615) {
       array.length = 2;
-    } else if (window.innerHeight > 540){
+    } else if (window.innerHeight > 540) {
       array.length = 1;
     } else {
       array.length = 0;
@@ -46,7 +46,9 @@ const FriendsHint = () => {
     <div className="get-friends-container">
       <h4>Suggestions</h4>
       {isLoading ? (
-        <i className="fas fa-spinner fa-pulse"></i>
+        <div className="icon">
+          <i className="fas fa-spinner fa-pulse"></i>
+        </div>
       ) : (
         <ul>
           {friendsHint &&

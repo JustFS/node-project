@@ -21,9 +21,9 @@ const SignUpForm = () => {
     const termsError = document.querySelector(".terms.error");
 
     // reset error
-    pseudoError.innerHTML = "";
-    emailError.innerHTML = "";
-    passwordError.innerHTML = "";
+    // pseudoError.innerHTML = "";
+    // emailError.innerHTML = "";
+    // passwordError.innerHTML = "";
     passwordConfirmError.innerHTML = "";
     termsError.innerHTML = "";
 
@@ -116,10 +116,9 @@ const SignUpForm = () => {
           <br />
           <input type="checkbox" id="terms" />
           <label htmlFor="terms">
-            J'accepte les{" "}
+            J'accepte les 
             <a href="/" target="_blank" rel="noopener noreferrer">
-              {" "}
-              conditions générales
+              {' '}conditions générales
             </a>
           </label>
           <div className="terms error"></div>

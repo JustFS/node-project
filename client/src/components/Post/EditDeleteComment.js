@@ -4,15 +4,11 @@ import { UidContext } from "../AppContext";
 import { useDispatch } from "react-redux";
 
 const EditDeleteComment = ({ comment, postId }) => {
-  const [text, setText] = useState("");
-  const [edit, setEdit] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState("");
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
-
-  const isEditing = () => {
-    setEdit(!edit);
-  };
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -40,13 +36,13 @@ const EditDeleteComment = ({ comment, postId }) => {
   return (
     <div className="edit-comment">
       {isAuthor && edit === false && (
-        <span onClick={isEditing}>
+        <span onClick={() => setEdit(!edit)}>
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
       {isAuthor && edit && (
         <form onSubmit={(e) => handleEdit(e)} className="edit-comment-form">
-          <label onClick={isEditing} htmlFor="text">
+          <label onClick={() => setEdit(!edit)} htmlFor="text">
             Editer
           </label>
           <br />

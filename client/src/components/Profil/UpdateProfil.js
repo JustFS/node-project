@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
 import LeftNav from "../LeftNav";
 import { dateParser } from "../Utils";
 import UploadImg from "./UploadImg";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, uploadBio } from "../../actions/user.actions";
+import { updateBio } from "../../actions/user.actions";
 import { getUsers } from "../../actions/users.actions";
 import FollowHandler from "./FollowHandler";
 
@@ -17,19 +17,15 @@ const UpdateProfil = () => {
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
   const errors = useSelector((state) => state.errorReducer.userErrors);
-  const uid = useContext(UidContext);
-
-  const isUpdated = () => setUpdateForm(!updateForm);
 
   const handleUpdate = () => {
-    dispatch(uploadBio(userData._id, bio));
+    dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
 
   useEffect(() => {
-    if (uid) dispatch(getUser(uid));
     dispatch(getUsers());
-  }, [uid]);
+  }, []);
 
   return (
     <div className="profil-container">
@@ -48,8 +44,8 @@ const UpdateProfil = () => {
             <h3>Bio</h3>
             {updateForm !== true && (
               <>
-                <p onClick={isUpdated}>{userData.bio}</p>
-                <button onClick={isUpdated}>Modifier Bio</button>
+                <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
+                <button onClick={() => setUpdateForm(!updateForm)}>Modifier Bio</button>
               </>
             )}
             {updateForm && (

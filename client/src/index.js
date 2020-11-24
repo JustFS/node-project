@@ -17,9 +17,6 @@ const store = createStore(
 );
 
 store.dispatch(getPosts());
-// setInterval(() => {
-//   store.dispatch(getPosts());
-// }, 3000);
 store.dispatch(getUsers());
 
 ReactDOM.render(

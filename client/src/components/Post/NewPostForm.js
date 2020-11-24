@@ -1,42 +1,32 @@
-import React, { useState, useContext, useEffect } from "react";
-import { UidContext } from "../AppContext";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, getPosts } from "../../actions/post.actions";
-import { getUser } from "../../actions/user.actions";
 import { isEmpty, timestampParser } from "../Utils";
 
 const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [playOnce, setPlayOnce] = useState(true);
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
+  const [file, setFile] = useState();
   const userData = useSelector((state) => state.userReducer);
   const errors = useSelector((state) => state.errorReducer.postErrors);
   const dispatch = useDispatch();
-  const [file, setFile] = useState();
-
-  const uid = useContext(UidContext);
 
   const handlePost = async () => {
     if (message || postPicture || video) {
       const data = new FormData();
       data.append("posterId", userData._id);
       data.append("message", message);
-      if (postPicture) {
-        data.append("file", file);
-      }
+      if (postPicture) data.append("file", file);
       data.append("video", video);
 
       await dispatch(addPost(data));
-      setMessage("");
-      setPostPicture("");
-      setVideo("");
-      setFile("");
       dispatch(getPosts());
+      cancelPost();
     } else {
-      alert("Veuillez entrez un message");
+      alert("Veuillez entrer un message");
     }
   };
 
@@ -70,12 +60,9 @@ const NewPostForm = () => {
   };
 
   useEffect(() => {
-    if (playOnce) {
-      dispatch(getUser(uid)).then(() => setIsLoading(false));
-      setPlayOnce(false);
-    }
+    if (!isEmpty(userData)) setIsLoading(false);
     handleVideo();
-  }, [uid, video, message]);
+  }, [userData, video, message]);
 
   return (
     <div className="post-container">

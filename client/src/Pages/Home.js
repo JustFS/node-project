@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Log from "../components/Log";
-import NewPostForm from "../components/Crud/NewPostForm";
-import Thread from "../components/Crud/Thread";
+import NewPostForm from "../components/Post/NewPostForm";
+import Thread from "../components/Thread";
 import { UidContext } from "../components/AppContext";
 import FriendsHint from "../components/Profil/FriendsHint";
-import Trends from "../components/Crud/Trends";
+import Trends from "../components/Trends";
 import LeftNav from "../components/LeftNav";
 
 const Home = () => {

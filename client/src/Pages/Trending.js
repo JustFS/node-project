@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { UidContext } from "../components/AppContext";
-import Card from "../components/Crud/Card";
-import Trends from "../components/Crud/Trends";
+import Card from "../components/Post/Card";
+import Trends from "../components/Trends";
 import LeftNav from "../components/LeftNav";
 import FriendsHint from "../components/Profil/FriendsHint";
 import { isEmpty } from "../components/Utils";

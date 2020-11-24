@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getTrends } from "../../actions/trending.actions";
-import { isEmpty } from "../Utils";
+import { getTrends } from "../actions/trending.actions";
+import { isEmpty } from "./Utils";
 
 const Trends = () => {
   const [playOnce, setPlayOnce] = useState(true);

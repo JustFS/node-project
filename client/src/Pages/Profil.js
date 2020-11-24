@@ -1,19 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { UidContext } from "../components/AppContext";
 import Log from "../components/Log";
 import UpdateProfil from "../components/Profil/UpdateProfil";
 
 const Profil = () => {
-  const [isConnected, setIsConnected] = useState(false);
   const uid = useContext(UidContext);
-
-  useEffect(() => {
-    if (uid) setIsConnected(true);
-  }, [uid]);
 
   return (
     <div className="profil-page">
-      {isConnected ? (
+      {uid ? (
         <UpdateProfil />
       ) : (
         <div className="log-container">

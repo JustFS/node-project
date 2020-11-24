@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, uploadPicture } from "../../actions/user.actions";
+import { uploadPicture } from "../../actions/user.actions";
 
 
 const UploadImg = () => {
@@ -19,7 +19,7 @@ const UploadImg = () => {
   };
 
   return (
-    <form onSubmit={(e) => handlePicture(e)} className="upload-pic">
+    <form onSubmit={handlePicture} className="upload-pic">
       <label htmlFor="file">Changer d'image</label>
       <input
         type="file"

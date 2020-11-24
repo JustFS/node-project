@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import DeleteCard from "./DeleteCard";
-import { UidContext } from "../AppContext";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
 import { dateParser, isEmpty } from "../Utils";
@@ -8,22 +7,15 @@ import FollowHandler from "../Profil/FollowHandler";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, updatePost } from "../../actions/post.actions";
 import { useEffect } from "react";
-import { getUsers } from "../../actions/users.actions";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
   const [showComments, setShowComments] = useState(false);
-  const [pseudo, setPseudo] = useState("");
-  const [picture, setPicture] = useState("");
-  const dispatch = useDispatch();
-  const [playOnce, setPlayOnce] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
-
-  const uid = useContext(UidContext);
-
-  const handleShowComments = () => setShowComments(!showComments);
+  const userData = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   const updateItem = async () => {
     if (textUpdate) {
@@ -35,13 +27,7 @@ const Card = ({ post }) => {
   };
 
   useEffect(() => {
-    !isEmpty(usersData[0]) && usersData.map((user) => {
-      if (user._id === post.posterId) {
-        setPseudo(user.pseudo);
-        setPicture(user.picture);
-        setIsLoading(false);
-      }
-    });
+    !isEmpty(usersData[0]) && setIsLoading(false);
   }, [usersData]);
 
   return (
@@ -51,13 +37,28 @@ const Card = ({ post }) => {
       ) : (
         <>
           <div className="card-left">
-            <img src={picture} alt="" />
+            <img
+              src={
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.posterId) return user.picture;
+                  })
+                  .join("")
+              }
+              alt=""
+            />
           </div>
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                <h3>{pseudo}</h3>
-                {post.posterId !== uid && (
+                <h3>
+                  {!isEmpty(usersData[0]) &&
+                    usersData.map((user) => {
+                      if (user._id === post.posterId) return user.pseudo;
+                    })}
+                </h3>
+                {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               </div>
@@ -71,7 +72,9 @@ const Card = ({ post }) => {
                   onChange={(e) => setTextUpdate(e.target.value)}
                 />
                 <div className="button-container">
-                  <button className="btn" onClick={updateItem}>Valider modification</button>
+                  <button className="btn" onClick={updateItem}>
+                    Valider modification
+                  </button>
                 </div>
               </div>
             )}
@@ -88,7 +91,7 @@ const Card = ({ post }) => {
                 allowFullScreen
               ></iframe>
             )}
-            {uid === post.posterId && (
+            {userData._id === post.posterId && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(true)}>
                   {" "}
@@ -101,7 +104,7 @@ const Card = ({ post }) => {
               <div className="comment-icon">
                 <img
                   src="./img/icons/message1.svg"
-                  onClick={handleShowComments}
+                  onClick={() => setShowComments(!showComments)}
                   alt="comment"
                 />
                 <span>{post.comments.length}</span>
@@ -111,7 +114,6 @@ const Card = ({ post }) => {
             </div>
             {showComments && <CardComments post={post} />}
           </div>
-          <span></span>
         </>
       )}
     </li>
